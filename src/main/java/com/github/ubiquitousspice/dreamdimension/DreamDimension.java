@@ -1,10 +1,12 @@
 package com.github.ubiquitousspice.dreamdimension;
 
+import com.github.ubiquitousspice.dreamdimension.blocks.BlockBouncy;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraftforge.common.Configuration;
 
@@ -34,11 +36,12 @@ public class DreamDimension
 
     // IDS
     public static int dimensionID;
-
     private int idDreamDirt;
+    private int idDLauncher;
 
     // blocks
-    private Block dreamDirt;
+    public static Block dreamDirt;
+    public static Block bouncyBlock;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -54,7 +57,9 @@ public class DreamDimension
             Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 
             // config blockIDs
-            idDreamDirt = config.getBlock("DreamDirt", 300).getInt();
+            int baseid = 300;
+            idDreamDirt = config.getBlock("DreamDirt", baseid++).getInt();
+            idDLauncher = config.getBlock("DreamLauncher", baseid++).getInt();
 
             // config itemIDs
 
@@ -69,13 +74,17 @@ public class DreamDimension
                 config.save();
             }
         }
-        // do config stuff
     }
 
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
         // do blocks and stuff here.
-        dreamDirt = new Block(idDreamDirt, material).setUnlocalizedName(MODID + ":dreamDirt");
+        dreamDirt = new Block(idDreamDirt, material).setUnlocalizedName(MODID + ".dreamDirt").func_111022_d(MODID + ":dreamDirt");
+        bouncyBlock = new BlockBouncy(idDreamDirt).setUnlocalizedName(MODID + ".dreamLauncher").func_111022_d(MODID + ":dreamLauncher");
+
+        // registrations
+        GameRegistry.registerBlock(dreamDirt, "dreamDirt");
+        GameRegistry.registerBlock(bouncyBlock, "dreamLauncher");
     }
 }
