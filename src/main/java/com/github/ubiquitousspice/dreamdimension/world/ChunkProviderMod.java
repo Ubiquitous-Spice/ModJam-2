@@ -45,6 +45,8 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 
 public class ChunkProviderMod implements IChunkProvider
 {
+	public static Block dreamBlock = DreamDimension.dreamDirt;
+	
     /** RNG. */
     private Random rand;
 
@@ -176,7 +178,7 @@ public class ChunkProviderMod implements IChunkProvider
                             {
                                 if ((d16 += d15) > 0.0D)
                                 {
-                                    par3ArrayOfByte[j2 += short1] = (byte)DreamDimension.dreamDirt.blockID;
+                                    par3ArrayOfByte[j2 += short1] = (byte)dreamBlock.blockID;
                                 }
                                 else if (k1 * 8 + l1 < b2)
                                 {

@@ -1,5 +1,6 @@
 package com.github.ubiquitousspice.dreamdimension.dimension;
 
+import net.minecraft.block.Block;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -15,10 +16,12 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class WorldProviderMod extends WorldProvider {
 
+	public static Block dreamBlock = Block.dirt;
+	
 	public void registerWorldChunkManager() {
 		this.worldChunkMgr = new WorldChunkManagerHell(DreamDimension.dreamy, this.dimensionId, this.dimensionId);
 		this.dimensionId = DreamDimension.dimensionID;
-		this.hasNoSky = false;
+		//this.hasNoSky = false;
 	}
 
 	public IChunkProvider createChunkGenerator() {
@@ -55,7 +58,7 @@ public class WorldProviderMod extends WorldProvider {
 	}
 
 	public boolean renderEndSky() {
-		return false;
+		return true;
 	}
 
 	public float setSunSize() {
@@ -76,7 +79,7 @@ public class WorldProviderMod extends WorldProvider {
 	}
 
 	public boolean isSurfaceWorld() {
-		return false;
+		return true;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -133,12 +136,12 @@ public class WorldProviderMod extends WorldProvider {
 		float f2 = f1;
 		f1 = 1.0F - (float) ((Math.cos(f1 * 3.141592653589793D) + 1.0D) / 2.0D);
 		f1 = f2 + (f1 - f2) / 3.0F;*/
-		return 5;
+		return 18000;
 	}
 
 	@SideOnly(Side.CLIENT)
 	public Vec3 getFogColor(float par1, float par2) {
 		
-		return this.worldObj.getWorldVec3Pool().getVecFromPool(0.6F, 0.2F, 0.1F);
+		return this.worldObj.getWorldVec3Pool().getVecFromPool(0.00F, 0.01F, 0.07F);
 	}
 }

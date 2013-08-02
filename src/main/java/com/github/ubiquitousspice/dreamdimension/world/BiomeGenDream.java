@@ -24,8 +24,8 @@ public class BiomeGenDream extends BiomeGenBase {
 		this.maxHeight = 0.1F;
 		this.spawnableMonsterList.clear();
 		this.spawnableCreatureList.clear();
-		this.topBlock = ((byte) DreamDimension.dreamDirt.blockID);
-		this.fillerBlock = ((byte) DreamDimension.dreamDirt.blockID);
+		this.topBlock = ((byte) ChunkProviderMod.dreamBlock.blockID);
+		this.fillerBlock = ((byte) ChunkProviderMod.dreamBlock.blockID);
 		this.setBiomeName("Dreamy");
 
 		/**
