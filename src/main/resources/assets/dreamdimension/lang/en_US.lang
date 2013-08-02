@@ -1,2 +1,4 @@
-tile.${modid}.dreamDirt.name=DreamDimensionDirt
-tile.${modid}.dreamLauncher.name=DreamLauncher
+tile.ubiquitousspice.dreamDirt.name=DreamDimensionDirt
+tile.ubiquitousspice.dreamLauncher.name=DreamLauncher
+tile.ubiquitousspice.dreamDirt=DreamDimensionDirt
+tile.ubiquitousspice.dreamLauncher=DreamLauncher
