@@ -1,0 +1,21 @@
+buildscript {
+	repositories { mavenCentral() }
+	dependencies { classpath 'com.github.abrarsyed.gmcp:GMCP:0.7' }
+}
+
+apply plugin: "gmcp"
+
+group = 'com.github.ubiquitousspice.dream'
+version = '0.1'
+archivesBaseName = 'DreamDimension'
+
+minecraft { minecraftVersion = "1.6.2" }
+
+processResources
+{
+	// Itterrate through files to expand version on things not PNGs
+	eachFile { file ->
+		if (!file.getPath().endsWith('png'))
+			expand 'version':project.version
+	}
+}

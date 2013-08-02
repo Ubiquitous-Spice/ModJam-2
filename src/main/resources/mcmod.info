@@ -1,0 +1,16 @@
+[
+{
+  "modid": "dreamdimension",
+  "name": "DreamDimension",
+  "description": "This mod adds a dream dimension only accessible by sleeping.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authors": ["AbrarSyed", "TuxCraft"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

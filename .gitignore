@@ -1,6 +1,14 @@
-*.class
+#eclipse
+.settings
+.classpath
+bin
+.project
 
-# Package Files #
-*.jar
-*.war
-*.ear
+#intellij
+.iml
+.imr
+
+#gradle
+.gradle
+minecraft
+build
