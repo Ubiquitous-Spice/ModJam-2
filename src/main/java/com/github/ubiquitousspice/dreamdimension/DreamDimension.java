@@ -2,6 +2,7 @@ package com.github.ubiquitousspice.dreamdimension;
 
 import com.github.ubiquitousspice.dreamdimension.blocks.BlockBouncy;
 
+import com.github.ubiquitousspice.dreamdimension.client.CreativeTabDream;
 import net.minecraft.block.Block;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.Configuration;
@@ -46,22 +47,20 @@ public class DreamDimension
     // random configurations
     public static boolean dreamMaterialBreakable = false;
 
-    // dimension configs
-
     // IDS
     public static int dimensionID;
-    
     private int idDreamDirt;
     private int idDLauncher;
+    private int idPortalBlock;
 
     // blocks
     public static Block dreamDirt;
     public static Block bouncyBlock;
-    
-    private int idPortalBlock;
     public static Block portalBlock;
-    
+
+    // other stuff
     public static BiomeGenBase dreamy;
+    public static CreativeTabDream tabDream;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -99,25 +98,26 @@ public class DreamDimension
                 config.save();
             }
         }
-        // do config stuff
     }
 
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
+        // make tab
+        tabDream = new CreativeTabDream();
+
         // do blocks and stuff here.
-        dreamDirt = new Block(idDreamDirt, material).setUnlocalizedName(MODID + ".dreamDirt").func_111022_d(MODID + ":dreamDirt");
-        bouncyBlock = new BlockBouncy(idDLauncher).setUnlocalizedName(MODID + ".dreamLauncher").func_111022_d(MODID + ":dreamLauncher");
+        dreamDirt = new Block(idDreamDirt, material).setUnlocalizedName(MODID + ".dreamDirt").func_111022_d(MODID + ":dreamDirt").setCreativeTab(tabDream);
+        bouncyBlock = new BlockBouncy(idDLauncher).setUnlocalizedName(MODID + ".dreamLauncher").func_111022_d(MODID + ":bouncyBlock").setCreativeTab(tabDream);
+        portalBlock = new BlockCheatyPortal(idPortalBlock).setUnlocalizedName(MODID+".portalBlock").setCreativeTab(tabDream);
 
         // registrations
         GameRegistry.registerBlock(dreamDirt, "dreamDirt");
         GameRegistry.registerBlock(bouncyBlock, "dreamLauncher");
-        
-        portalBlock = new BlockCheatyPortal(idPortalBlock).setUnlocalizedName(MODID+".portalBlock");
         GameRegistry.registerBlock(portalBlock, "portalBlock");
-		
-     	dreamy = new BiomeGenDream(25);
 
+        // biome and dimension stuff
+     	dreamy = new BiomeGenDream(25);
      	DimensionManager.registerProviderType(dimensionID, WorldProviderMod.class, true);
      	DimensionManager.registerDimension(dimensionID, dimensionID);
     }
