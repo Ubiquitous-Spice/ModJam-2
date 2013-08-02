@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityEggInfo;
 import net.minecraft.entity.EntityList;
@@ -17,6 +18,7 @@ import com.github.ubiquitousspice.dreamdimension.blocks.BlockBouncy;
 import com.github.ubiquitousspice.dreamdimension.blocks.BlockCheatyPortal;
 //import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamDirt;
 import com.github.ubiquitousspice.dreamdimension.dimension.WorldProviderMod;
+import com.github.ubiquitousspice.dreamdimension.entities.EntityGiantItem;
 import com.github.ubiquitousspice.dreamdimension.entities.EntityLargeSheep;
 import com.github.ubiquitousspice.dreamdimension.world.BiomeGenDream;
 
@@ -137,10 +139,16 @@ public class DreamDimension {
 		registerEntity(EntityLargeSheep.class, "LargeSheep", 0xffffff, 0x000000);
 		/**EntityRegistry.registerModEntity(EntityLargeSheep.class, "LargeSheep",
 				1, DreamDimension.instance, 80, 3, true);*/
-		EntityRegistry.addSpawn(EntityLargeSheep.class, 10, 2, 4,
+		EntityRegistry.addSpawn(EntityLargeSheep.class, 10000000, 1, 2,
 				EnumCreatureType.creature, dreamy);
 		LanguageRegistry.instance().addStringLocalization(
-				"entity.dreamdimension.LargeSheep.name", "Large Sheep");
+				"entity.dreamdimension.LargeSheep.name", "King Lambchop");
+		
+		//registerEntity(EntityLargeSheep.class, "GiantItem", 0xffffff, 0x000000);
+		EntityRegistry.registerModEntity(EntityGiantItem.class, "GiantItem",
+				1, DreamDimension.instance, 80, 3, true);
+		LanguageRegistry.instance().addStringLocalization(
+				"entity.dreamdimension.GiantItem.name", "Large Sheep");
 		
 		proxy.registerRenderers();
 	}
@@ -151,6 +159,6 @@ public class DreamDimension {
 
 	    EntityRegistry.registerGlobalEntityID(entityClass, entityName, id);
 
-	    EntityList.entityEggs.put(Integer.valueOf(id), new EntityEggInfo(id, bkEggColor, fgEggColor));
+	    EntityList.entityEggs.put(Integer.valueOf(id), new EntityEggInfo(id, 16758197, 15198183));
 	  }
 }

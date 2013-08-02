@@ -92,10 +92,6 @@ public class WorldProviderMod extends WorldProvider {
 		return "/Main:TwinSuns.png";
 	}*/
 
-	public boolean canCoordinateBeSpawn(int par1, int par2) {
-		return false;
-	}
-
 	public ChunkCoordinates getEntrancePortalLocation() {
 		return new ChunkCoordinates(50, 5, 0);
 	}

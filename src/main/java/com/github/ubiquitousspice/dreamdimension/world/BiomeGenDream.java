@@ -2,15 +2,11 @@ package com.github.ubiquitousspice.dreamdimension.world;
 
 import java.util.List;
 
-import com.github.ubiquitousspice.dreamdimension.DreamDimension;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.SpawnListEntry;
 import net.minecraft.world.gen.feature.WorldGenerator;
+
+import com.github.ubiquitousspice.dreamdimension.entities.EntityLargeSheep;
 
 public class BiomeGenDream extends BiomeGenBase {
 	
@@ -21,17 +17,23 @@ public class BiomeGenDream extends BiomeGenBase {
 		super(par1);
 		//this.blockMaterial = Material.water;
 		this.minHeight = 0.0F;
-		this.maxHeight = -0.1F;
+		this.maxHeight = 0.2F;
 		this.spawnableMonsterList.clear();
 		this.spawnableCreatureList.clear();
 		this.topBlock = ((byte) ChunkProviderMod.dreamBlock.blockID);
 		this.fillerBlock = ((byte) ChunkProviderMod.dreamBlock.blockID);
 		this.setBiomeName("Dreamy");
+		
+		this.spawnableCreatureList.add(new SpawnListEntry(EntityLargeSheep.class, 8, 1, 2));
 
 		/**
 		 * this changes the water colour, its set to red now but ggole the java
 		 * colours
 		 **/
 		this.waterColorMultiplier = 0xE42D17;
+	}
+
+	public List getSpawnableCreatures() {
+		return this.spawnableCreatureList;
 	}
 }

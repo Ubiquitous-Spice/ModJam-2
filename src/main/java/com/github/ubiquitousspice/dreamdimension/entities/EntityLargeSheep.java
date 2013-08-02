@@ -1,29 +1,48 @@
 package com.github.ubiquitousspice.dreamdimension.entities;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAIMate;
+import net.minecraft.entity.ai.EntityAIPanic;
+import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAITempt;
+import net.minecraft.entity.ai.EntityAIWander;
+import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class EntityLargeSheep extends EntityAnimal {
+public class EntityLargeSheep extends EntityAnimal implements IBossDisplayData {
 
-	public static float largeSheepMod = 5;
+	public static float largeSheepMod = 7;
+	public static int sheepHealth = 100;
 	
 	private int sheepTimer;
 	
 	public EntityLargeSheep(World par1World) {
 		super(par1World);
-		this.setAIMoveSpeed(1F);
+		this.setAIMoveSpeed(3F);
 		this.renderDistanceWeight = 80.0D;
-		this.setSize(0.9F * largeSheepMod, 1.3F * largeSheepMod);
-	}
-
-	public int getMaxHealth() {
-		return 200;
+		this.setSize(5F, 5F);
+		this.setEntityHealth(sheepHealth);
+		
+		this.tasks.addTask(0, new EntityAISwimming(this));
+        this.tasks.addTask(1, new EntityAIPanic(this, 1.25D));
+        this.tasks.addTask(2, new EntityAIMate(this, 1.0D));
+        this.tasks.addTask(3, new EntityAITempt(this, 1.1D, Item.wheat.itemID, false));
+        this.tasks.addTask(4, new EntityAIWander(this, 1.0D));
+        this.tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+        this.tasks.addTask(6, new EntityAILookIdle(this));
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -38,7 +57,7 @@ public class EntityLargeSheep extends EntityAnimal {
 	
 	public int getAttackStrength(Entity par1Entity)
     {
-     return 4;
+		return 4;
     }
 	
 	public int getTotalArmorValue()
@@ -48,10 +67,16 @@ public class EntityLargeSheep extends EntityAnimal {
 	
 	public void onLivingUpdate()
     {
-        
+		
         if (this.worldObj.isRemote)
         {
             this.sheepTimer = Math.max(0, this.sheepTimer - 1);
+        }
+        
+        if(!this.worldObj.isRemote)
+        {
+        	this.limbYaw /= 8.0D;
+        	this.limbSwing /= 8.0D;
         }
 
         super.onLivingUpdate();
@@ -59,27 +84,32 @@ public class EntityLargeSheep extends EntityAnimal {
 	
 	protected String getLivingSound()
     {
-        return "mob.zombie.say";
+        return "mob.sheep.say";
     }
  
     protected String getHurtSound()
     {
-        return "mob.zombie.hurt";
+        return "mob.sheep.say";
     }
     
     protected String getDeathSound()
     {
-        return "mob.zombie.death";
+        return "mob.sheep.say";
+    }
+    
+    protected float getSoundPitch()
+    {
+        return -80000.0F;
     }
     
     protected void playStepSound(int par1, int par2, int par3, int par4)
     {
-        this.worldObj.playSoundAtEntity(this, "mob.zombie.step", 0.15F, 1.0F);
+        this.playSound("mob.sheep.step", 0.15F, 1.0F);
     }
 
 	@Override
 	public EntityAgeable createChild(EntityAgeable entityageable) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 	
@@ -101,6 +131,20 @@ public class EntityLargeSheep extends EntityAnimal {
         {
             return this.sheepTimer > 0 ? ((float)Math.PI / 5F) : this.rotationPitch / (180F / (float)Math.PI);
         }
+    }
+
+	@Override
+	public String getEntityName() {
+		
+		return "King Lambchop";
+	}
+	
+	public void onDeath(DamageSource par1DamageSource)
+    {
+		
+        this.worldObj.spawnEntityInWorld(new EntityGiantItem(worldObj, new ItemStack(Block.cloth)));
+
+        super.onDeath(par1DamageSource);
     }
 
 }

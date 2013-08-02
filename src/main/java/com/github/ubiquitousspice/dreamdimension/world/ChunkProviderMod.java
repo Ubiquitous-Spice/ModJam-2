@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.github.ubiquitousspice.dreamdimension.DreamDimension;
+import com.github.ubiquitousspice.dreamdimension.entities.EntityLargeSheep;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSand;
@@ -25,6 +26,7 @@ import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.SpawnerAnimals;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.SpawnListEntry;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.MapGenBase;
@@ -45,7 +47,7 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 
 public class ChunkProviderMod implements IChunkProvider
 {
-	public static Block dreamBlock = Block.dirt;
+	public static Block dreamBlock = Block.grass;
 	
     /** RNG. */
     private Random rand;
@@ -505,8 +507,6 @@ public class ChunkProviderMod implements IChunkProvider
     	
         MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(par1IChunkProvider, worldObj, rand, par2, par3, flag));
         
-        
-        
         MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(par1IChunkProvider, worldObj, rand, par2, par3, flag));
     }
 
@@ -550,8 +550,8 @@ public class ChunkProviderMod implements IChunkProvider
      */
     public List getPossibleCreatures(EnumCreatureType par1EnumCreatureType, int par2, int par3, int par4)
     {
-        BiomeGenBase biomegenbase = this.worldObj.getBiomeGenForCoords(par2, par4);
-        return biomegenbase.getSpawnableList(par1EnumCreatureType);
+        
+        return ((BiomeGenDream) (DreamDimension.dreamy)).getSpawnableCreatures();
     }
 
     /**
