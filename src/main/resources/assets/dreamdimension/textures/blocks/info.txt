@@ -1,0 +1,1 @@
+Both the bouncyStuff and the slipperyStuff textures have alpha values and have an opacity of 63% each. Also, final names? =P
