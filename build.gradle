@@ -1,6 +1,6 @@
 buildscript {
 	repositories { mavenCentral() }
-	dependencies { classpath 'com.github.abrarsyed.gmcp:GMCP:0.7.1' }
+	dependencies { classpath 'com.github.abrarsyed.gmcp:GMCP:0.7' }
 }
 
 apply plugin: "gmcp"
@@ -18,6 +18,6 @@ processResources
 	// Itterrate through files to expand version on things not PNGs
 //	eachFile { file ->
 //		if (!file.getPath().endsWith('png'))
-//			expand 'version':project.version
+//			expand 'version':project.version, 'modid':'dreamdimension'
 //	}
 }
