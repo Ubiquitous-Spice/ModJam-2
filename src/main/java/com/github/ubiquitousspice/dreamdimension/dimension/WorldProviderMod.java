@@ -34,7 +34,7 @@ public class WorldProviderMod extends WorldProvider {
 
 	@SideOnly(Side.CLIENT)
 	public boolean doesXZShowFog(int par1, int par2) {
-		return true;
+		return false;
 	}
 
 	public String getDimensionName() {
@@ -79,12 +79,12 @@ public class WorldProviderMod extends WorldProvider {
 	}
 
 	public boolean isSurfaceWorld() {
-		return true;
+		return false;
 	}
 
 	@SideOnly(Side.CLIENT)
 	public float getCloudHeight() {
-		return 128.0F;
+		return 90.0F;
 	}
 
 	/**@SideOnly(Side.CLIENT)
@@ -117,6 +117,16 @@ public class WorldProviderMod extends WorldProvider {
 		
 		return null;
 	}
+	
+	public String getDepartMessage()
+    {
+        if (this instanceof WorldProviderMod)
+        {
+            return "Waking up...";
+        }
+        
+        return null;
+    }
 
 	@SideOnly(Side.CLIENT)
 	public float[] calcSunriseSunsetColors(float par1, float par2) {

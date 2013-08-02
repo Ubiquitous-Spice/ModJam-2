@@ -45,7 +45,7 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 
 public class ChunkProviderMod implements IChunkProvider
 {
-	public static Block dreamBlock = DreamDimension.dreamDirt;
+	public static Block dreamBlock = Block.dirt;
 	
     /** RNG. */
     private Random rand;

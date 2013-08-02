@@ -106,7 +106,7 @@ public class DreamDimension
     public void init(FMLInitializationEvent event)
     {
         // do blocks and stuff here.
-        dreamDirt = new Block(idDreamDirt, Material.rock).setHardness(2.0F).setResistance(10.0F).setStepSound(Block.soundGravelFootstep).setCreativeTab(CreativeTabs.tabBlock).setUnlocalizedName(MODID + ".dreamDirt").func_111022_d(MODID + ":dreamDirt");
+        dreamDirt = new Block(idDreamDirt, material).setUnlocalizedName(MODID + ".dreamDirt").func_111022_d(MODID + ":dreamDirt");
         bouncyBlock = new BlockBouncy(idDLauncher).setUnlocalizedName(MODID + ".dreamLauncher").func_111022_d(MODID + ":dreamLauncher");
 
         // registrations
