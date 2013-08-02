@@ -5,8 +5,9 @@ bin
 .project
 
 #intellij
-.iml
+*.iml
 .imr
+.idea
 
 #gradle
 .gradle
