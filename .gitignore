@@ -8,6 +8,7 @@ bin
 *.iml
 .imr
 .idea
+out
 
 #gradle
 .gradle

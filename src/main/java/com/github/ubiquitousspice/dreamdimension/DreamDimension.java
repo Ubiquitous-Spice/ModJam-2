@@ -1,10 +1,13 @@
 package com.github.ubiquitousspice.dreamdimension;
 
+import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamDirt;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import net.minecraft.block.Block;
+import net.minecraftforge.common.Configuration;
 
 @Mod(modid=DreamDimension.MODID, version=DreamDimension.VERSION)
 public class DreamDimension
@@ -16,11 +19,20 @@ public class DreamDimension
     public static DreamDimension instance;
 
     @SidedProxy(modId=MODID, clientSide = "com.github.ubiquitousspice.dreamdimension.client.ProxyClient", serverSide = "com.github.ubiquitousspice.dreamdimension.ProxyCommon")
-    public static proxyCommon proxy;
+    public static ProxyCommon proxy;
+
+    private int idDreamDirt;
+    private Block dreamDirt;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
+        Configuration config = new Configuration(event.getSuggestedConfigurationFile());
+        idDreamDirt = config.getBlock("DreamDirt", 300).getInt();
+
+        if (config.hasChanged())
+            config.save();
+
         // do config stuff
     }
 
@@ -28,5 +40,6 @@ public class DreamDimension
     public void init(FMLInitializationEvent event)
     {
         // do blocks and stuff here.
+        dreamDirt = new BlockDreamDirt(idDreamDirt).setUnlocalizedName(MODID+".dreamDirt");
     }
 }
