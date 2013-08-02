@@ -16,7 +16,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class WorldProviderMod extends WorldProvider {
 
 	public void registerWorldChunkManager() {
-		this.worldChunkMgr = new WorldChunkManagerHell(DreamDimension.sampleBiome, this.dimensionId, this.dimensionId);
+		this.worldChunkMgr = new WorldChunkManagerHell(DreamDimension.dreamy, this.dimensionId, this.dimensionId);
 		this.dimensionId = DreamDimension.dimensionID;
 		this.hasNoSky = false;
 	}
@@ -35,7 +35,7 @@ public class WorldProviderMod extends WorldProvider {
 	}
 
 	public String getDimensionName() {
-		return "Sample";
+		return "Dream Dimension";
 	}
 
 	public boolean renderStars() {

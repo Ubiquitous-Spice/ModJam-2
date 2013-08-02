@@ -4,6 +4,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.AxisAlignedBB;
@@ -19,6 +20,8 @@ public class BlockCheatyPortal extends Block {
 
 	public BlockCheatyPortal(int i) {
 		super(i, Material.portal);
+		
+		this.setCreativeTab(CreativeTabs.tabBlock);
 
 	}
 

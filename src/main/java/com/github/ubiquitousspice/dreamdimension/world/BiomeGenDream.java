@@ -1,8 +1,9 @@
-package SampleMod.TuxCraft.World;
+package com.github.ubiquitousspice.dreamdimension.world;
 
 import java.util.List;
 
-import SampleMod.TuxCraft.SampleModCore;
+import com.github.ubiquitousspice.dreamdimension.DreamDimension;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -11,20 +12,21 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class BiomeGenSample extends BiomeGenBase {
+public class BiomeGenDream extends BiomeGenBase {
+	
 	private WorldGenerator UnDeadworldGeneratorBigTree;
 	public final Material blockMaterial;
 
-	public BiomeGenSample(int par1) {
+	public BiomeGenDream(int par1) {
 		super(par1);
 		this.blockMaterial = Material.water;
 		this.minHeight = 0.0F;
 		this.maxHeight = 0.1F;
 		this.spawnableMonsterList.clear();
 		this.spawnableCreatureList.clear();
-		this.topBlock = ((byte) Block.blockGold.blockID);
-		this.fillerBlock = ((byte) Block.blockIron.blockID);
-		this.setBiomeName("Sample");
+		this.topBlock = ((byte) DreamDimension.dreamDirt.blockID);
+		this.fillerBlock = ((byte) DreamDimension.dreamDirt.blockID);
+		this.setBiomeName("Dreamy");
 
 		/**
 		 * this changes the water colour, its set to red now but ggole the java

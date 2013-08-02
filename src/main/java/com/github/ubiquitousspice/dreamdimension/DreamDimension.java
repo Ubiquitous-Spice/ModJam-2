@@ -1,6 +1,16 @@
 package com.github.ubiquitousspice.dreamdimension;
 
 import com.github.ubiquitousspice.dreamdimension.blocks.BlockBouncy;
+import net.minecraft.block.Block;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.DimensionManager;
+
+import com.github.ubiquitousspice.dreamdimension.blocks.BlockCheatyPortal;
+import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamDirt;
+import com.github.ubiquitousspice.dreamdimension.dimension.WorldProviderMod;
+import com.github.ubiquitousspice.dreamdimension.world.BiomeGenDream;
+
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
@@ -13,6 +23,7 @@ import net.minecraftforge.common.Configuration;
 import java.util.logging.Logger;
 
 @Mod(modid = DreamDimension.MODID, version = DreamDimension.VERSION)
+@Mod(modid=DreamDimension.MODID, version=DreamDimension.VERSION)
 public class DreamDimension
 {
     public static final String MODID = "dreamdimension";
@@ -22,6 +33,7 @@ public class DreamDimension
     public static DreamDimension instance;
 
     @SidedProxy(modId = MODID, clientSide = "com.github.ubiquitousspice.dreamdimension.client.ProxyClient", serverSide = "com.github.ubiquitousspice.dreamdimension.ProxyCommon")
+    @SidedProxy(modId=MODID, clientSide = "com.github.ubiquitousspice.dreamdimension.client.ProxyClient", serverSide = "com.github.ubiquitousspice.dreamdimension.ProxyCommon")
     public static ProxyCommon proxy;
 
     public static Logger logger;
@@ -36,12 +48,18 @@ public class DreamDimension
 
     // IDS
     public static int dimensionID;
+    
     private int idDreamDirt;
     private int idDLauncher;
 
     // blocks
     public static Block dreamDirt;
     public static Block bouncyBlock;
+    
+    private int idPortalBlock;
+    public static Block portalBlock;
+    
+    public static BiomeGenBase dreamy;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -55,11 +73,17 @@ public class DreamDimension
         // CONFIGURATION STUFF
         {
             Configuration config = new Configuration(event.getSuggestedConfigurationFile());
+        Configuration config = new Configuration(event.getSuggestedConfigurationFile());
+        idDreamDirt = config.getBlock("DreamDirt", 300).getInt();
+        idPortalBlock = config.getBlock("PortalBlock", 301).getInt();
+        dimensionID = config.get(Configuration.CATEGORY_GENERAL, "Dream Dimension Idea", 2).getInt();
 
             // config blockIDs
             int baseid = 300;
             idDreamDirt = config.getBlock("DreamDirt", baseid++).getInt();
             idDLauncher = config.getBlock("DreamLauncher", baseid++).getInt();
+        if (config.hasChanged())
+            config.save();
 
             // config itemIDs
 
@@ -74,6 +98,7 @@ public class DreamDimension
                 config.save();
             }
         }
+        // do config stuff
     }
 
     @EventHandler
@@ -84,7 +109,16 @@ public class DreamDimension
         bouncyBlock = new BlockBouncy(idDreamDirt).setUnlocalizedName(MODID + ".dreamLauncher").func_111022_d(MODID + ":dreamLauncher");
 
         // registrations
+    	dreamDirt = new BlockDreamDirt(idDreamDirt).setUnlocalizedName(MODID+".dreamDirt");
         GameRegistry.registerBlock(dreamDirt, "dreamDirt");
         GameRegistry.registerBlock(bouncyBlock, "dreamLauncher");
+        
+        portalBlock = new BlockCheatyPortal(idPortalBlock).setUnlocalizedName(MODID+".portalBlock");
+        GameRegistry.registerBlock(portalBlock, "portalBlock");
+		
+     	dreamy = new BiomeGenDream(25);
+
+     	DimensionManager.registerProviderType(dimensionID, WorldProviderMod.class, true);
+     	DimensionManager.registerDimension(dimensionID, dimensionID);
     }
 }
