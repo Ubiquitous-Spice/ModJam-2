@@ -1,6 +1,5 @@
 package com.github.ubiquitousspice.dreamdimension;
 
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamDirt;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
@@ -20,9 +19,7 @@ public class DreamDimension
     @Mod.Instance
     public static DreamDimension instance;
 
-    @SidedProxy(modId = MODID, clientSide = "com.github.ubiquitousspice.dreamdimension.client.ProxyClient",
-            serverSide = "com.github.ubiquitousspice.dreamdimension.ProxyCommon")
-    @SidedProxy(modId=MODID, clientSide = "com.github.ubiquitousspice.dreamdimension.client.ProxyClient", serverSide = "com.github.ubiquitousspice.dreamdimension.ProxyCommon")
+    @SidedProxy(modId = MODID, clientSide = "com.github.ubiquitousspice.dreamdimension.client.ProxyClient", serverSide = "com.github.ubiquitousspice.dreamdimension.ProxyCommon")
     public static ProxyCommon proxy;
 
     public static Logger logger;
@@ -37,7 +34,7 @@ public class DreamDimension
 
     // IDS
     public static int dimensionID;
-    
+
     private int idDreamDirt;
 
     // blocks
@@ -62,14 +59,9 @@ public class DreamDimension
             // config itemIDs
 
             // config dimension
-        Configuration config = new Configuration(event.getSuggestedConfigurationFile());
-        idDreamDirt = config.getBlock("DreamDirt", 300).getInt();
-        //dimensionID = config.get("Dimension ID", key, 2).getInt();
 
             // config other
             dreamMaterialBreakable = config.get("Adventure", "dreamMaterialBreakable", false).getBoolean(false);
-        if (config.hasChanged())
-            config.save();
 
             // save it.
             if (config.hasChanged())
@@ -84,7 +76,6 @@ public class DreamDimension
     public void init(FMLInitializationEvent event)
     {
         // do blocks and stuff here.
-        dreamDirt = new BlockDreamDirt(idDreamDirt).setUnlocalizedName(MODID + ".dreamDirt");
-        dreamDirt = new BlockDreamDirt(idDreamDirt).setUnlocalizedName(MODID+".dreamDirt");
+        dreamDirt = new Block(idDreamDirt, material).setUnlocalizedName(MODID + ":dreamDirt");
     }
 }
