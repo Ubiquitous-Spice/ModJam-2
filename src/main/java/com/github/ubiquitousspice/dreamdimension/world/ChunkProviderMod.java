@@ -590,8 +590,12 @@ public class ChunkProviderMod implements IChunkProvider
      */
     public List getPossibleCreatures(EnumCreatureType par1EnumCreatureType, int par2, int par3, int par4)
     {
-
-        return ((BiomeGenDream) (DreamDimension.dreamy)).getSpawnableCreatures();
+    	
+    	Random rand = new Random();
+    	
+    	int i = rand.nextInt(300);
+    	
+        return (i == 1) ? ((BiomeGenDream) (DreamDimension.dreamy)).getSpawnableCreatures() : null;
     }
 
     /**

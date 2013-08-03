@@ -54,13 +54,17 @@ public class RenderGiantItem extends Render
      */
     public void doRenderItem(EntityGiantItem item, double par2, double par4, double par6, float par8, float par9)
     {
+    	
+    	System.out.println("doRenderItem");
+    	
         this.func_110777_b(item);
         this.random.setSeed(187L);
-        ItemStack itemstack = item.getItemStack();
+        ItemStack itemstack = item.getEntityItem();
 
         if (itemstack.getItem() != null)
         {
             GL11.glPushMatrix();
+            
             float f2 = shouldBob() ? MathHelper.sin(((float) item.age + par9) / 10.0F + item.hoverStart) * 0.1F + 0.1F : 0F;
             float f3 = (((float) item.age + par9) / 20.0F + item.hoverStart) * (180F / (float) Math.PI);
             byte b0 = getMiniBlockCount(itemstack);
@@ -190,7 +194,9 @@ public class RenderGiantItem extends Render
 
     protected ResourceLocation func_110796_a(EntityGiantItem item)
     {
-        return this.renderManager.renderEngine.func_130087_a(item.getItemStack().getItemSpriteNumber());
+    	System.out.println("ResourceLocation");
+    	
+        return this.renderManager.renderEngine.func_130087_a(item.getEntityItem().getItemSpriteNumber());
     }
 
     /**
@@ -203,12 +209,14 @@ public class RenderGiantItem extends Render
 
     private void renderDroppedItem(EntityGiantItem item, Icon par2Icon, int par3, float par4, float par5, float par6, float par7, int pass)
     {
+    	System.out.println("render");
+    	
         Tessellator tessellator = Tessellator.instance;
 
         if (par2Icon == null)
         {
             TextureManager texturemanager = Minecraft.getMinecraft().func_110434_K();
-            ResourceLocation resourcelocation = texturemanager.func_130087_a(item.getItemStack().getItemSpriteNumber());
+            ResourceLocation resourcelocation = texturemanager.func_130087_a(item.getEntityItem().getItemSpriteNumber());
             par2Icon = ((TextureMap) texturemanager.func_110581_b(resourcelocation)).func_110572_b("missingno");
         }
 
@@ -236,7 +244,7 @@ public class RenderGiantItem extends Render
 
             float f12 = 0.0625F;
             f11 = 0.021875F;
-            ItemStack itemstack = item.getItemStack();
+            ItemStack itemstack = item.getEntityItem();
             int j = itemstack.stackSize;
             byte b0 = getMiniItemCount(itemstack);
 
@@ -611,6 +619,8 @@ public class RenderGiantItem extends Render
      */
     public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
     {
+    	System.out.println("doRender");
+    	
         this.doRenderItem((EntityGiantItem) par1Entity, par2, par4, par6, par8, par9);
     }
 
