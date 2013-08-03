@@ -21,6 +21,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+
+import com.github.ubiquitousspice.dreamdimension.DreamDimension;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -168,6 +171,17 @@ public class EntityLargeSheep extends EntityAnimal implements IBossDisplayData
             this.func_110148_a(SharedMonsterAttributes.field_111266_c).func_111128_a(1.0D);
             // Movement Speed - default 0.699D - min 0.0D - max Double.MAX_VALUE
             this.func_110148_a(SharedMonsterAttributes.field_111263_d).func_111128_a(0.699D);
+    }
+    
+    @Override
+    public boolean getCanSpawnHere()
+    {
+        
+        int i = MathHelper.floor_double(this.posX);
+        int j = MathHelper.floor_double(this.boundingBox.minY);
+        int k = MathHelper.floor_double(this.posZ);
+        
+        return this.worldObj.getBlockId(i, j - 1, k) == DreamDimension.dreamDirt.blockID;
     }
 
 }

@@ -1,4 +1,4 @@
-package com.github.ubiquitousspice.dreamdimension.world;
+package com.github.ubiquitousspice.dreamdimension.dimension;
 
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.CAVE;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.MINESHAFT;
@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Random;
 
 import com.github.ubiquitousspice.dreamdimension.DreamDimension;
-import com.github.ubiquitousspice.dreamdimension.entities.EntityLargeSheep;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSand;
@@ -47,7 +46,7 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 
 public class ChunkProviderMod implements IChunkProvider
 {
-    public static Block dreamBlock = Block.grass;
+    public static Block dreamBlock = DreamDimension.dreamDirt;
 
     /**
      * RNG.

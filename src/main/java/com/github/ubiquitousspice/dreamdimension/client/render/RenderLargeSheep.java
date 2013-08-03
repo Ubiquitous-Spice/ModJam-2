@@ -1,4 +1,4 @@
-package com.github.ubiquitousspice.dreamdimension.entities;
+package com.github.ubiquitousspice.dreamdimension.client.render;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.Tessellator;
@@ -12,6 +12,9 @@ import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
+
+import com.github.ubiquitousspice.dreamdimension.client.render.model.ModelLargeSheep2;
+import com.github.ubiquitousspice.dreamdimension.entities.EntityLargeSheep;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

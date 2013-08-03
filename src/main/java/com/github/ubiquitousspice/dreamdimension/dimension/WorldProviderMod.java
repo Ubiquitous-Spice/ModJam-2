@@ -9,7 +9,6 @@ import net.minecraft.world.biome.WorldChunkManagerHell;
 import net.minecraft.world.chunk.IChunkProvider;
 
 import com.github.ubiquitousspice.dreamdimension.DreamDimension;
-import com.github.ubiquitousspice.dreamdimension.world.ChunkProviderMod;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
