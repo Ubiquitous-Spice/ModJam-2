@@ -2,7 +2,6 @@ package com.github.ubiquitousspice.dreamdimension.world;
 
 import java.util.List;
 
-import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.SpawnListEntry;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -27,7 +26,7 @@ public class BiomeGenDream extends BiomeGenBase
         this.fillerBlock = ((byte) ChunkProviderMod.dreamBlock.blockID);
         this.setBiomeName("Dreamy");
 
-        this.spawnableCreatureList.add(new SpawnListEntry(EntityLargeSheep.class, 1, 1, 1));
+        this.spawnableCreatureList.add(new SpawnListEntry(EntityLargeSheep.class, 8, 1, 2));
 
         /**
          * this changes the water colour, its set to red now but ggole the java

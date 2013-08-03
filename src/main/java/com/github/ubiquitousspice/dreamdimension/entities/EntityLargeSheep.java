@@ -4,7 +4,6 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EnumCreatureAttribute;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMate;
 import net.minecraft.entity.ai.EntityAIPanic;
@@ -148,23 +147,9 @@ public class EntityLargeSheep extends EntityAnimal implements IBossDisplayData
     public void onDeath(DamageSource par1DamageSource)
     {
 
-    	if(!this.worldObj.isRemote)
-    	{
-    		this.worldObj.spawnEntityInWorld(new EntityGiantItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(Block.cloth)));
-    	}
-    		
+        this.worldObj.spawnEntityInWorld(new EntityGiantItem(worldObj, new ItemStack(Block.cloth)));
+
         super.onDeath(par1DamageSource);
-    }
-    
-    protected void func_110147_ax()
-    {
-            super.func_110147_ax();
-            // Max Health - default 20.0D - min 0.0D - max Double.MAX_VALUE
-            this.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(100.0D);
-            // Knockback Resistance - default 0.0D - min 0.0D - max 1.0D
-            this.func_110148_a(SharedMonsterAttributes.field_111266_c).func_111128_a(1.0D);
-            // Movement Speed - default 0.699D - min 0.0D - max Double.MAX_VALUE
-            this.func_110148_a(SharedMonsterAttributes.field_111263_d).func_111128_a(0.699D);
     }
 
 }
