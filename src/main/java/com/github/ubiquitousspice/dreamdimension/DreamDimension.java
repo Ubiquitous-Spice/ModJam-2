@@ -73,13 +73,13 @@ public class DreamDimension
         // CONFIGURATION STUFF
         {
             Configuration config = new Configuration(event.getSuggestedConfigurationFile());
-            idDreamDirt = config.getBlock("DreamDirt", 300).getInt();
-            idPortalBlock = config.getBlock("PortalBlock", 301).getInt();
 
             // config blockIDs
-            int baseid = 300;
-            idDreamDirt = config.getBlock("DreamDirt", baseid++).getInt();
-            idDreamBooster = config.getBlock("DreamLauncher", baseid++).getInt();
+            int genId = 200;
+            int baseId = 300;
+            idDreamDirt = config.getTerrainBlock(Configuration.CATEGORY_BLOCK, "DreamDirt", genId++, "Base dirt for Dream Dimension").getInt();
+            idDreamBooster = config.getTerrainBlock(Configuration.CATEGORY_BLOCK, "DreamLauncher", genId++, "Base dirt for Dream Dimension").getInt();
+            idPortalBlock = config.getBlock(Configuration.CATEGORY_BLOCK, "PortalBlock", baseId++).getInt();
 
             // config itemIDs
 
