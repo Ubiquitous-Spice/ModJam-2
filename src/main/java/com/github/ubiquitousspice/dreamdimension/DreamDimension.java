@@ -1,7 +1,8 @@
 package com.github.ubiquitousspice.dreamdimension;
 
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockBouncy;
+import com.github.ubiquitousspice.dreamdimension.blocks.BlockBooster;
 import com.github.ubiquitousspice.dreamdimension.blocks.BlockCheatyPortal;
+import com.github.ubiquitousspice.dreamdimension.client.CreativeTabDream;
 import com.github.ubiquitousspice.dreamdimension.dimension.WorldProviderMod;
 import com.github.ubiquitousspice.dreamdimension.entities.EntityGiantItem;
 import com.github.ubiquitousspice.dreamdimension.entities.EntityLargeSheep;
@@ -19,6 +20,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityEggInfo;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.item.ItemBlockWithMetadata;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.DimensionManager;
@@ -40,28 +42,24 @@ public class DreamDimension
             serverSide = "com.github.ubiquitousspice.dreamdimension.ProxyCommon")
     public static ProxyCommon proxy;
 
+    // Random Stuff
     public static Logger logger;
-
-    // Material
     public static Material material;
-
-    // random configurations
     public static boolean dreamMaterialBreakable = false;
+    public static BiomeGenBase dreamy;
+    public static CreativeTabDream tabDream;
 
     // IDS
     public static int dimensionID;
     static int startEntityId = 300;
     private int idDreamDirt;
-    private int idDLauncher;
+    private int idDreamBooster;
     private int idPortalBlock;
 
     // blocks
     public static Block dreamDirt;
-    public static Block bouncyBlock;
+    public static Block boosterBlock;
     public static Block portalBlock;
-
-    // Dimension stuff
-    public static BiomeGenBase dreamy;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -81,7 +79,7 @@ public class DreamDimension
             // config blockIDs
             int baseid = 300;
             idDreamDirt = config.getBlock("DreamDirt", baseid++).getInt();
-            idDLauncher = config.getBlock("DreamLauncher", baseid++).getInt();
+            idDreamBooster = config.getBlock("DreamLauncher", baseid++).getInt();
 
             // config itemIDs
 
@@ -102,14 +100,17 @@ public class DreamDimension
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
+        // creative tab
+        tabDream = new CreativeTabDream();
+
         // do blocks and stuff here.
-        dreamDirt = new Block(idDreamDirt, material).setUnlocalizedName(MODID + ":dreamDirt").func_111022_d(MODID + ":dreamDirt");
-        bouncyBlock = new BlockBouncy(idDLauncher).setUnlocalizedName(MODID + ":dreamLauncher").func_111022_d(MODID + ":dreamLauncher");
+        dreamDirt = new Block(idDreamDirt, material).setUnlocalizedName(MODID + ":dreamDirt").setCreativeTab(tabDream);
+        boosterBlock = new BlockBooster(idDreamBooster).setCreativeTab(tabDream);
         portalBlock = new BlockCheatyPortal(idPortalBlock).setUnlocalizedName(MODID + ".portalBlock");
 
         // registrations
         GameRegistry.registerBlock(dreamDirt, "dreamDirt");
-        GameRegistry.registerBlock(bouncyBlock, "dreamLauncher");
+        GameRegistry.registerBlock(boosterBlock, ItemBlockWithMetadata.class, "dreamBooster");
         GameRegistry.registerBlock(portalBlock, "portalBlock");
 
         // dimension stuff
