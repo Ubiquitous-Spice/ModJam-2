@@ -103,9 +103,9 @@ public class DreamDimension
         tabDream = new CreativeTabDream();
 
         // do blocks and stuff here.
-        dreamDirt = new Block(idDreamDirt, material).setUnlocalizedName(MODID + ":dreamDirt").setCreativeTab(tabDream);
+        dreamDirt = new Block(idDreamDirt, material).setUnlocalizedName(MODID + ":dreamDirt").func_111022_d(MODID + ":dreamDirt").setCreativeTab(tabDream);
         boosterBlock = new BlockBooster(idDreamBooster).setCreativeTab(tabDream);
-        portalBlock = new BlockCheatyPortal(idPortalBlock).setUnlocalizedName(MODID + ".portalBlock");
+        portalBlock = new BlockCheatyPortal(idPortalBlock).setUnlocalizedName(MODID + ".portalBlock").setCreativeTab(tabDream);
 
         // registrations
         GameRegistry.registerBlock(dreamDirt, "dreamDirt");
