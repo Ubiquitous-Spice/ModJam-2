@@ -14,7 +14,9 @@ public class MaterialDream extends Material
         this.setTranslucent();
 
         if (adventureBreak)
+        {
             setAdventureModeExempt();
+        }
     }
 
     /**
@@ -22,7 +24,8 @@ public class MaterialDream extends Material
      */
     public Material setTranslucent()
     {
-        try {
+        try
+        {
             ObfuscationReflectionHelper.setPrivateValue(Material.class, this, new Boolean(true), "isTranslucent", "field_76240_I");
         }
         catch (Exception e)

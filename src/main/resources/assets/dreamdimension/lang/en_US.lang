@@ -1,4 +1,9 @@
-tile.ubiquitousspice.dreamDirt.name=DreamDimensionDirt
-tile.ubiquitousspice.dreamLauncher.name=DreamLauncher
-tile.ubiquitousspice.dreamDirt=DreamDimensionDirt
-tile.ubiquitousspice.dreamLauncher=DreamLauncher
+#blocks
+tile.dreamdimension:dreamDirt.name=DreamDimensionDirt
+tile.dreamdimension:dreamLauncher.name=DreamLauncher
+
+#items
+
+#entities
+entity.dreamdimension.LargeSheep.name=King Lambchop
+entity.dreamdimension.GiantItem.name=Large Sheep

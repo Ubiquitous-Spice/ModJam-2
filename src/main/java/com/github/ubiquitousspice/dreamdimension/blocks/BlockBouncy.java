@@ -35,17 +35,11 @@ public class BlockBouncy extends Block
     @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
     {
-        // TODO: change to be like snow.
-//        float f = 0.3f;
-//        return AxisAlignedBB.getAABBPool().getAABB((double) ((float) x + f), (double) y, (double) ((float) z + f),
-//                (double) ((float) (x + 1) - f), (double) ((float) (y + 1) - f), (double) ((float) (z + 1) - f));
-//        return AxisAlignedBB.getAABBPool().getAABB(0f, 0f, 0f, 1f, .2f, 1f);
         return null;
     }
 
     @Override
-    public int onBlockPlaced(World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ,
-                             int metadata)
+    public int onBlockPlaced(World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ, int metadata)
     {
         // return opposite of side placed on.
         return ForgeDirection.OPPOSITES[side];
@@ -82,7 +76,6 @@ public class BlockBouncy extends Block
                 break;
         }
     }
-
 
     @Override
     public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)

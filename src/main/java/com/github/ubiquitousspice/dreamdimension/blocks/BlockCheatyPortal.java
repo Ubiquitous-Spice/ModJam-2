@@ -16,59 +16,58 @@ import com.github.ubiquitousspice.dreamdimension.dimension.ModTeleporter;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockCheatyPortal extends Block {
+public class BlockCheatyPortal extends Block
+{
 
-	public BlockCheatyPortal(int i) {
-		super(i, Material.portal);
-		
-		this.setCreativeTab(CreativeTabs.tabBlock);
+    public BlockCheatyPortal(int i)
+    {
+        super(i, Material.portal);
 
-	}
+        this.setCreativeTab(CreativeTabs.tabBlock);
 
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x,
-			int y, int z) {
-		return null;
-	}
+    }
 
-	public boolean isOpaqueCube() {
-		return false;
-	}
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
+    {
+        return null;
+    }
 
-	public int quantityDropped(Random rand) {
-		return 0;
-	}
+    public boolean isOpaqueCube()
+    {
+        return false;
+    }
 
-	public void onEntityCollidedWithBlock(World world, int x, int y, int z,
-			Entity entity) {
-		if (entity.ridingEntity == null && entity.riddenByEntity == null && entity instanceof EntityPlayerMP) {
-			EntityPlayerMP player = (EntityPlayerMP) entity;
-			if (player.timeUntilPortal > 0) {
-				player.timeUntilPortal = 10;
-			} else if (player.dimension != DreamDimension.dimensionID) {
-				player.timeUntilPortal = 10;
-				player.mcServer
-						.getConfigurationManager()
-						.transferPlayerToDimension(
-								player,
-								DreamDimension.dimensionID,
-								new ModTeleporter(
-										player.mcServer
-												.worldServerForDimension(DreamDimension.dimensionID)));
-			} else {
-				player.timeUntilPortal = 10;
-				player.mcServer.getConfigurationManager()
-						.transferPlayerToDimension(
-								player,
-								0,
-								new ModTeleporter(player.mcServer
-										.worldServerForDimension(0)));
-			}
-		}
-	}
+    public int quantityDropped(Random rand)
+    {
+        return 0;
+    }
 
-	@SideOnly(Side.CLIENT)
-	public int idPicked(World par1World, int par2, int par3, int par4) {
-		return 0;
-	}
+    public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
+    {
+        if (entity.ridingEntity == null && entity.riddenByEntity == null && entity instanceof EntityPlayerMP)
+        {
+            EntityPlayerMP player = (EntityPlayerMP) entity;
+            if (player.timeUntilPortal > 0)
+            {
+                player.timeUntilPortal = 10;
+            }
+            else if (player.dimension != DreamDimension.dimensionID)
+            {
+                player.timeUntilPortal = 10;
+                player.mcServer.getConfigurationManager().transferPlayerToDimension(player, DreamDimension.dimensionID, new ModTeleporter(player.mcServer.worldServerForDimension(DreamDimension.dimensionID)));
+            }
+            else
+            {
+                player.timeUntilPortal = 10;
+                player.mcServer.getConfigurationManager().transferPlayerToDimension(player, 0, new ModTeleporter(player.mcServer.worldServerForDimension(0)));
+            }
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    public int idPicked(World par1World, int par2, int par3, int par4)
+    {
+        return 0;
+    }
 
 }
