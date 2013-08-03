@@ -5,6 +5,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 
@@ -37,7 +38,7 @@ public class Util
         return null;
     }
 
-    public static EntityPlayer getPlayerFromUsername(String username)
+    public static EntityPlayerMP getPlayerFromUsername(String username)
     {
         return FMLCommonHandler.instance().getMinecraftServerInstance().getConfigurationManager().getPlayerForUsername(username);
     }
@@ -48,9 +49,9 @@ public class Util
         return DAY_TIME - (current % DAY_TIME);
     }
 
-    public void moveToDream(EntityPlayerMP player)
+    public static void moveToDream(EntityPlayerMP player)
     {
         player.timeUntilPortal = 10;
-        player.mcServer.getConfigurationManager().transferPlayerToDimension(player, DreamDimension.dimensionID, new ModTeleporter(player.mcServer.worldServerForDimension(DreamDimension.dimensionID)));
+        MinecraftServer.getServer().getConfigurationManager().transferPlayerToDimension(player, DreamDimension.dimensionID, new ModTeleporter(player.mcServer.worldServerForDimension(DreamDimension.dimensionID)));
     }
 }

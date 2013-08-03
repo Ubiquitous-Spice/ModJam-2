@@ -2,6 +2,11 @@ package com.github.ubiquitousspice.dreamdimension;
 
 import java.util.logging.Logger;
 
+import com.github.ubiquitousspice.dreamdimension.sleephandle.BedHandler;
+import com.github.ubiquitousspice.dreamdimension.sleephandle.DreamManager;
+import com.github.ubiquitousspice.dreamdimension.sleephandle.PlayerTracker;
+import cpw.mods.fml.common.registry.TickRegistry;
+import cpw.mods.fml.relauncher.Side;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -29,6 +34,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import net.minecraftforge.common.MinecraftForge;
 
 //import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamDirt;
 
@@ -86,6 +92,7 @@ public class DreamDimension
             idPortalBlock = config.getBlock(Configuration.CATEGORY_BLOCK, "PortalBlock", baseId++).getInt();
 
             // config itemIDs
+            // none yet..........
 
             // config dimension
             dimensionID = config.get(Configuration.CATEGORY_GENERAL, "Dream Dimension Idea", 2).getInt();
@@ -104,6 +111,17 @@ public class DreamDimension
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
+        // instantiate handlers and stuff
+        BedHandler bedHandler = new BedHandler();
+        PlayerTracker tracker = new PlayerTracker();
+        DreamManager manager = new DreamManager();
+
+        // register them
+        TickRegistry.registerTickHandler(bedHandler, Side.SERVER);
+        TickRegistry.registerScheduledTickHandler(manager, Side.SERVER);
+        GameRegistry.registerPlayerTracker(tracker);
+        MinecraftForge.EVENT_BUS.register(bedHandler);
+
         // creative tab
         tabDream = new CreativeTabDream();
 
@@ -125,11 +143,12 @@ public class DreamDimension
         // Entity stuff
         registerEntity(EntityLargeSheep.class, "LargeSheep", 0xecedc7, dreamPurple);
         registerEntity(EntityConfusedVillager.class, "ConfusedVillager", 0xbd8b72, dreamPurple);
-        
+
+        // entity spawning
         EntityRegistry.addSpawn(EntityLargeSheep.class, 1, 1, 1, EnumCreatureType.creature, dreamy);
         EntityRegistry.addSpawn(EntityConfusedVillager.class, 10, 4, 6, EnumCreatureType.creature, dreamy);
 
-        // entities
+        // renders
         proxy.registerRenderers();
     }
 
@@ -147,7 +166,7 @@ public class DreamDimension
 
         EntityRegistry.registerGlobalEntityID(entityClass, entityName, id);
 
-        EntityList.entityEggs.put(Integer.valueOf(id), new EntityEggInfo(id, bgColor, fgColor));
+        EntityList.entityEggs.put(id, new EntityEggInfo(id, bgColor, fgColor));
     }
 
     public void registerEntity(Class<? extends Entity> entityClass, String entityName)
