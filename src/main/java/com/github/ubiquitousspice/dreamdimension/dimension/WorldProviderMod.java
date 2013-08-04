@@ -2,16 +2,17 @@ package com.github.ubiquitousspice.dreamdimension.dimension;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.WorldChunkManagerHell;
 import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraftforge.client.IRenderHandler;
 
 import com.github.ubiquitousspice.dreamdimension.DreamDimension;
 import com.github.ubiquitousspice.dreamdimension.dimension.world.ChunkProviderMod;
+import com.github.ubiquitousspice.dreamdimension.dimension.world.SkyRenderer;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -71,7 +72,7 @@ public class WorldProviderMod extends WorldProvider
 
     public boolean renderClouds()
     {
-        return true;
+        return false;
     }
 
     public boolean renderVoidFog()
@@ -251,5 +252,17 @@ public class WorldProviderMod extends WorldProvider
         }
 
         return this.worldObj.getWorldVec3Pool().getVecFromPool(this.skyR, this.skyB, this.skyG);
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public IRenderHandler getSkyRenderer()
+    {
+        return new SkyRenderer();
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public IRenderHandler getCloudRenderer()
+    {
+        return new CloudRenderer();
     }
 }

@@ -14,7 +14,6 @@ import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.boss.IBossDisplayData;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,6 +26,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 import com.github.ubiquitousspice.dreamdimension.DreamDimension;
+import com.github.ubiquitousspice.dreamdimension.EntityGiantItem;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -158,9 +158,9 @@ public class EntityLargeSheep extends EntityAnimal implements IBossDisplayData
 
     	if(!this.worldObj.isRemote)
     	{
-    		//this.worldObj.spawnEntityInWorld(new EntityGiantItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(Block.cloth)));
+    		this.worldObj.spawnEntityInWorld(new EntityGiantItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(Block.cloth)));
     		
-    		this.worldObj.spawnEntityInWorld(new EntityItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(Block.cloth, 42)));
+    		//this.worldObj.spawnEntityInWorld(new EntityItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(Block.cloth, 42)));
     	}
     		
         super.onDeath(par1DamageSource);

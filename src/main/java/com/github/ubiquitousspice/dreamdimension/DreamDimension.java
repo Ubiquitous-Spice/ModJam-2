@@ -20,11 +20,13 @@ import net.minecraftforge.common.DimensionManager;
 
 import com.github.ubiquitousspice.dreamdimension.blocks.BlockBooster;
 import com.github.ubiquitousspice.dreamdimension.blocks.BlockCheatyPortal;
+import com.github.ubiquitousspice.dreamdimension.blocks.GiantWoolBlock;
 import com.github.ubiquitousspice.dreamdimension.client.CreativeTabDream;
 import com.github.ubiquitousspice.dreamdimension.dimension.WorldProviderMod;
 import com.github.ubiquitousspice.dreamdimension.dimension.world.BiomeGenDream;
 import com.github.ubiquitousspice.dreamdimension.entities.EntityConfusedVillager;
 import com.github.ubiquitousspice.dreamdimension.entities.EntityLargeSheep;
+import com.github.ubiquitousspice.dreamdimension.entities.EntityUnicorn;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -70,11 +72,13 @@ public class DreamDimension
     private int idDreamDirt;
     private int idDreamBooster;
     private int idPortalBlock;
+    private int idGiantWool;
 
     // blocks
     public static Block dreamDirt;
     public static Block boosterBlock;
     public static Block portalBlock;
+    public static Block giantWool;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -95,6 +99,7 @@ public class DreamDimension
             idDreamDirt = config.getTerrainBlock(Configuration.CATEGORY_BLOCK, "DreamDirt", genId++, "Base dirt for Dream Dimension").getInt();
             idDreamBooster = config.getTerrainBlock(Configuration.CATEGORY_BLOCK, "DreamLauncher", genId++, "Base dirt for Dream Dimension").getInt();
             idPortalBlock = config.getBlock(Configuration.CATEGORY_BLOCK, "PortalBlock", baseId++).getInt();
+            idGiantWool = config.getBlock(Configuration.CATEGORY_BLOCK, "GiantWool", baseId++).getInt();
 
             // config itemIDs
 
@@ -133,6 +138,7 @@ public class DreamDimension
         dreamDirt = new Block(idDreamDirt, Material.ground).setUnlocalizedName(MODID + ":dreamDirt").func_111022_d(MODID + ":dreamDirt").setCreativeTab(tabDream);
         boosterBlock = new BlockBooster(idDreamBooster).setCreativeTab(tabDream);
         portalBlock = new BlockCheatyPortal(idPortalBlock).setUnlocalizedName(MODID + ".portalBlock").setCreativeTab(tabDream);
+        giantWool = new GiantWoolBlock(idGiantWool).setUnlocalizedName(MODID + ".giantWool").setCreativeTab(tabDream);
 
         // registrations
         GameRegistry.registerBlock(dreamDirt, "dreamDirt");
@@ -149,6 +155,9 @@ public class DreamDimension
         registerEntity(EntityConfusedVillager.class, "ConfusedVillager", 0xbd8b72, dreamPurple);
 
         // entity spawning
+        registerEntity(EntityUnicorn.class, "Unicorn", 0xff86d3, dreamPurple);
+        registerEntity(EntityGiantItem.class, "GiantItem");
+        
         EntityRegistry.addSpawn(EntityLargeSheep.class, 1, 1, 1, EnumCreatureType.creature, dreamy);
         EntityRegistry.addSpawn(EntityConfusedVillager.class, 10, 4, 6, EnumCreatureType.creature, dreamy);
 
