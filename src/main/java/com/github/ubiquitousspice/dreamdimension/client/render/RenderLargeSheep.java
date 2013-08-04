@@ -131,7 +131,7 @@ public class RenderLargeSheep extends RenderLiving
         {
             this.func_110776_a(field_110885_a);
             float f1 = 1.0F;
-            int j = 0;
+            int j = par1EntitySheep.getFleeceColor();
             GL11.glColor3f(f1 * EntitySheep.fleeceColorTable[j][0], f1 * EntitySheep.fleeceColorTable[j][1], f1 * EntitySheep.fleeceColorTable[j][2]);
             return 1;
         }

@@ -1,12 +1,9 @@
-package com.github.ubiquitousspice.dreamdimension.dimension;
+package com.github.ubiquitousspice.dreamdimension.dimension.world;
 
 import java.util.List;
 
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.biome.SpawnListEntry;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
-import com.github.ubiquitousspice.dreamdimension.entities.EntityLargeSheep;
 
 public class BiomeGenDream extends BiomeGenBase
 {

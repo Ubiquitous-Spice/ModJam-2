@@ -1,48 +1,26 @@
-package com.github.ubiquitousspice.dreamdimension.dimension;
-
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.CAVE;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.MINESHAFT;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.RAVINE;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.SCATTERED_FEATURE;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.STRONGHOLD;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.VILLAGE;
-import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.DUNGEON;
-import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.ICE;
-import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.LAKE;
-import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.LAVA;
+package com.github.ubiquitousspice.dreamdimension.dimension.world;
 
 import java.util.List;
 import java.util.Random;
 
-import com.github.ubiquitousspice.dreamdimension.DreamDimension;
-
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockSand;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.util.IProgressUpdate;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.ChunkPosition;
-import net.minecraft.world.SpawnerAnimals;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.biome.SpawnListEntry;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.gen.MapGenBase;
-import net.minecraft.world.gen.MapGenCaves;
-import net.minecraft.world.gen.MapGenRavine;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
-import net.minecraft.world.gen.feature.MapGenScatteredFeature;
-import net.minecraft.world.gen.feature.WorldGenDungeons;
-import net.minecraft.world.gen.feature.WorldGenLakes;
-import net.minecraft.world.gen.structure.MapGenMineshaft;
-import net.minecraft.world.gen.structure.MapGenStronghold;
-import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.terraingen.ChunkProviderEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
+
+import com.github.ubiquitousspice.dreamdimension.DreamDimension;
 
 public class ChunkProviderMod implements IChunkProvider
 {
@@ -544,7 +522,40 @@ public class ChunkProviderMod implements IChunkProvider
 
         MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(par1IChunkProvider, worldObj, rand, par2, par3, flag));
 
+        int k = par2 * 16;
+        int l = par3 * 16;
+        
+        int k1;
+        int l1;
+        int i2;
+        
+        k1 = k + this.rand.nextInt(16) + 8;
+        i2 = l + this.rand.nextInt(16) + 8;
+        l1 = getTopBlock(k1, i2);
+        
+        boolean randBool = rand.nextBoolean();
+        
+        if(this.rand.nextInt(8) == 1)
+        {
+            (new WorldGenPuddle(DreamDimension.boosterBlock.blockID, (randBool) ? 8 : 0)).generate(this.worldObj, this.rand, k1, l1, i2);
+        }
+        
+        (new WorldGenDreamTree()).generate(this.worldObj, this.rand, k1, l1 + 1, i2);
+        
         MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(par1IChunkProvider, worldObj, rand, par2, par3, flag));
+    }
+    
+    public int getTopBlock(int x, int z)
+    {
+        for(int i = 0; i <= 128; i++)
+        {
+            if(worldObj.getBlockMaterial(x, i, z) == Material.air)
+            {
+                return i;
+            }
+        }
+        
+        return this.rand.nextInt(128);
     }
 
     /**
@@ -581,7 +592,7 @@ public class ChunkProviderMod implements IChunkProvider
      */
     public String makeString()
     {
-        return "RandomLevelSource";
+        return "Dream Dimension";
     }
 
     /**

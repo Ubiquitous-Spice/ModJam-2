@@ -3,6 +3,7 @@ package com.github.ubiquitousspice.dreamdimension.entities;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.EntityLivingData;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAILookIdle;
@@ -15,9 +16,12 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -182,6 +186,47 @@ public class EntityLargeSheep extends EntityAnimal implements IBossDisplayData
         int k = MathHelper.floor_double(this.posZ);
         
         return this.worldObj.getBlockId(i, j - 1, k) == DreamDimension.dreamDirt.blockID;
+    }
+    
+    public EntityLivingData func_110161_a(EntityLivingData par1EntityLivingData)
+    {
+        par1EntityLivingData = super.func_110161_a(par1EntityLivingData);
+        
+        int i = 15;
+        
+        if(this.rand.nextInt(2) == 1)
+        {
+            i = this.rand.nextInt(EntitySheep.fleeceColorTable.length);
+        }
+        
+        if(this.rand.nextInt(5) == 1)
+        {
+            
+            PotionEffect effect = new PotionEffect(Potion.invisibility.id, 100, 1);
+            effect.setPotionDurationMax(true);
+            this.addPotionEffect(effect);
+        }
+        
+        this.setFleeceColor(15 - i);
+        
+        return par1EntityLivingData;
+    }
+
+    public void setFleeceColor(int par1)
+    {
+        byte b0 = this.dataWatcher.getWatchableObjectByte(16);
+        this.dataWatcher.updateObject(16, Byte.valueOf((byte)(b0 & 240 | par1 & 15)));
+    }
+    
+    public int getFleeceColor()
+    {
+        return this.dataWatcher.getWatchableObjectByte(16) & 15;
+    }
+    
+    protected void entityInit()
+    {
+        super.entityInit();
+        this.dataWatcher.addObject(16, new Byte((byte)0));
     }
 
 }

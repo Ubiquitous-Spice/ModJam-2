@@ -21,8 +21,8 @@ import net.minecraftforge.common.DimensionManager;
 import com.github.ubiquitousspice.dreamdimension.blocks.BlockBooster;
 import com.github.ubiquitousspice.dreamdimension.blocks.BlockCheatyPortal;
 import com.github.ubiquitousspice.dreamdimension.client.CreativeTabDream;
-import com.github.ubiquitousspice.dreamdimension.dimension.BiomeGenDream;
 import com.github.ubiquitousspice.dreamdimension.dimension.WorldProviderMod;
+import com.github.ubiquitousspice.dreamdimension.dimension.world.BiomeGenDream;
 import com.github.ubiquitousspice.dreamdimension.entities.EntityConfusedVillager;
 import com.github.ubiquitousspice.dreamdimension.entities.EntityLargeSheep;
 
@@ -41,6 +41,8 @@ import net.minecraftforge.common.MinecraftForge;
 @Mod(modid = DreamDimension.MODID, version = DreamDimension.VERSION, name = "The Dream Dimension")
 public class DreamDimension
 {
+    // TODO: need a wood & leaf block when you can get around to it
+    
     public static final String MODID = "dreamdimension";
     public static final String VERSION = "0.1";
 
@@ -58,6 +60,9 @@ public class DreamDimension
     public static BiomeGenBase dreamy;
     public static CreativeTabDream tabDream;
     public static int dreamPurple = 0x571b60;
+    
+    // Abrar: Make this a config option plz =P
+    public static boolean boringSky = false;
 
     // IDS
     public static int dimensionID;
@@ -92,7 +97,6 @@ public class DreamDimension
             idPortalBlock = config.getBlock(Configuration.CATEGORY_BLOCK, "PortalBlock", baseId++).getInt();
 
             // config itemIDs
-            // none yet..........
 
             // config dimension
             dimensionID = config.get(Configuration.CATEGORY_GENERAL, "Dream Dimension Idea", 2).getInt();
@@ -166,7 +170,7 @@ public class DreamDimension
 
         EntityRegistry.registerGlobalEntityID(entityClass, entityName, id);
 
-        EntityList.entityEggs.put(id, new EntityEggInfo(id, bgColor, fgColor));
+        EntityList.entityEggs.put(Integer.valueOf(id), new EntityEggInfo(id, bgColor, fgColor));
     }
 
     public void registerEntity(Class<? extends Entity> entityClass, String entityName)

@@ -18,6 +18,8 @@ import java.util.List;
 
 public class BlockBooster extends Block
 {
+    // TODO middle click returns damage 0
+    
     Icon speed, bounce;
 
     public BlockBooster(int par1)
@@ -111,6 +113,9 @@ public class BlockBooster extends Block
         if (entity.isSneaking())
             return;
 
+        // added this to stop killing entities when they fall =P
+        entity.fallDistance = 0;
+        
         // rebound entity.
         boolean isSpeed = (world.getBlockMetadata(x, y, z) & 8) == 8;
         ForgeDirection dir = ForgeDirection.getOrientation(world.getBlockMetadata(x, y, z) & 7);
@@ -197,6 +202,9 @@ public class BlockBooster extends Block
         if (entity.isSneaking())
             return;
 
+        // added this to stop killing entities when they fall =P
+        entity.fallDistance = 0;
+        
         // rebound entity.
         boolean isSpeed = (world.getBlockMetadata(x, y, z) & 8) == 8;
         ForgeDirection dir = ForgeDirection.getOrientation(world.getBlockMetadata(x, y, z) & 7);
