@@ -11,8 +11,6 @@ import net.minecraft.nbt.NBTTagList;
 @Data
 public class DreamerData
 {
-    private final String username; // not serialized
-
     private long timeLeft = Long.MAX_VALUE; // seconds
 
     // bed coordinates.
@@ -23,18 +21,13 @@ public class DreamerData
 
     private InventoryPlayer oldInv;
 
-    public DreamerData(String username)
-    {
-        this.username = username;
-    }
+    public DreamerData() {}
 
     /**
      * Only loads data from the player, doesn't edit the player.
      */
     public DreamerData(EntityPlayer player)
     {
-        this(player.username);
-
         // get inventory data.
         oldInv = new InventoryPlayer(player);
         oldInv.copyInventory(player.inventory);
@@ -77,7 +70,7 @@ public class DreamerData
 
     public static DreamerData read(EntityPlayer player)
     {
-        DreamerData data = new DreamerData(player.username);
+        DreamerData data = new DreamerData();
 
         NBTTagCompound nbt = player.getEntityData().getCompoundTag("dreamerData");
 

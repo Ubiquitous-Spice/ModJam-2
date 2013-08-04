@@ -41,8 +41,8 @@ public class BedHandler implements ITickHandler
             player = Util.getPlayerFromUsername(user);
             if (player.isPlayerFullyAsleep())
             {
-                //HURRY, TELEPORT THEM NOW! to the dream!
-                // TODO: TELEPORT!
+                // add the dreamer.
+                DreamManager.addDreamer(player);
 
                 // set sleeping to false. And wakeup stuff.
                 player.wakeUpPlayer(true, true, true);
