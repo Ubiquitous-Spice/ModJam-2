@@ -1,6 +1,8 @@
 #blocks
 tile.dreamdimension:dreamDirt.name=DreamDimensionDirt
 tile.dreamdimension:dreamLauncher.name=DreamLauncher
+tile.dreamdimension:dreamLeaves.name=DreamLeaves
+tile.dreamdimension:dreamLog.name=DreamLog
 
 #items
 

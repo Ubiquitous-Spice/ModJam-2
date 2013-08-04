@@ -26,7 +26,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 import com.github.ubiquitousspice.dreamdimension.DreamDimension;
-import com.github.ubiquitousspice.dreamdimension.EntityGiantItem;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

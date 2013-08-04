@@ -1,4 +1,4 @@
-package com.github.ubiquitousspice.dreamdimension;
+package com.github.ubiquitousspice.dreamdimension.entities;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;

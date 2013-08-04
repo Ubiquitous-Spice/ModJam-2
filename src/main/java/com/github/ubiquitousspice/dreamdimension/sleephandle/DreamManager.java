@@ -4,6 +4,7 @@ import com.github.ubiquitousspice.dreamdimension.DreamDimension;
 import com.github.ubiquitousspice.dreamdimension.Util;
 import com.github.ubiquitousspice.dreamdimension.dimension.ModTeleporter;
 import cpw.mods.fml.common.IScheduledTickHandler;
+import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,15 +15,9 @@ import net.minecraft.util.ChunkCoordinates;
 import java.util.EnumSet;
 import java.util.HashMap;
 
-public class DreamManager implements IScheduledTickHandler
+public class DreamManager implements ITickHandler
 {
     private static final HashMap<String, DreamerData> dreamers = new HashMap<String, DreamerData>();
-
-    @Override
-    public int nextTickSpacing()
-    {
-        return 20;
-    }
 
     @Override
     public void tickStart(EnumSet<TickType> type, Object... tickData)
@@ -40,8 +35,6 @@ public class DreamManager implements IScheduledTickHandler
         {
             kickDreamer(player);
         }
-
-        System.out.println("fallDistance == "+player.fallDistance);
 
         if (player.fallDistance >= 100)
             kickDreamer(player);
