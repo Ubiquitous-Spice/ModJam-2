@@ -3,7 +3,7 @@ package com.github.ubiquitousspice.dreamdimension.blocks;
 import com.github.ubiquitousspice.dreamdimension.DreamDimension;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
+import net.minecraft.block.*;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -15,6 +15,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 
 import java.util.List;
+
+import static net.minecraftforge.common.ForgeDirection.*;
 
 public class BlockBooster extends BlockDreamBase
 {
@@ -61,6 +63,30 @@ public class BlockBooster extends BlockDreamBase
     }
 
     @Override
+    public boolean canPlaceBlockOnSide(World par1World, int par2, int par3, int par4, int par5)
+    {
+        ForgeDirection dir = ForgeDirection.getOrientation(par5);
+        return (dir == DOWN  && par1World.isBlockSolidOnSide(par2, par3 + 1, par4, DOWN )) ||
+               (dir == UP    && par1World.isBlockSolidOnSide(par2, par3 - 1, par4, UP   )) ||
+               (dir == NORTH && par1World.isBlockSolidOnSide(par2, par3, par4 + 1, NORTH)) ||
+               (dir == SOUTH && par1World.isBlockSolidOnSide(par2, par3, par4 - 1, SOUTH)) ||
+               (dir == WEST  && par1World.isBlockSolidOnSide(par2 + 1, par3, par4, WEST )) ||
+               (dir == EAST  && par1World.isBlockSolidOnSide(par2 - 1, par3, par4, EAST ));
+    }
+
+    @Override
+    public boolean canPlaceBlockAt(World par1World, int par2, int par3, int par4)
+    {
+        return par1World.isBlockSolidOnSide(par2 - 1, par3, par4, EAST ) ||
+               par1World.isBlockSolidOnSide(par2 + 1, par3, par4, WEST ) ||
+               par1World.isBlockSolidOnSide(par2, par3, par4 - 1, SOUTH) ||
+               par1World.isBlockSolidOnSide(par2, par3, par4 + 1, NORTH) ||
+               par1World.isBlockSolidOnSide(par2, par3 - 1, par4, UP   ) ||
+               par1World.isBlockSolidOnSide(par2, par3 + 1, par4, DOWN );
+    }
+
+
+    @Override
     public int onBlockPlaced(World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ, int metadata)
     {
         // return opposite of side placed on.
@@ -99,6 +125,12 @@ public class BlockBooster extends BlockDreamBase
                 this.setBlockBounds(.8f, 0f, 0f, 1f, 1f, 1f);
                 break;
         }
+    }
+
+    @Override
+    public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side)
+    {
+        return side == ForgeDirection.getOrientation(world.getBlockMetadata(x, y, z)).getOpposite();
     }
 
     @Override
