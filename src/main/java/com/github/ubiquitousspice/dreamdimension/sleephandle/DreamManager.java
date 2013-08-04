@@ -27,12 +27,6 @@ public class DreamManager implements IScheduledTickHandler
     @Override
     public void tickStart(EnumSet<TickType> type, Object... tickData)
     {
-        // nothing.
-    }
-
-    @Override
-    public void tickEnd(EnumSet<TickType> type, Object... tickData)
-    {
         // do stuff here.
         EntityPlayerMP player = (EntityPlayerMP)tickData[0];
 
@@ -47,6 +41,16 @@ public class DreamManager implements IScheduledTickHandler
             kickDreamer(player);
         }
 
+        System.out.println("fallDistance == "+player.fallDistance);
+
+        if (player.fallDistance >= 100)
+            kickDreamer(player);
+    }
+
+    @Override
+    public void tickEnd(EnumSet<TickType> type, Object... tickData)
+    {
+        // do nothing.
     }
 
     @Override
@@ -116,11 +120,16 @@ public class DreamManager implements IScheduledTickHandler
         player.inventory.clearInventory(-1, -1);
         player.inventory.copyInventory(data.getOldInv());
 
+        // give em back hunger and health
+        player.setEntityHealth(data.getHealth());
+        player.getFoodStats().setFoodLevel(data.getHunger());
+
         // teleport them to the dimension.
         player.timeUntilPortal = 10;
         player.mcServer.getConfigurationManager().transferPlayerToDimension(player, data.getBedDim(), new ModTeleporter(player.mcServer.worldServerForDimension(data.getBedDim())));
 
         // and now to the place.
-        player.setPosition(data.getBedX(), data.getBedY(), data.getBedZ());
+        player.setPositionAndUpdate(data.getBedX(), data.getBedY(), data.getBedZ());
+        player.fallDistance = 0;
     }
 }

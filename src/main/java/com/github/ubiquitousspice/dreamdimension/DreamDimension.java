@@ -2,8 +2,10 @@ package com.github.ubiquitousspice.dreamdimension;
 
 import java.util.logging.Logger;
 
+import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamBase;
 import com.github.ubiquitousspice.dreamdimension.sleephandle.BedHandler;
 import com.github.ubiquitousspice.dreamdimension.sleephandle.DreamManager;
+import com.github.ubiquitousspice.dreamdimension.sleephandle.KickHandler;
 import com.github.ubiquitousspice.dreamdimension.sleephandle.PlayerTracker;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -35,7 +37,6 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraftforge.common.MinecraftForge;
 
 //import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamDirt;
@@ -124,18 +125,20 @@ public class DreamDimension
         BedHandler bedHandler = new BedHandler();
         PlayerTracker tracker = new PlayerTracker();
         DreamManager manager = new DreamManager();
+        KickHandler kickHandler = new KickHandler();
 
         // register them
         TickRegistry.registerTickHandler(bedHandler, Side.SERVER);
         TickRegistry.registerScheduledTickHandler(manager, Side.SERVER);
         GameRegistry.registerPlayerTracker(tracker);
         MinecraftForge.EVENT_BUS.register(bedHandler);
+        MinecraftForge.EVENT_BUS.register(kickHandler);
 
         // creative tab
         tabDream = new CreativeTabDream();
 
         // do blocks and stuff here.
-        dreamDirt = new Block(idDreamDirt, Material.ground).setUnlocalizedName(MODID + ":dreamDirt").func_111022_d(MODID + ":dreamDirt").setCreativeTab(tabDream);
+        dreamDirt = new BlockDreamBase(idDreamDirt, Material.ground).setUnlocalizedName(MODID + ":dreamDirt").func_111022_d(MODID + ":dreamDirt");
         boosterBlock = new BlockBooster(idDreamBooster).setCreativeTab(tabDream);
         portalBlock = new BlockCheatyPortal(idPortalBlock).setUnlocalizedName(MODID + ".portalBlock").setCreativeTab(tabDream);
         giantWool = new GiantWoolBlock(idGiantWool).setUnlocalizedName(MODID + ".giantWool").setCreativeTab(tabDream);

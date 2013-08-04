@@ -19,6 +19,9 @@ public class DreamerData
     private float bedZ;
     private int bedDim;
 
+    private int hunger;
+    private float health;
+
     private InventoryPlayer oldInv;
 
     public DreamerData() {}
@@ -37,11 +40,14 @@ public class DreamerData
         bedY = coords[1];
         bedZ = coords[2];
 
+        health = player.func_110143_aJ();
+        hunger = player.getFoodStats().getFoodLevel();
+
         bedDim = player.worldObj.provider.dimensionId;
     }
 
     /**
-     * @return TRUE if there is time left. FLSE if there is not.
+     * @return TRUE if there is time left. ELSE if there is not.
      */
     public boolean decrementTime()
     {
@@ -60,6 +66,9 @@ public class DreamerData
         nbt.setFloat("bedY", bedY);
         nbt.setFloat("bedZ", bedZ);
         nbt.setInteger("bedDim", bedDim);
+
+        nbt.setInteger("hunger", hunger);
+        nbt.setFloat("health", health);
 
         NBTTagList inv = new NBTTagList();
         oldInv.writeToNBT(inv);
@@ -80,6 +89,9 @@ public class DreamerData
         data.bedY = nbt.getFloat("bedY");
         data.bedZ = nbt.getFloat("bedZ");
         data.bedDim = nbt.getInteger("bedDim");
+
+        data.health = nbt.getFloat("health");
+        data.hunger = nbt.getInteger("hunger");
 
         InventoryPlayer inv = new InventoryPlayer(player);
         inv.readFromNBT(nbt.getTagList("inv"));
