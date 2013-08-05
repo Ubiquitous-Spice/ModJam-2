@@ -1,31 +1,33 @@
 package com.github.ubiquitousspice.dreamdimension.item;
 
+import com.github.ubiquitousspice.dreamdimension.DreamDimension;
 import com.github.ubiquitousspice.dreamdimension.dimension.WorldProviderMod;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 public class ItemDreamPick extends ItemPickaxe
 {
-    private String    normalName;
-    private String    dreamName;
+    private String name;
 
-    protected boolean inDreamWorld;
+    private boolean inDreamWorld;
 
-    public ItemDreamPick(int par1, EnumToolMaterial par2EnumToolMaterial, String a, String b)
+    public ItemDreamPick(int par1, EnumToolMaterial mat, String a)
     {
-        super(par1, par2EnumToolMaterial);
-        normalName = a;
-        dreamName = b;
+        super(par1, mat);
+        name = a;
     }
 
     @Override
     public String getItemDisplayName(ItemStack stack)
     {
-
         inDreamWorld = Minecraft.getMinecraft().thePlayer.worldObj.provider instanceof WorldProviderMod;
-        return inDreamWorld ? dreamName : normalName;
+        String end = inDreamWorld ? "dreamName" : "name";
+
+        return StatCollector.translateToLocal("tile." + DreamDimension.MODID + ":" + name + "." + end);
     }
+
 }

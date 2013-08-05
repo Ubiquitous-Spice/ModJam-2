@@ -11,13 +11,13 @@ import com.github.ubiquitousspice.dreamdimension.DreamDimension;
 public class ItemPear extends ItemDreamBase
 {
 
-    public final int    itemUseDuration;
-    private final int   healAmount;
+    public final int itemUseDuration;
+    private final int healAmount;
     private final float saturationModifier;
 
-    public ItemPear(int par1, String a, String b)
+    public ItemPear(int par1, String a)
     {
-        super(par1, a, b);
+        super(par1, a);
         healAmount = 2;
         saturationModifier = 5;
         itemUseDuration = 32;

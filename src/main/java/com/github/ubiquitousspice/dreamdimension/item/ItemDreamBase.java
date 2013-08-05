@@ -3,22 +3,22 @@ package com.github.ubiquitousspice.dreamdimension.item;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
+import com.github.ubiquitousspice.dreamdimension.DreamDimension;
 import com.github.ubiquitousspice.dreamdimension.dimension.WorldProviderMod;
 
 public class ItemDreamBase extends Item
 {
 
-    private String    normalName;
-    private String    dreamName;
+    private String name;
 
     protected boolean inDreamWorld;
 
-    public ItemDreamBase(int par1, String a, String b)
+    public ItemDreamBase(int par1, String a)
     {
         super(par1);
-        normalName = a;
-        dreamName = b;
+        this.name = a;
     }
 
     @Override
@@ -26,7 +26,10 @@ public class ItemDreamBase extends Item
     {
 
         inDreamWorld = Minecraft.getMinecraft().thePlayer.worldObj.provider instanceof WorldProviderMod;
-        return inDreamWorld ? dreamName : normalName;
+        String end = inDreamWorld ? "dreamName" : "name";
+
+        // speeder.
+        return StatCollector.translateToLocal("tile." + DreamDimension.MODID + ":" + name + "." + end);
     }
 
 }

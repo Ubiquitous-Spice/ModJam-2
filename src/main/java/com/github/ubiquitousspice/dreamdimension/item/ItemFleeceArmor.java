@@ -6,6 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.EnumHelper;
 
 import com.github.ubiquitousspice.dreamdimension.DreamDimension;
@@ -17,20 +18,18 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemFleeceArmor extends ItemArmor
 {
     public static EnumArmorMaterial cloth = EnumHelper.addArmorMaterial("CLOTH", 4, new int[] { 1, 1, 1, 1 }, 120);
-    private int                     armorType2;
+    private int armorType2;
 
-    private String                  normalName;
-    private String                  dreamName;
+    private String name;
 
-    private boolean                 inDreamWorld;
+    private boolean inDreamWorld;
 
-    public ItemFleeceArmor(int par1, int par4, String a, String b)
+    public ItemFleeceArmor(int par1, int par4, String a)
     {
         super(par1, cloth, 0, par4);
         armorType2 = par4;
 
-        normalName = a;
-        dreamName = b;
+        name = a;
 
     }
 
@@ -71,7 +70,10 @@ public class ItemFleeceArmor extends ItemArmor
     {
 
         inDreamWorld = Minecraft.getMinecraft().thePlayer.worldObj.provider instanceof WorldProviderMod;
-        return inDreamWorld ? dreamName : normalName;
+        String end = inDreamWorld ? "dreamName" : "name";
+
+        // speeder.
+        return StatCollector.translateToLocal("tile." + DreamDimension.MODID + ":" + name + "." + end);
     }
 
 }

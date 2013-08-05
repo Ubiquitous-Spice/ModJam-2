@@ -20,6 +20,34 @@ tile.dreamdimension:dreamSapling.name=Dream Tree Sapling
 tile.dreamdimension:portalBlock.name=Cheaty Portal
 
 #items
+tile.dreamdimension:fakeDiamond.dreamName=DIAMONDZ!!!
+tile.dreamdimension:fakeDiamond.name=False Diamond
+tile.dreamdimension:unicornHorn.dreamName=Shiny Thing
+tile.dreamdimension:unicornHorn.name=Unicorn Horn
+tile.dreamdimension:dreamWoodBlade.dreamName=Shovel
+tile.dreamdimension:dreamWoodBlade.name=Dream Wood Blade
+tile.dreamdimension:unicornBlade.dreamName=Slightly improved shovel
+tile.dreamdimension:unicornBlade.name=Unicorn Blade
+tile.dreamdimension:pear.dreamName=I think this is edible...
+tile.dreamdimension:pear.name=Pear
+tile.dreamdimension:dreamCatcher.dreamName=§kNormal
+tile.dreamdimension:dreamCatcher.name=Dream Catcher
+tile.dreamdimension:fleeceHelmet.dreamName=Super Hero Mask
+tile.dreamdimension:fleeceHelmet.name=Fleece Helmet
+tile.dreamdimension:fleeceChest.dreamName=Pants
+tile.dreamdimension:fleeceChest.name=Fleece Tunic
+tile.dreamdimension:fleeceLegs.dreamName=Snuggy
+tile.dreamdimension:fleeceLegs.name=Fleece Legs
+tile.dreamdimension:fleeceBoots.dreamName=Animal Slippers
+tile.dreamdimension:fleeceBoots.name=Fleece Boots
+tile.dreamdimension:fakeDiamondSword.dreamName=Sword made of DIAMONDZ!!!
+tile.dreamdimension:fakeDiamondSword.name=Fake Diamond Sword
+tile.dreamdimension:fakeDiamondShovel.dreamName=Shovel made of DIAMONDZ!!!
+tile.dreamdimension:fakeDiamondShovel.name=Fake Diamond Shovel
+tile.dreamdimension:fakeDiamondPick.dreamName=Pickaxe made of DIAMONDZ!!!
+tile.dreamdimension:fakeDiamondPick.name=Fake Diamond Pickaxe
+tile.dreamdimension:fakeDiamondAxe.dreamName=Axe made of DIAMONDZ!!!
+tile.dreamdimension:fakeDiamondAxe.name=Fake Diamond Axe
 
 #entities
 entity.LargeSheep.name=King Lambchop
