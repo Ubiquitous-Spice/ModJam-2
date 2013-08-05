@@ -49,6 +49,8 @@ public class BlockDreamFleece extends Block
                 }
             }
         }
+        
+        world.setBlock(x, y + 1, z, Block.cloth.blockID);
 
         return 0;
     }
@@ -85,5 +87,7 @@ public class BlockDreamFleece extends Block
     {
         setBlockBounds(-0.2f, -0.2f, -0.2f, 1.2f, 1.2f, 1.2f);
     }
+    
+    public void onBlockAdded(World par1World, int par2, int par3, int par4) {par1World.setBlock(par2, par3, par4, Block.cloth.blockID);}
 
 }

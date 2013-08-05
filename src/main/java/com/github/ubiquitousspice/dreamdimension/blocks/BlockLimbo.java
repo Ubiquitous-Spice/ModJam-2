@@ -63,7 +63,7 @@ public class BlockLimbo extends BlockContainer
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    @Override
+    /**@Override
     public int onBlockPlaced(World par1World, int par2, int par3, int par4, int par5, float par6, float par7, float par8, int par9)
     {
         int j1 = Facing.oppositeSide[par5];

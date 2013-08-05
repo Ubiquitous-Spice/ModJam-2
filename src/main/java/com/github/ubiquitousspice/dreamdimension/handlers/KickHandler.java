@@ -1,17 +1,15 @@
 package com.github.ubiquitousspice.dreamdimension.handlers;
 
-import com.github.ubiquitousspice.dreamdimension.DreamDimension;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+
+import com.github.ubiquitousspice.dreamdimension.DreamDimension;
+
+import cpw.mods.fml.common.FMLCommonHandler;
 
 public class KickHandler
 {
@@ -25,17 +23,6 @@ public class KickHandler
             DreamManager.kickDreamer(player, 200, null);
 
             event.setCanceled(true);
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
-    @ForgeSubscribe
-    public void removeHungerBar(RenderGameOverlayEvent event)
-    {
-        if (Minecraft.getMinecraft().theWorld.provider.dimensionId == DreamDimension.dimensionID)
-        {
-            if (event.type == RenderGameOverlayEvent.ElementType.FOOD || event.type == RenderGameOverlayEvent.ElementType.EXPERIENCE)
-                event.setCanceled(true);
         }
     }
 
