@@ -90,6 +90,7 @@ public class BlockLimbo extends BlockContainer
             // suck item.
             TileEntityLimbo te = (TileEntityLimbo) world.getBlockTileEntity(x, y, z);
             te.addItem(((EntityItem) entity).getEntityItem());
+            entity.setDead();
         }
     }
 
@@ -105,11 +106,11 @@ public class BlockLimbo extends BlockContainer
         TileEntityLimbo te = (TileEntityLimbo) world.getBlockTileEntity(x, y, z);
         List<ItemStack> list = te.getItems();
 
-        // teleport.
-        DreamManager.kickDreamer((EntityPlayerMP)player, 300, list);
-
         //destroy block.
         world.setBlockToAir(x, y, z);
+
+        // teleport.
+        DreamManager.kickDreamer((EntityPlayerMP)player, 300, list);
 
         return true;
     }
