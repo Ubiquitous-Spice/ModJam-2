@@ -1,5 +1,6 @@
 package com.github.ubiquitousspice.dreamdimension.dimension;
 
+import com.github.ubiquitousspice.dreamdimension.DreamDimension;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Direction;
@@ -47,21 +48,21 @@ public class ModTeleporter extends Teleporter
      * Place an entity in a nearby portal, creating one if necessary.
      */
     @Override
-    public void placeInPortal(Entity par1Entity, double par2, double par4, double par6, float par8)
+    public void placeInPortal(Entity entity, double x, double y, double z, float par8)
     {
         if (worldServerInstance.provider.dimensionId != 1)
         {
-            if (!placeInExistingPortal(par1Entity, par2, par4, par6, par8))
+            if (!placeInExistingPortal(entity, x, y, z, par8))
             {
-                makePortal(par1Entity);
-                placeInExistingPortal(par1Entity, par2, par4, par6, par8);
+                makePortal(entity);
+                placeInExistingPortal(entity, x, y, z, par8);
             }
         }
         else
         {
-            int i = MathHelper.floor_double(par1Entity.posX);
-            int j = MathHelper.floor_double(par1Entity.posY) - 1;
-            int k = MathHelper.floor_double(par1Entity.posZ);
+            int i = MathHelper.floor_double(entity.posX);
+            int j = MathHelper.floor_double(entity.posY) - 1;
+            int k = MathHelper.floor_double(entity.posZ);
             byte b0 = 1;
             byte b1 = 0;
             for (int l = -2; l <= 2; ++l)
@@ -80,8 +81,8 @@ public class ModTeleporter extends Teleporter
                     }
                 }
             }
-            par1Entity.setLocationAndAngles(i, j, k, par1Entity.rotationYaw, 0.0F);
-            par1Entity.motionX = par1Entity.motionY = par1Entity.motionZ = 0.0D;
+            entity.setLocationAndAngles(i, j, k, entity.rotationYaw, 0.0F);
+            entity.motionX = entity.motionY = entity.motionZ = 0.0D;
         }
     }
 
@@ -89,18 +90,18 @@ public class ModTeleporter extends Teleporter
      * Place an entity in a nearby portal which already exists.
      */
     @Override
-    public boolean placeInExistingPortal(Entity par1Entity, double par2, double par4, double par6, float par8)
+    public boolean placeInExistingPortal(Entity entity, double x, double y, double z, float par8)
     {
         short short1 = 128;
         double d3 = -1.0D;
         int i = 0;
         int j = 0;
         int k = 0;
-        int l = MathHelper.floor_double(par1Entity.posX);
-        int i1 = MathHelper.floor_double(par1Entity.posZ);
+        int l = MathHelper.floor_double(entity.posX);
+        int i1 = MathHelper.floor_double(entity.posZ);
         long j1 = ChunkCoordIntPair.chunkXZ2Int(l, i1);
         boolean flag = true;
-        double d4;
+        double finalZ;
         int k1;
         if (destinationCoordinateCache.containsItem(j1))
         {
@@ -116,10 +117,10 @@ public class ModTeleporter extends Teleporter
         {
             for (k1 = l - short1; k1 <= l + short1; ++k1)
             {
-                double d5 = k1 + 0.5D - par1Entity.posX;
+                double d5 = k1 + 0.5D - entity.posX;
                 for (int l1 = i1 - short1; l1 <= i1 + short1; ++l1)
                 {
-                    double d6 = l1 + 0.5D - par1Entity.posZ;
+                    double d6 = l1 + 0.5D - entity.posZ;
                     for (int i2 = worldServerInstance.getActualHeight() - 1; i2 >= 0; --i2)
                     {
                         /** change this block **/
@@ -130,8 +131,8 @@ public class ModTeleporter extends Teleporter
                             {
                                 --i2;
                             }
-                            d4 = i2 + 0.5D - par1Entity.posY;
-                            double d7 = d5 * d5 + d4 * d4 + d6 * d6;
+                            finalZ = i2 + 0.5D - entity.posY;
+                            double d7 = d5 * d5 + finalZ * finalZ + d6 * d6;
                             if (d3 < 0.0D || d7 < d3)
                             {
                                 d3 = d7;
@@ -151,9 +152,9 @@ public class ModTeleporter extends Teleporter
                 destinationCoordinateCache.add(j1, new ModPortalPosition(this, i, j, k, worldServerInstance.getTotalWorldTime()));
                 destinationCoordinateKeys.add(Long.valueOf(j1));
             }
-            double d8 = i + 0.5D;
-            double d9 = j + 0.5D;
-            d4 = k + 0.5D;
+            double finalX = i + 0.5D;
+            double finalY = j + 0.5D;
+            finalZ = k + 0.5D;
             int j2 = -1;
             /** change this block **/
             if (worldServerInstance.isAirBlock(i - 1, j, k))
@@ -175,7 +176,7 @@ public class ModTeleporter extends Teleporter
             {
                 j2 = 1;
             }
-            int k2 = par1Entity.getTeleportDirection();
+            int k2 = entity.getTeleportDirection();
             if (j2 > -1)
             {
                 int l2 = Direction.rotateLeft[j2];
@@ -194,9 +195,9 @@ public class ModTeleporter extends Teleporter
                     k3 = Direction.offsetX[l2];
                     l3 = Direction.offsetZ[l2];
                     k1 = i - k3;
-                    d8 -= k3;
+                    finalX -= k3;
                     int i4 = k - l3;
-                    d4 -= l3;
+                    finalZ -= l3;
                     flag1 = !worldServerInstance.isAirBlock(k1 + i3 + k3, j, i4 + j3 + l3) || !worldServerInstance.isAirBlock(k1 + i3 + k3, j + 1, i4 + j3 + l3);
                     flag2 = !worldServerInstance.isAirBlock(k1 + i3, j, i4 + j3) || !worldServerInstance.isAirBlock(k1 + i3, j + 1, i4 + j3);
                 }
@@ -214,8 +215,8 @@ public class ModTeleporter extends Teleporter
                 {
                     f2 = 0.0F;
                 }
-                d8 += (k3 * f1 + f2 * i3);
-                d4 += (l3 * f1 + f2 * j3);
+                finalX += (k3 * f1 + f2 * i3);
+                finalZ += (l3 * f1 + f2 * j3);
                 float f3 = 0.0F;
                 float f4 = 0.0F;
                 float f5 = 0.0F;
@@ -240,17 +241,29 @@ public class ModTeleporter extends Teleporter
                     f5 = -1.0F;
                     f6 = 1.0F;
                 }
-                double d10 = par1Entity.motionX;
-                double d11 = par1Entity.motionZ;
-                par1Entity.motionX = d10 * f3 + d11 * f6;
-                par1Entity.motionZ = d10 * f5 + d11 * f4;
-                par1Entity.rotationYaw = par8 - (k2 * 90) + (j2 * 90);
+                double d10 = entity.motionX;
+                double d11 = entity.motionZ;
+                entity.motionX = d10 * f3 + d11 * f6;
+                entity.motionZ = d10 * f5 + d11 * f4;
+                entity.rotationYaw = par8 - (k2 * 90) + (j2 * 90);
             }
             else
             {
-                par1Entity.motionX = par1Entity.motionY = par1Entity.motionZ = 0.0D;
+                entity.motionX = entity.motionY = entity.motionZ = 0.0D;
             }
-            par1Entity.setLocationAndAngles(d8, d9, d4, par1Entity.rotationYaw, par1Entity.rotationPitch);
+            // set dirt below player.
+            if (worldServerInstance.provider.dimensionId == DreamDimension.dimensionID)
+            {
+                for (int platX = -1; platX <= 1; platX++)
+                {
+                    for (int platZ = -1; platZ <= 1; platZ++)
+                    {
+                        worldServerInstance.setBlock((int)finalX + platX, (int)finalY-1, (int)finalZ + platZ, DreamDimension.dreamDirt.blockID);
+                    }
+                }
+            }
+
+            entity.setLocationAndAngles(finalX, finalY, finalZ, entity.rotationYaw, entity.rotationPitch);
             return true;
         }
         else
