@@ -43,6 +43,11 @@ public class DreamManager implements ITickHandler
             kickDreamer(player, 0);
         }
 
+        if (player.isInWater())
+        {
+            kickDreamer(player, 100);
+        }
+
         if (player.fallDistance >= 100)
         {
             kickDreamer(player, 200);
