@@ -1,6 +1,9 @@
 #blocks
 tile.dreamdimension:dreamDirt.name=DreamDimensionDirt
-tile.dreamdimension:dreamLauncher.name=DreamLauncher
+tile.dreamdimension:dreamBouncer.name=Flubber
+tile.dreamdimension:dreamBouncer.dreamName=Unicorn Snot
+tile.dreamdimension:dreamSpeeder.name=Speed Goo
+tile.dreamdimension:dreamSpeeder.dreamName=Slip And Slide
 tile.dreamdimension:dreamLeaves.name=DreamLeaves
 tile.dreamdimension:dreamLog.name=DreamLog
 

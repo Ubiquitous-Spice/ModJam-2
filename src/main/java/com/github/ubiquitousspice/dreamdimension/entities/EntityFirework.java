@@ -123,7 +123,7 @@ public class EntityFirework extends EntityFX
             int k = aint[0];
             float f = ((k & 16711680) >> 16) / 255.0F;
             float f1 = ((k & 65280) >> 8) / 255.0F;
-            float f2 = ((k & 255) >> 0) / 255.0F;
+            float f2 = (k & 255) / 255.0F;
             EntityFireworkOverlay entityfireworkoverlayfx = new EntityFireworkOverlay(worldObj, posX, posY, posZ);
             entityfireworkoverlayfx.setRBGColorF(f, f1, f2);
             field_92040_ay.addEffect(entityfireworkoverlayfx);

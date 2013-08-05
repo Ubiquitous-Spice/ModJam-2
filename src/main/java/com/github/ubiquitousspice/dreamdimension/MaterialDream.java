@@ -26,7 +26,7 @@ public class MaterialDream extends Material
     {
         try
         {
-            ObfuscationReflectionHelper.setPrivateValue(Material.class, this, new Boolean(true), "isTranslucent", "field_76240_I");
+            ObfuscationReflectionHelper.setPrivateValue(Material.class, this, true, "isTranslucent", "field_76240_I");
         }
         catch (Exception e)
         {

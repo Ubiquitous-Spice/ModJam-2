@@ -224,7 +224,7 @@ public class DreamDimension
 
         // registrations
         GameRegistry.registerBlock(dreamDirt, "dreamDirt");
-        GameRegistry.registerBlock(boosterBlock, ItemBlockWithMetadata.class, "dreamBooster");
+        GameRegistry.registerBlock(boosterBlock, ItemBlockBooster.class, "dreamBooster");
         GameRegistry.registerBlock(portalBlock, "portalBlock");
         GameRegistry.registerBlock(dreamLog, "dreamWood");
         GameRegistry.registerBlock(dreamLeaf, "dreamLeaves");
