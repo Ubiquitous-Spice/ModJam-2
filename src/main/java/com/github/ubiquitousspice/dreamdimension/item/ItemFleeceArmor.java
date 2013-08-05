@@ -65,11 +65,11 @@ public class ItemFleeceArmor extends ItemArmor
     {
         return this.armorType2 == 2 ? DreamDimension.MODID + ":textures/models/armor/fleeceArmor02.png" : DreamDimension.MODID + ":textures/models/armor/fleeceArmor01.png";
     }
-    
+
     public String getItemDisplayName(ItemStack stack)
     {
 
-    	this.inDreamWorld = Minecraft.getMinecraft().thePlayer.worldObj.provider instanceof WorldProviderMod;
+        this.inDreamWorld = Minecraft.getMinecraft().thePlayer.worldObj.provider instanceof WorldProviderMod;
         return (this.inDreamWorld) ? dreamName : normalName;
     }
 

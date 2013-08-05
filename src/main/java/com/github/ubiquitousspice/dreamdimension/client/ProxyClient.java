@@ -29,9 +29,7 @@ public class ProxyClient extends ProxyCommon
         RenderingRegistry.registerEntityRenderingHandler(EntityConfusedVillager.class, new RenderConfusedVillager());
         RenderingRegistry.registerEntityRenderingHandler(EntityUnicorn.class, new RenderUnicorn(new ModelUnicorn(), 0.7F));
         RenderingRegistry.registerEntityRenderingHandler(EntityFirework.class, new RenderFirework());
-        
-        MinecraftForgeClient.registerItemRenderer(
-                DreamDimension.dreamFleece.blockID,
-                new RenderGiantWool());
+
+        MinecraftForgeClient.registerItemRenderer(DreamDimension.dreamFleece.blockID, new RenderGiantWool());
     }
 }

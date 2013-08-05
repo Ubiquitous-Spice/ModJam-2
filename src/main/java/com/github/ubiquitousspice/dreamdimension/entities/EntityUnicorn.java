@@ -194,7 +194,7 @@ public class EntityUnicorn extends EntityFlying implements IMob
 
     public void onDeath(DamageSource par1DamageSource)
     {
-        if(!this.worldObj.isRemote)
+        if (!this.worldObj.isRemote)
         {
             //this.worldObj.spawnEntityInWorld(new EntityGiantItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(DreamDimension.giantWool)));
 

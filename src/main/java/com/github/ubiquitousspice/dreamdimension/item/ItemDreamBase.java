@@ -26,7 +26,7 @@ public class ItemDreamBase extends Item
     public String getItemDisplayName(ItemStack stack)
     {
 
-    	this.inDreamWorld = Minecraft.getMinecraft().thePlayer.worldObj.provider instanceof WorldProviderMod;
+        this.inDreamWorld = Minecraft.getMinecraft().thePlayer.worldObj.provider instanceof WorldProviderMod;
         return (this.inDreamWorld) ? dreamName : normalName;
     }
 
