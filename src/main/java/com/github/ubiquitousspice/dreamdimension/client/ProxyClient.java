@@ -30,7 +30,7 @@ public class ProxyClient extends ProxyCommon
         MinecraftForgeClient.registerItemRenderer(DreamDimension.dreamFleece.blockID, new RenderGiantWool());
 
         // render Limbo stuff.
-        renderID = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(renderID, new RenderLimbo());
+        //renderID = RenderingRegistry.getNextAvailableRenderId();
+        //RenderingRegistry.registerBlockHandler(renderID, new RenderLimbo());
     }
 }

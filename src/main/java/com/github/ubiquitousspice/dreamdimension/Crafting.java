@@ -12,6 +12,7 @@ public class Crafting
     {
         Block dreamFleece = DreamDimension.dreamFleece;
         Block dreamPlank = DreamDimension.dreamPlanks;
+        Block dreamWood = DreamDimension.dreamLog;
 
         Item unicornHorn = DreamDimension.unicornHorn;
         Item stick = Item.stick;
@@ -34,6 +35,7 @@ public class Crafting
         GameRegistry.addRecipe(new ItemStack(DreamDimension.fDiamondAxe), "xx ", "xz ", " z ", 'x', fakeDiamond, 'z', stick);
         GameRegistry.addRecipe(new ItemStack(DreamDimension.fDiamondAxe), " xx", " zx", " z ", 'x', fakeDiamond, 'z', stick);
         GameRegistry.addRecipe(new ItemStack(DreamDimension.dreamCatcher), "xxx", "xyx", "xxx", 'x', stick, 'y', dreamFleece);
+        GameRegistry.addRecipe(new ItemStack(DreamDimension.limbo), "xzx", "xyx", "xyx", 'x', dreamWood, 'z', DreamDimension.dreamCatcher, 'y', unicornHorn);
 
         // Shapeless
         GameRegistry.addShapelessRecipe(new ItemStack(DreamDimension.dreamPlanks, 4), new ItemStack(DreamDimension.dreamLog));

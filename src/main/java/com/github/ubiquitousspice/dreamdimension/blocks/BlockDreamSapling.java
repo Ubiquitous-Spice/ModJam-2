@@ -76,7 +76,7 @@ public class BlockDreamSapling extends BlockFlower
     {
         par1World.setBlockToAir(x, y, z);
 
-        WorldGenDreamTree tree = new WorldGenDreamTree(false);
+        WorldGenDreamTree tree = new WorldGenDreamTree();
         tree.generate(par1World, par5Random, x, y, z);
     }
 

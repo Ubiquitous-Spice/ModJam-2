@@ -9,6 +9,7 @@ import com.github.ubiquitousspice.dreamdimension.entities.EntityLargeSheep;
 import com.github.ubiquitousspice.dreamdimension.entities.EntityUnicorn;
 import com.github.ubiquitousspice.dreamdimension.handlers.*;
 import com.github.ubiquitousspice.dreamdimension.item.*;
+
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
@@ -234,7 +235,7 @@ public class DreamDimension
         GameRegistry.registerBlock(dreamDirt, ItemDreamDirt.class, "dreamDirt");
         GameRegistry.registerBlock(boosterBlock, ItemBlockBooster.class, "dreamBooster");
         GameRegistry.registerBlock(portalBlock, "portalBlock");
-        GameRegistry.registerBlock(limbo, "limboTransferer");
+        GameRegistry.registerBlock(limbo, ItemLimbo.class, "limboTransferer");
         GameRegistry.registerBlock(dreamLog, ItemDreamLog.class, "dreamWood");
         GameRegistry.registerBlock(dreamLeaf, ItemDreamLeaves.class, "dreamLeaves");
         GameRegistry.registerBlock(dreamFleece, ItemDreamFleece.class, "dreamFleece");

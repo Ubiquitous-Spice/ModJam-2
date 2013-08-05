@@ -13,11 +13,10 @@ public class WorldGenDreamTree extends WorldGenerator
     public static Block treeWood      = DreamDimension.dreamLog;
     public static Block treeLeaf      = DreamDimension.dreamLeaf;
     private int         minTreeHeight = 6;
-    private boolean     enderFlag;
 
-    public WorldGenDreamTree(boolean b)
+    public WorldGenDreamTree()
     {
-        enderFlag = b;
+        
     }
 
     @Override
@@ -53,14 +52,6 @@ public class WorldGenDreamTree extends WorldGenerator
         for (int i = 0; i <= l; i++)
         {
             world.setBlock(x, y + i, z, treeWood.blockID);
-        }
-
-        if (rand.nextInt(30) == 1)
-        {
-            if (enderFlag)
-            {
-                world.setBlock(x, y + l + 1, z, Block.enderChest.blockID);
-            }
         }
 
         return true;

@@ -74,7 +74,7 @@ public class BlockLimbo extends BlockContainer
         }
 
         return j1;
-    }
+    }*/
 
     @Override
     public boolean canPlaceBlockAt(World world, int x, int y, int z)
@@ -116,7 +116,7 @@ public class BlockLimbo extends BlockContainer
     }
 
 
-    @Override
+    /**@Override
     @SideOnly(Side.CLIENT)
     public int getRenderType()
     {
@@ -127,7 +127,7 @@ public class BlockLimbo extends BlockContainer
     public boolean renderAsNormalBlock()
     {
         return false;
-    }
+    }*/
 
     @Override
     public boolean isOpaqueCube()
@@ -135,12 +135,12 @@ public class BlockLimbo extends BlockContainer
         return false;
     }
 
-    @Override
+    /**@Override
     @SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
         return true;
-    }
+    }*/
 
     @Override
     @SideOnly(Side.CLIENT)
@@ -153,17 +153,17 @@ public class BlockLimbo extends BlockContainer
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister par1IconRegister)
     {
-        this.outsideIcon = par1IconRegister.registerIcon("limbo_outside");
-        this.topIcon = par1IconRegister.registerIcon("limbo_top");
-        this.insideIcon = par1IconRegister.registerIcon("limbo_inside");
+        this.outsideIcon = par1IconRegister.registerIcon(DreamDimension.MODID + ":limbo_outside");
+        this.topIcon = par1IconRegister.registerIcon(DreamDimension.MODID + ":limbo_top");
+        this.insideIcon = par1IconRegister.registerIcon(DreamDimension.MODID + ":limbo_inside");
     }
 
-    @Override
+    /**@Override
     @SideOnly(Side.CLIENT)
     public String getItemIconName()
     {
         return "limbo";
-    }
+    }*/
 
     @Override
     public TileEntity createNewTileEntity(World world)
