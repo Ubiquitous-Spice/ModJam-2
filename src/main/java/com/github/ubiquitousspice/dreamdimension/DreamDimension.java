@@ -7,14 +7,11 @@ import com.github.ubiquitousspice.dreamdimension.dimension.world.BiomeGenDream;
 import com.github.ubiquitousspice.dreamdimension.entities.EntityConfusedVillager;
 import com.github.ubiquitousspice.dreamdimension.entities.EntityLargeSheep;
 import com.github.ubiquitousspice.dreamdimension.entities.EntityUnicorn;
+import com.github.ubiquitousspice.dreamdimension.handlers.*;
 import com.github.ubiquitousspice.dreamdimension.item.ItemDreamBase;
 import com.github.ubiquitousspice.dreamdimension.item.ItemFleeceArmor;
 import com.github.ubiquitousspice.dreamdimension.item.ItemPear;
 import com.github.ubiquitousspice.dreamdimension.item.ItemUnicornSword;
-import com.github.ubiquitousspice.dreamdimension.sleephandle.BedHandler;
-import com.github.ubiquitousspice.dreamdimension.sleephandle.DreamManager;
-import com.github.ubiquitousspice.dreamdimension.sleephandle.KickHandler;
-import com.github.ubiquitousspice.dreamdimension.sleephandle.PlayerTracker;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
@@ -179,13 +176,16 @@ public class DreamDimension
         PlayerTracker tracker = new PlayerTracker();
         DreamManager manager = new DreamManager();
         KickHandler kickHandler = new KickHandler();
+        MilkHandler milkhandler = new MilkHandler();
 
         // register them
         TickRegistry.registerTickHandler(bedHandler, Side.SERVER);
         TickRegistry.registerTickHandler(manager, Side.SERVER);
+        TickRegistry.registerTickHandler(milkhandler, Side.SERVER);
         GameRegistry.registerPlayerTracker(tracker);
         MinecraftForge.EVENT_BUS.register(bedHandler);
         MinecraftForge.EVENT_BUS.register(kickHandler);
+        MinecraftForge.EVENT_BUS.register(milkhandler);
 
         // creative tab
         tabDream = new CreativeTabDream();

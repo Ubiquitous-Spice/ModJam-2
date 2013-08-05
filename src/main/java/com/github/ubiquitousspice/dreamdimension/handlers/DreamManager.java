@@ -1,8 +1,9 @@
-package com.github.ubiquitousspice.dreamdimension.sleephandle;
+package com.github.ubiquitousspice.dreamdimension.handlers;
 
 import java.util.EnumSet;
 import java.util.HashMap;
 
+import com.github.ubiquitousspice.dreamdimension.DreamDimension;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -90,7 +91,14 @@ public class DreamManager implements ITickHandler
     public static void addDreamer(EntityPlayerMP player, long time)
     {
         DreamerData data = new DreamerData(player);
-        data.setTimeLeft(time);
+
+        long milkTime = 0;
+        if (player.getEntityData().hasKey(DreamDimension.MODID + ".extraDreamTime"))
+        {
+            milkTime = player.getEntityData().getLong(DreamDimension.MODID + ".extraDreamTime");
+        }
+
+        data.setTimeLeft(milkTime+time);
 
         player.inventory.clearInventory(-1, -1);
 
