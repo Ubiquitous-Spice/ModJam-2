@@ -44,24 +44,26 @@ public class EntityUnicorn extends EntityFlying implements IMob
     {
         return this.eating;
     }
-    
+
     public float getJumping()
     {
         return this.jumping ;
     }
-    
+
     @SideOnly(Side.CLIENT)
     public boolean func_110182_bF()
     {
         return this.dataWatcher.getWatchableObjectByte(16) != 0;
     }
 
+    @Override
     protected void func_110147_ax()
     {
         super.func_110147_ax();
         this.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(10.0D);
     }
 
+    @Override
     protected void updateEntityActionState()
     {
         if (!this.worldObj.isRemote && this.worldObj.difficultySetting == 0)
@@ -130,6 +132,7 @@ public class EntityUnicorn extends EntityFlying implements IMob
     /**
      * Returns the sound this mob makes while it's alive.
      */
+    @Override
     protected String getLivingSound()
     {
         return "mob.horse.idle";
@@ -138,6 +141,7 @@ public class EntityUnicorn extends EntityFlying implements IMob
     /**
      * Returns the sound this mob makes when it is hurt.
      */
+    @Override
     protected String getHurtSound()
     {
         return "mob.horse.hit";
@@ -146,19 +150,19 @@ public class EntityUnicorn extends EntityFlying implements IMob
     /**
      * Returns the sound this mob makes on death.
      */
+    @Override
     protected String getDeathSound()
     {
         return "mob.horse.death";
     }
 
-    /**
-     * Returns the item ID for the item the mob drops on death.
-     */
+    @Override
     protected int getDropItemId()
     {
-        return 0;
+        return DreamDimension.unicornHorn.itemID;
     }
-    
+
+    @Override
     protected float getSoundPitch()
     {
         return 10000.0F;
@@ -167,6 +171,7 @@ public class EntityUnicorn extends EntityFlying implements IMob
     /**
      * Will return how many at most can spawn in a chunk at once.
      */
+    @Override
     public int getMaxSpawnedInChunk()
     {
         return 1;
@@ -175,6 +180,7 @@ public class EntityUnicorn extends EntityFlying implements IMob
     /**
      * (abstract) Protected helper method to write subclass entity data to NBT.
      */
+    @Override
     public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound)
     {
         super.writeEntityToNBT(par1NBTTagCompound);
@@ -183,11 +189,13 @@ public class EntityUnicorn extends EntityFlying implements IMob
     /**
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
+    @Override
     public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound)
     {
         super.readEntityFromNBT(par1NBTTagCompound);
     }
-    
+
+    @Override
     protected void updateFallState(double par1, boolean par3) {
         
         this.motionY -= 0.01;

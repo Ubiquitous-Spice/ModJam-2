@@ -27,6 +27,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityEggInfo;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlockWithMetadata;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.Configuration;
@@ -70,6 +71,7 @@ public class DreamDimension
     private int idGiantWool;
     private int idDreamLog;
     private int idDreamLeaf;
+    private int idUnicornHorn;
 
     // blocks
     public static Block dreamDirt;
@@ -78,6 +80,9 @@ public class DreamDimension
     public static Block giantWool;
     public static Block dreamLog;
     public static Block dreamLeaf;
+
+    // items
+    public static Item unicornHorn;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -92,18 +97,21 @@ public class DreamDimension
         {
             Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 
-            // config blockIDs
+            // config terrainIDs
             int genId = 200;
             idDreamDirt = config.getTerrainBlock(Configuration.CATEGORY_BLOCK, "DreamDirt", genId++, "Base dirt for Dream Dimension").getInt();
             idDreamBooster = config.getTerrainBlock(Configuration.CATEGORY_BLOCK, "DreamLauncher", genId++, "Base dirt for Dream Dimension").getInt();
             idDreamLog = config.getTerrainBlock(Configuration.CATEGORY_BLOCK, "DreamLog", genId++, "Logs for dream trees").getInt();
             idDreamLeaf = config.getTerrainBlock(Configuration.CATEGORY_BLOCK, "DreamLeaf", genId++, "leaves for dream trees").getInt();
 
+            // config blockIDs
             int baseId = 300;
             idPortalBlock = config.getBlock(Configuration.CATEGORY_BLOCK, "PortalBlock", baseId++).getInt();
             idGiantWool = config.getBlock(Configuration.CATEGORY_BLOCK, "GiantWool", baseId++).getInt();
 
             // config itemIDs
+            int baseItemID = 9001;
+            idUnicornHorn = config.getItem(Configuration.CATEGORY_ITEM, "UnicornHorn", baseItemID++).getInt();
 
             // config dimension
             dimensionID = config.get(Configuration.CATEGORY_GENERAL, "Dream Dimension Idea", 2).getInt();
@@ -138,13 +146,16 @@ public class DreamDimension
         // creative tab
         tabDream = new CreativeTabDream();
 
-        // do blocks and stuff here.
+        // blocks
         dreamDirt = new BlockDreamBase(idDreamDirt, Material.ground).setUnlocalizedName(MODID + ":dreamDirt").func_111022_d(MODID + ":dreamDirt");
         boosterBlock = new BlockBooster(idDreamBooster).setCreativeTab(tabDream);
         portalBlock = new BlockCheatyPortal(idPortalBlock).setUnlocalizedName(MODID + ":portalBlock").setCreativeTab(tabDream);
         giantWool = new BlockGiantWool(idGiantWool).setUnlocalizedName(MODID + ":giantWool").setCreativeTab(tabDream);
         dreamLog = new BlockDreamLog(idDreamLog).setUnlocalizedName(MODID + ":dreamWood").setCreativeTab(tabDream);
         dreamLeaf = new BlockDreamLeaf(idDreamLeaf).setUnlocalizedName(MODID + ":dreamLeaves").func_111022_d(MODID + ":dreamLeaves").setCreativeTab(tabDream);
+
+        // items
+        unicornHorn = new Item(idUnicornHorn).func_111206_d(MODID + ":unicornHorn");
 
         // registrations
         GameRegistry.registerBlock(dreamDirt, "dreamDirt");
