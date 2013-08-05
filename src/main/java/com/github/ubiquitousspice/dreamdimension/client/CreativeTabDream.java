@@ -11,7 +11,7 @@ public class CreativeTabDream extends CreativeTabs
     {
         super("DreamStuff");
     }
-    
+
     @Override
     public ItemStack getIconItemStack()
     {

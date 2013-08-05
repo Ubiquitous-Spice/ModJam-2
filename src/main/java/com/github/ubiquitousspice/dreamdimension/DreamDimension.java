@@ -1,6 +1,7 @@
 package com.github.ubiquitousspice.dreamdimension;
 
 import com.github.ubiquitousspice.dreamdimension.blocks.*;
+
 import java.util.logging.Logger;
 
 import net.minecraft.block.Block;

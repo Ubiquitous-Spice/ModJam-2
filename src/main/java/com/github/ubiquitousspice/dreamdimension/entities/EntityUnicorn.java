@@ -257,5 +257,5 @@ public class EntityUnicorn extends EntityFlying implements IMob
 
         return this.worldObj.getBlockId(i, j - 1, k) == DreamDimension.dreamDirt.blockID;
     }
-    
+
 }

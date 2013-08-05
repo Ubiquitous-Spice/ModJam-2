@@ -18,7 +18,7 @@ public class Crafting
         Item diamond = Item.diamond;
         Item fakeDiamond = DreamDimension.fakeDiamond;
         Item magmaCream = Item.magmaCream;
-        
+
         ItemStack dreamSword = new ItemStack(DreamDimension.unicornSword);
 
         // Shaped
