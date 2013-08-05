@@ -6,6 +6,8 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -22,6 +24,7 @@ public class KickHandler
             EntityPlayerMP player = (EntityPlayerMP) event.entityLiving;
 
             DreamManager.kickDreamer(player);
+            player.addPotionEffect(new PotionEffect(Potion.confusion.id, 200, 0));
 
             event.setCanceled(true);
         }

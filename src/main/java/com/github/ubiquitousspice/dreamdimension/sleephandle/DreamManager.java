@@ -1,19 +1,17 @@
 package com.github.ubiquitousspice.dreamdimension.sleephandle;
 
-import com.github.ubiquitousspice.dreamdimension.DreamDimension;
-import com.github.ubiquitousspice.dreamdimension.Util;
-import com.github.ubiquitousspice.dreamdimension.dimension.ModTeleporter;
-import cpw.mods.fml.common.IScheduledTickHandler;
-import cpw.mods.fml.common.ITickHandler;
-import cpw.mods.fml.common.TickType;
-import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.util.ChunkCoordinates;
-
 import java.util.EnumSet;
 import java.util.HashMap;
+
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+
+import com.github.ubiquitousspice.dreamdimension.Util;
+import com.github.ubiquitousspice.dreamdimension.dimension.ModTeleporter;
+
+import cpw.mods.fml.common.ITickHandler;
+import cpw.mods.fml.common.TickType;
 
 public class DreamManager implements ITickHandler
 {
@@ -30,14 +28,22 @@ public class DreamManager implements ITickHandler
         // null check.
         if (data == null)
             return;
-
+        
+        if(data.getTimeLeft() == 600)
+        {
+            player.addPotionEffect(new PotionEffect(Potion.confusion.id, 600, 0));
+        }
+        
         if (!data.decrementTime())
         {
             kickDreamer(player);
         }
 
         if (player.fallDistance >= 100)
+        {
             kickDreamer(player);
+            player.addPotionEffect(new PotionEffect(Potion.confusion.id, 200, 0));
+        }
     }
 
     @Override

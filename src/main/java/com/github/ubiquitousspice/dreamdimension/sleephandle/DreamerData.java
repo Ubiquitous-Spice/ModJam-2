@@ -142,4 +142,9 @@ public class DreamerData
     {
         return this.bedZ;
     }
+    
+    public double getTimeLeft()
+    {
+        return this.timeLeft;
+    }
 }

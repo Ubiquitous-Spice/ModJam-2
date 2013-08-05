@@ -187,7 +187,7 @@ public class DreamDimension
         dreamDirt = new BlockDreamBase(idDreamDirt, Material.ground).setUnlocalizedName(MODID + ":dreamDirt").func_111022_d(MODID + ":dreamDirt");
         boosterBlock = new BlockBooster(idDreamBooster).setCreativeTab(tabDream);
         portalBlock = new BlockCheatyPortal(idPortalBlock).setUnlocalizedName(MODID + ":portalBlock").setCreativeTab(tabDream);
-        giantWool = new BlockGiantWool(idGiantWool).setUnlocalizedName(MODID + ":giantWool").setCreativeTab(tabDream);
+        dreamFleece = new BlockDreamFleece(idDreamFleece).setUnlocalizedName(MODID + ".dreamFleeceLarge").setCreativeTab(tabDream);
         dreamLog = new BlockDreamLog(idDreamLog).setUnlocalizedName(MODID + ":dreamWood").setCreativeTab(tabDream);
         dreamLeaf = new BlockDreamLeaf(idDreamLeaf).setUnlocalizedName(MODID + ":dreamLeaves").func_111022_d(MODID + ":dreamLeaves").setCreativeTab(tabDream);
 
@@ -197,12 +197,6 @@ public class DreamDimension
         fleeceChest = new FleeceArmor(idFleeceChest, 1).setUnlocalizedName(MODID + ".fleeceChest").setCreativeTab(tabDream);
         fleeceLegs = new FleeceArmor(idFleeceLegs, 2).setUnlocalizedName(MODID + ".fleeceLegs").setCreativeTab(tabDream);
         fleeceBoots = new FleeceArmor(idFleeceBoots, 3).setUnlocalizedName(MODID + ".fleeceBoots").setCreativeTab(tabDream);
-        
-        // do blocks and stuff here.
-        dreamDirt = new Block(idDreamDirt, Material.ground).setUnlocalizedName(MODID + ".dreamDirt").func_111022_d(MODID + ":dreamDirt").setCreativeTab(tabDream);
-        boosterBlock = new BlockBooster(idDreamBooster).setCreativeTab(tabDream);
-        portalBlock = new BlockCheatyPortal(idPortalBlock).setUnlocalizedName(MODID + ".portalBlock").setCreativeTab(tabDream);
-        dreamFleece = new BlockDreamFleece(idDreamFleece).setUnlocalizedName(MODID + ".dreamFleeceLarge").setCreativeTab(tabDream);
 
         // registrations
         GameRegistry.registerBlock(dreamDirt, "dreamDirt");
