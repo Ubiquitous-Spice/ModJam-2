@@ -1,8 +1,10 @@
-package com.github.ubiquitousspice.dreamdimension.handlers;
+package com.github.ubiquitousspice.dreamdimension.sleephandle;
 
 import com.github.ubiquitousspice.dreamdimension.Util;
 import cpw.mods.fml.common.ITickHandler;
+import cpw.mods.fml.common.ObfuscationReflectionHelper;
 import cpw.mods.fml.common.TickType;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.world.World;
 import net.minecraftforge.event.ForgeSubscribe;
