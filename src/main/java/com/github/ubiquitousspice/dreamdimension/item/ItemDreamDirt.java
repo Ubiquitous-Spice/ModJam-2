@@ -11,7 +11,7 @@ import net.minecraft.util.StatCollector;
 public class ItemDreamDirt extends ItemBlockWithMetadata
 {
     String name = "dreamDirt";
-    
+
     public ItemDreamDirt(int par1, Block par2Block)
     {
         super(par1, par2Block);
@@ -27,11 +27,11 @@ public class ItemDreamDirt extends ItemBlockWithMetadata
         if ((stack.getItemDamage() & 8) > 0)
         {
             // speeder.
-            return StatCollector.translateToLocal("tile."+DreamDimension.MODID+":" + name + "."+end);
+            return StatCollector.translateToLocal("tile." + DreamDimension.MODID + ":" + name + "." + end);
         }
         else
         {
-            return StatCollector.translateToLocal("tile."+DreamDimension.MODID+":" + name + "."+end);
+            return StatCollector.translateToLocal("tile." + DreamDimension.MODID + ":" + name + "." + end);
         }
     }
 }

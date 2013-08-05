@@ -11,10 +11,10 @@ import com.github.ubiquitousspice.dreamdimension.dimension.WorldProviderMod;
 public class ItemDreamSword extends ItemSword
 {
 
-    private String                 normalName;
-    private String                 dreamName;
+    private String  normalName;
+    private String  dreamName;
 
-    private boolean                inDreamWorld;
+    private boolean inDreamWorld;
 
     public ItemDreamSword(int par1, EnumToolMaterial mat, String a, String b)
     {

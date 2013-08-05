@@ -13,14 +13,14 @@ public class ItemDreamAxe extends ItemAxe
     private String    dreamName;
 
     protected boolean inDreamWorld;
-    
+
     public ItemDreamAxe(int par1, EnumToolMaterial par2EnumToolMaterial, String a, String b)
     {
         super(par1, par2EnumToolMaterial);
         normalName = a;
         dreamName = b;
     }
-    
+
     @Override
     public String getItemDisplayName(ItemStack stack)
     {

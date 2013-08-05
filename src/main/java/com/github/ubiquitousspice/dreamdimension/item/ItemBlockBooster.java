@@ -26,11 +26,11 @@ public class ItemBlockBooster extends ItemBlockWithMetadata
         if ((stack.getItemDamage() & 8) > 0)
         {
             // speeder.
-            return StatCollector.translateToLocal("tile."+DreamDimension.MODID+":dreamSpeeder."+end);
+            return StatCollector.translateToLocal("tile." + DreamDimension.MODID + ":dreamSpeeder." + end);
         }
         else
         {
-            return StatCollector.translateToLocal("tile."+DreamDimension.MODID+":dreamBouncer."+end);
+            return StatCollector.translateToLocal("tile." + DreamDimension.MODID + ":dreamBouncer." + end);
         }
     }
 }

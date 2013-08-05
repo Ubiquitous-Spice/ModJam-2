@@ -144,8 +144,8 @@ public class DreamDimension
     public static Block            dreamPlanks;
     public static Block            dreamSapling;
     public static Block            dreamDiamond;
-    
-    public static EnumToolMaterial mat = EnumToolMaterial.STONE;
+
+    public static EnumToolMaterial mat                    = EnumToolMaterial.STONE;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -197,7 +197,7 @@ public class DreamDimension
 
             // config other
             dreamMaterialBreakable = config.get("Adventure", "dreamMaterialBreakable", false).getBoolean(false);
-            
+
             // config other
             boringSky = config.get("Sky Changes Color", "boringSky", true).getBoolean(true);
 
@@ -253,7 +253,7 @@ public class DreamDimension
         unicornSwordUpgrade = new ItemUnicornSword(idUnicornSwordUpgrade, "Unicorn Blade", "A slightly better shovel", 1).setUnlocalizedName(MODID + ".unicornSwordUpgrade").setCreativeTab(tabDream);
         fakeDiamond = new ItemDreamBase(idFakeDiamond, "False Diamond", "DIAMONDZ!!!").setUnlocalizedName(MODID + ".fakeDiamond").func_111206_d("diamond").setCreativeTab(tabDream);
         dreamCatcher = new ItemDreamBase(idDreamCatcher, "Dream Catcher", "\u00A7kNormal").setUnlocalizedName(MODID + ".dreamCatcher").func_111206_d(MODID + ":dreamCatcher").setCreativeTab(tabDream);
-        
+
         fDiamondSword = new ItemDreamSword(idFDiamondSword, mat, "Fake Diamond Sword", "Sword Made of DIAMONDZ!!!").setUnlocalizedName(MODID + ".fDiamondSword").func_111206_d("diamond_sword").setCreativeTab(tabDream);
         fDiamondShovel = new ItemDreamSpade(idFDiamondShovel, mat, "Fake Diamond Shovel", "Shovel Made of DIAMONDZ!!!").setUnlocalizedName(MODID + ".fDiamondShovel").func_111206_d("diamond_shovel").setCreativeTab(tabDream);
         fDiamondAxe = new ItemDreamAxe(idFDiamondAxe, mat, "Fake Diamond Axe", "Axe Made of DIAMONDZ!!!").setUnlocalizedName(MODID + ".fDiamondAxe").func_111206_d("diamond_axe").setCreativeTab(tabDream);

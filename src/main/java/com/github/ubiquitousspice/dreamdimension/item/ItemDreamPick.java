@@ -13,14 +13,14 @@ public class ItemDreamPick extends ItemPickaxe
     private String    dreamName;
 
     protected boolean inDreamWorld;
-    
+
     public ItemDreamPick(int par1, EnumToolMaterial par2EnumToolMaterial, String a, String b)
     {
         super(par1, par2EnumToolMaterial);
         normalName = a;
         dreamName = b;
     }
-    
+
     @Override
     public String getItemDisplayName(ItemStack stack)
     {
