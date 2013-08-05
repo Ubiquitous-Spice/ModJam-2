@@ -26,8 +26,13 @@ public class Crafting
         GameRegistry.addRecipe(new ItemStack(DreamDimension.fleeceChest), "x x", "xxx", "xxx", 'x', dreamFleece);
         GameRegistry.addRecipe(new ItemStack(DreamDimension.fleeceLegs), "xxx", "x x", "x x", 'x', dreamFleece);
         GameRegistry.addRecipe(new ItemStack(DreamDimension.fleeceBoots), "   ", "x x", "x x", 'x', dreamFleece);
-        GameRegistry.addRecipe(new ItemStack(DreamDimension.unicornSword), " y ", " y ", " z ", 'x', unicornHorn, 'y', dreamPlank, 'z', stick);
+        GameRegistry.addRecipe(new ItemStack(DreamDimension.unicornSword), " y ", "yyy", " z ", 'x', unicornHorn, 'y', dreamPlank, 'z', stick);
         GameRegistry.addRecipe(new ItemStack(DreamDimension.unicornSwordUpgrade), " x ", " y ", " z ", 'x', diamond, 'y', unicornHorn, 'z', dreamSword);
+        GameRegistry.addRecipe(new ItemStack(DreamDimension.fDiamondSword), " x ", " x ", " z ", 'x', fakeDiamond, 'z', stick);
+        GameRegistry.addRecipe(new ItemStack(DreamDimension.fDiamondPickaxe), "xxx", " z ", " z ", 'x', fakeDiamond, 'z', stick);
+        GameRegistry.addRecipe(new ItemStack(DreamDimension.fDiamondShovel), " x ", " z ", " z ", 'x', fakeDiamond, 'z', stick);
+        GameRegistry.addRecipe(new ItemStack(DreamDimension.fDiamondAxe), "xx ", "xz ", " z ", 'x', fakeDiamond, 'z', stick);
+        GameRegistry.addRecipe(new ItemStack(DreamDimension.fDiamondAxe), " xx", " zx", " z ", 'x', fakeDiamond, 'z', stick);
 
         // Shapeless
         GameRegistry.addShapelessRecipe(new ItemStack(DreamDimension.dreamPlanks, 4), new ItemStack(DreamDimension.dreamLog));
