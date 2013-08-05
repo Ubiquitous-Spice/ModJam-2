@@ -1,7 +1,23 @@
 package com.github.ubiquitousspice.dreamdimension;
 
-import java.util.logging.Logger;
-
+import com.github.ubiquitousspice.dreamdimension.blocks.*;
+import com.github.ubiquitousspice.dreamdimension.client.CreativeTabDream;
+import com.github.ubiquitousspice.dreamdimension.dimension.WorldProviderMod;
+import com.github.ubiquitousspice.dreamdimension.dimension.world.BiomeGenDream;
+import com.github.ubiquitousspice.dreamdimension.entities.EntityConfusedVillager;
+import com.github.ubiquitousspice.dreamdimension.entities.EntityLargeSheep;
+import com.github.ubiquitousspice.dreamdimension.entities.EntityUnicorn;
+import com.github.ubiquitousspice.dreamdimension.handlers.*;
+import com.github.ubiquitousspice.dreamdimension.item.*;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.registry.EntityRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.TickRegistry;
+import cpw.mods.fml.relauncher.Side;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -17,51 +33,7 @@ import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockBooster;
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockCheatyPortal;
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamBase;
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamFleece;
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamLeaf;
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamLog;
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamOre;
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamSapling;
-import com.github.ubiquitousspice.dreamdimension.client.CreativeTabDream;
-import com.github.ubiquitousspice.dreamdimension.dimension.WorldProviderMod;
-import com.github.ubiquitousspice.dreamdimension.dimension.world.BiomeGenDream;
-import com.github.ubiquitousspice.dreamdimension.entities.EntityConfusedVillager;
-import com.github.ubiquitousspice.dreamdimension.entities.EntityLargeSheep;
-import com.github.ubiquitousspice.dreamdimension.entities.EntityUnicorn;
-import com.github.ubiquitousspice.dreamdimension.handlers.BedHandler;
-import com.github.ubiquitousspice.dreamdimension.handlers.DreamManager;
-import com.github.ubiquitousspice.dreamdimension.handlers.KickHandler;
-import com.github.ubiquitousspice.dreamdimension.handlers.MilkHandler;
-import com.github.ubiquitousspice.dreamdimension.handlers.PlayerTracker;
-import com.github.ubiquitousspice.dreamdimension.item.ItemBlockBooster;
-import com.github.ubiquitousspice.dreamdimension.item.ItemDreamAxe;
-import com.github.ubiquitousspice.dreamdimension.item.ItemDreamBase;
-import com.github.ubiquitousspice.dreamdimension.item.ItemDreamDiamond;
-import com.github.ubiquitousspice.dreamdimension.item.ItemDreamDirt;
-import com.github.ubiquitousspice.dreamdimension.item.ItemDreamFleece;
-import com.github.ubiquitousspice.dreamdimension.item.ItemDreamLeaves;
-import com.github.ubiquitousspice.dreamdimension.item.ItemDreamLog;
-import com.github.ubiquitousspice.dreamdimension.item.ItemDreamPick;
-import com.github.ubiquitousspice.dreamdimension.item.ItemDreamPlanks;
-import com.github.ubiquitousspice.dreamdimension.item.ItemDreamSapling;
-import com.github.ubiquitousspice.dreamdimension.item.ItemDreamSpade;
-import com.github.ubiquitousspice.dreamdimension.item.ItemDreamSword;
-import com.github.ubiquitousspice.dreamdimension.item.ItemFleeceArmor;
-import com.github.ubiquitousspice.dreamdimension.item.ItemPear;
-import com.github.ubiquitousspice.dreamdimension.item.ItemUnicornSword;
-
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.TickRegistry;
-import cpw.mods.fml.relauncher.Side;
+import java.util.logging.Logger;
 
 //import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamDirt;
 
@@ -72,80 +44,82 @@ public class DreamDimension
     // item / block names
     // nightmare dimension counterpart?
 
-    public static final String     MODID                  = "dreamdimension";
-    public static final String     VERSION                = "0.1";
+    public static final String MODID = "dreamdimension";
+    public static final String VERSION = "0.1";
 
     @Mod.Instance
-    public static DreamDimension   instance;
+    public static DreamDimension instance;
 
     @SidedProxy(modId = MODID, clientSide = "com.github.ubiquitousspice.dreamdimension.client.ProxyClient", serverSide = "com.github.ubiquitousspice.dreamdimension.ProxyCommon")
-    public static ProxyCommon      proxy;
+    public static ProxyCommon proxy;
 
     // Random Stuff
-    public static Logger           logger;
-    public static Material         material;
-    public static boolean          dreamMaterialBreakable = false;
-    public static BiomeGenBase     dreamy;
+    public static Logger logger;
+    public static Material material;
+    public static boolean dreamMaterialBreakable = false;
+    public static BiomeGenBase dreamy;
     public static CreativeTabDream tabDream;
-    public static int              dreamPurple            = 0x571b60;
+    public static int dreamPurple = 0x571b60;
 
-    public static boolean          boringSky              = false;
+    public static boolean boringSky = false;
 
     // IDS
-    public static int              dimensionID;
-    static int                     startEntityId          = 300;
-    private int                    idFleeceHelm;
-    private int                    idFleeceChest;
-    private int                    idFleeceLegs;
-    private int                    idFleeceBoots;
-    private int                    idDreamDirt;
-    private int                    idDreamBooster;
-    private int                    idPortalBlock;
-    private int                    idDreamLog;
-    private int                    idDreamLeaf;
-    private int                    idUnicornHorn;
-    private int                    idDreamFleece;
-    private int                    idDreamDiamond;
-    private int                    idFakeDiamond;
-    private int                    idDreamSapling;
-    private int                    idPear;
-    private int                    idDreamPlanks;
-    private int                    idUnicornSword;
-    private int                    idUnicornSwordUpgrade;
-    private int                    idFDiamondSword;
-    private int                    idFDiamondShovel;
-    private int                    idFDiamondAxe;
-    private int                    idFDiamondPickaxe;
-    private int                    idDreamCatcher;
+    public static int dimensionID;
+    static int startEntityId = 300;
+    private int idFleeceHelm;
+    private int idFleeceChest;
+    private int idFleeceLegs;
+    private int idFleeceBoots;
+    private int idDreamDirt;
+    private int idDreamBooster;
+    private int idPortalBlock;
+    private int idDreamLog;
+    private int idDreamLeaf;
+    private int idUnicornHorn;
+    private int idDreamFleece;
+    private int idLimbo;
+    private int idDreamDiamond;
+    private int idFakeDiamond;
+    private int idDreamSapling;
+    private int idPear;
+    private int idDreamPlanks;
+    private int idUnicornSword;
+    private int idUnicornSwordUpgrade;
+    private int idFDiamondSword;
+    private int idFDiamondShovel;
+    private int idFDiamondAxe;
+    private int idFDiamondPickaxe;
+    private int idDreamCatcher;
 
     // items
-    public static Item             fleeceHelmet;
-    public static Item             fleeceChest;
-    public static Item             fleeceLegs;
-    public static Item             fleeceBoots;
-    public static Item             unicornHorn;
-    public static Item             fakeDiamond;
-    public static Item             pear;
-    public static Item             unicornSword;
-    public static Item             unicornSwordUpgrade;
-    public static Item             fDiamondSword;
-    public static Item             fDiamondAxe;
-    public static Item             fDiamondPickaxe;
-    public static Item             fDiamondShovel;
-    public static Item             dreamCatcher;
+    public static Item fleeceHelmet;
+    public static Item fleeceChest;
+    public static Item fleeceLegs;
+    public static Item fleeceBoots;
+    public static Item unicornHorn;
+    public static Item fakeDiamond;
+    public static Item pear;
+    public static Item unicornSword;
+    public static Item unicornSwordUpgrade;
+    public static Item fDiamondSword;
+    public static Item fDiamondAxe;
+    public static Item fDiamondPickaxe;
+    public static Item fDiamondShovel;
+    public static Item dreamCatcher;
 
     // blocks
-    public static Block            dreamDirt;
-    public static Block            boosterBlock;
-    public static Block            portalBlock;
-    public static Block            dreamFleece;
-    public static Block            dreamLog;
-    public static Block            dreamLeaf;
-    public static Block            dreamPlanks;
-    public static Block            dreamSapling;
-    public static Block            dreamDiamond;
+    public static Block dreamDirt;
+    public static Block boosterBlock;
+    public static Block portalBlock;
+    public static Block dreamFleece;
+    public static Block dreamLog;
+    public static Block dreamLeaf;
+    public static Block dreamPlanks;
+    public static Block dreamSapling;
+    public static Block dreamDiamond;
+    public static Block limbo;
 
-    public static EnumToolMaterial mat                    = EnumToolMaterial.STONE;
+    public static EnumToolMaterial mat = EnumToolMaterial.STONE;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -191,6 +165,7 @@ public class DreamDimension
             idDreamSapling = config.getBlock(Configuration.CATEGORY_BLOCK, "DreamSapling", baseId++).getInt();
             idDreamPlanks = config.getBlock(Configuration.CATEGORY_BLOCK, "DreamPlanks", baseId++).getInt();
             idDreamFleece = config.getBlock(Configuration.CATEGORY_BLOCK, "DreamFleece", baseId++).getInt();
+            idLimbo = config.getBlock(Configuration.CATEGORY_BLOCK, "Limbo Block", baseId++).getInt();
 
             // config dimension
             dimensionID = config.get(Configuration.CATEGORY_GENERAL, "Dream Dimension Idea", 2).getInt();
@@ -241,6 +216,7 @@ public class DreamDimension
         dreamLeaf = new BlockDreamLeaf(idDreamLeaf).setUnlocalizedName(MODID + ":dreamLeaves").func_111022_d(MODID + ":dreamLeaves").setCreativeTab(tabDream).setHardness(0.2F);
         dreamPlanks = new BlockDreamBase(idDreamPlanks, Material.wood).setUnlocalizedName(MODID + ".dreamPlanks").func_111022_d(MODID + ":dreamPlanks").setCreativeTab(tabDream).setHardness(1.5F);
         dreamSapling = new BlockDreamSapling(idDreamSapling).setUnlocalizedName(MODID + ".dreamSapling").func_111022_d(MODID + ":dreamSapling").setCreativeTab(tabDream);
+        limbo = new BlockLimbo(idLimbo).setUnlocalizedName(MODID + ".limbo");
 
         // items
         unicornHorn = new ItemDreamBase(idUnicornHorn, "Unicorn Horn", "Shiny Thing").setUnlocalizedName(MODID + ".unicornHorn").func_111206_d(MODID + ":unicornHorn").setCreativeTab(tabDream);
@@ -254,6 +230,7 @@ public class DreamDimension
         fakeDiamond = new ItemDreamBase(idFakeDiamond, "False Diamond", "DIAMONDZ!!!").setUnlocalizedName(MODID + ".fakeDiamond").func_111206_d("diamond").setCreativeTab(tabDream);
         dreamCatcher = new ItemDreamBase(idDreamCatcher, "Dream Catcher", "\u00A7kNormal").setUnlocalizedName(MODID + ".dreamCatcher").func_111206_d(MODID + ":dreamCatcher").setCreativeTab(tabDream);
 
+        // tools
         fDiamondSword = new ItemDreamSword(idFDiamondSword, mat, "Fake Diamond Sword", "Sword Made of DIAMONDZ!!!").setUnlocalizedName(MODID + ".fDiamondSword").func_111206_d("diamond_sword").setCreativeTab(tabDream);
         fDiamondShovel = new ItemDreamSpade(idFDiamondShovel, mat, "Fake Diamond Shovel", "Shovel Made of DIAMONDZ!!!").setUnlocalizedName(MODID + ".fDiamondShovel").func_111206_d("diamond_shovel").setCreativeTab(tabDream);
         fDiamondAxe = new ItemDreamAxe(idFDiamondAxe, mat, "Fake Diamond Axe", "Axe Made of DIAMONDZ!!!").setUnlocalizedName(MODID + ".fDiamondAxe").func_111206_d("diamond_axe").setCreativeTab(tabDream);
@@ -263,6 +240,7 @@ public class DreamDimension
         GameRegistry.registerBlock(dreamDirt, ItemDreamDirt.class, "dreamDirt");
         GameRegistry.registerBlock(boosterBlock, ItemBlockBooster.class, "dreamBooster");
         GameRegistry.registerBlock(portalBlock, "portalBlock");
+        GameRegistry.registerBlock(limbo, "limboTransferer");
         GameRegistry.registerBlock(dreamLog, ItemDreamLog.class, "dreamWood");
         GameRegistry.registerBlock(dreamLeaf, ItemDreamLeaves.class, "dreamLeaves");
         GameRegistry.registerBlock(dreamFleece, ItemDreamFleece.class, "dreamFleece");
@@ -301,10 +279,11 @@ public class DreamDimension
 
     /**
      * registers an entity
+     *
      * @param entityClass Entity Class
-     * @param entityName Entity Name
-     * @param fgColor Primary foreground egg color
-     * @param bgColor Secondary background egg color
+     * @param entityName  Entity Name
+     * @param fgColor     Primary foreground egg color
+     * @param bgColor     Secondary background egg color
      */
     public void registerEntity(Class<? extends Entity> entityClass, String entityName, int fgColor, int bgColor)
     {
