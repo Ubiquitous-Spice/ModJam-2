@@ -14,12 +14,12 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
-import net.minecraft.world.gen.structure.MapGenVillage;
+import net.minecraft.world.gen.feature.WorldGenMinable;
+import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.client.IRenderHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.terraingen.ChunkProviderEvent;
-import net.minecraftforge.event.terraingen.InitMapGenEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 
@@ -552,14 +552,15 @@ public class ChunkProviderMod implements IChunkProvider
             (new WorldGenDreamForest()).generate(this.worldObj, this.rand, k1, l1 + 1, i2);
         }
         
-        if(this.rand.nextInt(100) == 1)
-        {
-            //(new WorldGenVillage()).generate(this.worldObj, this.rand, k1, l1 + 1, i2);
-        }
+        int x2 = k + rand.nextInt(16);
+        int z2 = l + rand.nextInt(16);
+        int y2 = getTopBlock(x2, z2);
+        
+        (new WorldGenMinable(DreamDimension.dreamDiamond.blockID, 4, DreamDimension.dreamDirt.blockID)).generate(this.worldObj, rand, x2, y2, z2);
         
         MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(par1IChunkProvider, worldObj, rand, par2, par3, flag));
     }
-    
+
     public int getTopBlock(int x, int z)
     {
         for(int i = 0; i <= 128; i++)

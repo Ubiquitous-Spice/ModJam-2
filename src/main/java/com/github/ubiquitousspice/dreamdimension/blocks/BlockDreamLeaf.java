@@ -195,7 +195,7 @@ public class BlockDreamLeaf extends BlockDreamBase implements IShearable
     public int idDropped(int par1, Random par2Random, int par3)
     {
         // TODO: do saplings.
-        return Block.sapling.blockID;
+        return DreamDimension.dreamSapling.blockID;
     }
 
     @Override
@@ -245,10 +245,10 @@ public class BlockDreamLeaf extends BlockDreamBase implements IShearable
             }
 
             // TODO: APPLES.
-//            if ((par5 & 3) == 0 && par1World.rand.nextInt(j1) == 0)
-//            {
-//                this.dropBlockAsItem_do(par1World, par2, par3, par4, new ItemStack(Item.appleRed, 1, 0));
-//            }
+            if ((par5 & 3) == 0 && par1World.rand.nextInt(30) == 0)
+            {
+                this.dropBlockAsItem_do(par1World, par2, par3, par4, new ItemStack(DreamDimension.pear, 1, 0));
+            }
         }
     }
 

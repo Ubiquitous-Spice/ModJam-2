@@ -36,5 +36,11 @@ public class BlockDreamFleece extends Block
         
         return false;
     }
+    
+    @Override
+    public void setBlockBoundsForItemRender()
+    {
+        setBlockBounds(-0.2f, -0.2f, -0.2f, 1.2f, 1.2f, 1.2f);
+    }
 
 }

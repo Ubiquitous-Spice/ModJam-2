@@ -2,6 +2,8 @@ package com.github.ubiquitousspice.dreamdimension.dimension.world;
 
 import java.util.Random;
 
+import com.github.ubiquitousspice.dreamdimension.DreamDimension;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.util.Direction;
@@ -11,9 +13,15 @@ import net.minecraftforge.common.ForgeDirection;
 
 public class WorldGenDreamTree extends WorldGenerator
 {
-    public static Block treeWood      = Block.wood;
-    public static Block treeLeaf      = Block.leaves;
+    public static Block treeWood      = DreamDimension.dreamLog;
+    public static Block treeLeaf      = DreamDimension.dreamLeaf;
     private int         minTreeHeight = 6;
+    private boolean enderFlag;
+
+    public WorldGenDreamTree(boolean b)
+    {
+        this.enderFlag = b;
+    }
 
     public boolean generate(World world, Random rand, int x, int y, int z)
     {
@@ -47,6 +55,11 @@ public class WorldGenDreamTree extends WorldGenerator
         for (int i = 0; i <= l; i++)
         {
             world.setBlock(x, y + i, z, treeWood.blockID);
+        }
+        
+        if(rand.nextInt(30) == 1)
+        {
+            if(this.enderFlag)world.setBlock(x, y + l + 1, z, Block.enderChest.blockID);
         }
         
         return true;

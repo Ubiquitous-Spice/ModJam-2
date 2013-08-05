@@ -1,6 +1,5 @@
 package com.github.ubiquitousspice.dreamdimension.entities;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingData;
@@ -158,7 +157,7 @@ public class EntityLargeSheep extends EntityAnimal implements IBossDisplayData
 
     	if(!this.worldObj.isRemote)
     	{
-    		//this.worldObj.spawnEntityInWorld(new EntityGiantItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(DreamDimension.giantWool)));
+    		//this.worldObj.spawnEntityInWorld(new EntityGiantItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(Block.cloth)));
     		
     		this.worldObj.spawnEntityInWorld(new EntityItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(DreamDimension.dreamFleece)));
     	}

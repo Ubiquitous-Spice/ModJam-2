@@ -263,7 +263,7 @@ public class RenderGiantWool implements IItemRenderer
         
         if(type != ItemRenderType.INVENTORY)
         {
-            float scale = 3;
+            float scale = 2;
             GL11.glScalef(scale, scale, scale);
         }
         
@@ -282,7 +282,7 @@ public class RenderGiantWool implements IItemRenderer
         {
             float scale2 = 1F;
             GL11.glScalef(scale2, scale2, scale2);
-            GL11.glTranslatef(0.5F, 0.0F, 0.0F);
+            GL11.glTranslatef(1.0F, 0.0F, 0.0F);
             GL11.glRotatef(-40, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(20, 0.0F, 0.0F, 1.0F);
             
@@ -294,7 +294,7 @@ public class RenderGiantWool implements IItemRenderer
         
         if(type == ItemRenderType.ENTITY)
         {
-            float scale2 = 3F;
+            float scale2 = 1.5F;
             GL11.glScalef(scale2, scale2, scale2);
             GL11.glTranslatef(0F, 0.5F, 0F);
         }
