@@ -1,14 +1,10 @@
 package com.github.ubiquitousspice.dreamdimension.client;
 
+import com.github.ubiquitousspice.dreamdimension.client.render.*;
 import net.minecraftforge.client.MinecraftForgeClient;
 
 import com.github.ubiquitousspice.dreamdimension.DreamDimension;
 import com.github.ubiquitousspice.dreamdimension.ProxyCommon;
-import com.github.ubiquitousspice.dreamdimension.client.render.RenderConfusedVillager;
-import com.github.ubiquitousspice.dreamdimension.client.render.RenderFirework;
-import com.github.ubiquitousspice.dreamdimension.client.render.RenderGiantWool;
-import com.github.ubiquitousspice.dreamdimension.client.render.RenderLargeSheep;
-import com.github.ubiquitousspice.dreamdimension.client.render.RenderUnicorn;
 import com.github.ubiquitousspice.dreamdimension.client.render.model.ModelLargeSheep;
 import com.github.ubiquitousspice.dreamdimension.client.render.model.ModelLargeSheep2;
 import com.github.ubiquitousspice.dreamdimension.client.render.model.ModelUnicorn;
@@ -32,5 +28,9 @@ public class ProxyClient extends ProxyCommon
         RenderingRegistry.registerEntityRenderingHandler(EntityFirework.class, new RenderFirework());
 
         MinecraftForgeClient.registerItemRenderer(DreamDimension.dreamFleece.blockID, new RenderGiantWool());
+
+        // render Limbo stuff.
+        renderID = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(renderID, new RenderLimbo());
     }
 }

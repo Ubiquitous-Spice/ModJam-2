@@ -1,8 +1,10 @@
-package net.minecraft.block;
+package com.github.ubiquitousspice.dreamdimension.blocks;
 
 import com.github.ubiquitousspice.dreamdimension.DreamDimension;
+import com.github.ubiquitousspice.dreamdimension.client.ProxyClient;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
@@ -18,11 +20,11 @@ import java.util.List;
 public class BlockLimbo extends Block
 {
     @SideOnly(Side.CLIENT)
-    private Icon hopperIcon;
+    public static Icon outsideIcon;
     @SideOnly(Side.CLIENT)
-    private Icon hopperTopIcon;
+    public static Icon topIcon;
     @SideOnly(Side.CLIENT)
-    private Icon hopperInsideIcon;
+    public static Icon insideIcon;
 
     public BlockLimbo(int par1)
     {
@@ -81,10 +83,10 @@ public class BlockLimbo extends Block
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public int getRenderType()
     {
-        // TODO: get new renderID
-        return 38;
+        return ProxyClient.renderID;
     }
 
     @Override
@@ -110,16 +112,16 @@ public class BlockLimbo extends Block
     @SideOnly(Side.CLIENT)
     public Icon getIcon(int par1, int par2)
     {
-        return par1 == 1 ? this.hopperTopIcon : this.hopperIcon;
+        return par1 == 1 ? this.topIcon : this.outsideIcon;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister par1IconRegister)
     {
-        this.hopperIcon = par1IconRegister.registerIcon("limbo_outside");
-        this.hopperTopIcon = par1IconRegister.registerIcon("limbo_top");
-        this.hopperInsideIcon = par1IconRegister.registerIcon("limbo_inside");
+        this.outsideIcon = par1IconRegister.registerIcon("limbo_outside");
+        this.topIcon = par1IconRegister.registerIcon("limbo_top");
+        this.insideIcon = par1IconRegister.registerIcon("limbo_inside");
     }
 
     @Override
