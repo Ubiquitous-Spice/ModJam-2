@@ -64,9 +64,6 @@ public class DreamDimension
     // TODO: things that need to be done:
     // item / block names
     // nightmare dimension counterpart?
-    // anchor leash thing
-    // sky to config option
-    // percent dreaming chance config option
 
     public static final String     MODID                  = "dreamdimension";
     public static final String     VERSION                = "0.1";
@@ -85,7 +82,6 @@ public class DreamDimension
     public static CreativeTabDream tabDream;
     public static int              dreamPurple            = 0x571b60;
 
-    // Abrar: Make this a config option plz =P
     public static boolean          boringSky              = false;
 
     // IDS
@@ -114,7 +110,6 @@ public class DreamDimension
     private int                    idFDiamondAxe;
     private int                    idFDiamondPickaxe;
     private int                    idDreamCatcher;
-    private int                    idDreamFleeceSmall;
 
     // items
     public static Item             fleeceHelmet;
@@ -131,19 +126,17 @@ public class DreamDimension
     public static Item             fDiamondPickaxe;
     public static Item             fDiamondShovel;
     public static Item             dreamCatcher;
-    public static Block            dreamFleece;
 
     // blocks
     public static Block            dreamDirt;
     public static Block            boosterBlock;
     public static Block            portalBlock;
-    public static Block            giantWool;
+    public static Block            dreamFleece;
     public static Block            dreamLog;
     public static Block            dreamLeaf;
     public static Block            dreamPlanks;
     public static Block            dreamSapling;
     public static Block            dreamDiamond;
-    public static Block            dreamFleeceSmall;
     
     public static EnumToolMaterial mat = EnumToolMaterial.STONE;
 
@@ -191,13 +184,15 @@ public class DreamDimension
             idDreamSapling = config.getBlock(Configuration.CATEGORY_BLOCK, "DreamSapling", baseId++).getInt();
             idDreamPlanks = config.getBlock(Configuration.CATEGORY_BLOCK, "DreamPlanks", baseId++).getInt();
             idDreamFleece = config.getBlock(Configuration.CATEGORY_BLOCK, "DreamFleece", baseId++).getInt();
-            idDreamFleeceSmall = config.getBlock(Configuration.CATEGORY_BLOCK, "DreamFleeceSmall", baseId++).getInt();
 
             // config dimension
             dimensionID = config.get(Configuration.CATEGORY_GENERAL, "Dream Dimension Idea", 2).getInt();
 
             // config other
             dreamMaterialBreakable = config.get("Adventure", "dreamMaterialBreakable", false).getBoolean(false);
+            
+            // config other
+            boringSky = config.get("Sky Changes Color", "boringSky", true).getBoolean(true);
 
             // save it.
             if (config.hasChanged())
@@ -230,15 +225,14 @@ public class DreamDimension
         tabDream = new CreativeTabDream();
 
         // blocks
-        dreamDirt = new BlockDreamBase(idDreamDirt, Material.ground).setUnlocalizedName(MODID + ":dreamDirt").func_111022_d(MODID + ":dreamDirt");
-        dreamDiamond = new BlockDreamOre(idDreamDiamond, Material.ground).setUnlocalizedName(MODID + ".dreamDiamond").func_111022_d(MODID + ":dreamDiamond");
-        boosterBlock = new BlockBooster(idDreamBooster).setCreativeTab(tabDream);
+        dreamDirt = new BlockDreamBase(idDreamDirt, Material.ground).setUnlocalizedName(MODID + ":dreamDirt").func_111022_d(MODID + ":dreamDirt").setHardness(0.1F);
+        dreamDiamond = new BlockDreamOre(idDreamDiamond, Material.rock).setUnlocalizedName(MODID + ".dreamDiamond").func_111022_d(MODID + ":dreamDiamond").setHardness(2.0F);
+        boosterBlock = new BlockBooster(idDreamBooster).setCreativeTab(tabDream).setHardness(0.2F);
         portalBlock = new BlockCheatyPortal(idPortalBlock).setUnlocalizedName(MODID + ":portalBlock").setCreativeTab(tabDream).func_111022_d("portal");
-        dreamFleece = new BlockDreamFleece(idDreamFleece).setUnlocalizedName(MODID + ".dreamFleeceLarge").setCreativeTab(tabDream);
-        dreamFleeceSmall = new BlockDreamBase(idDreamFleeceSmall, Material.cloth).setUnlocalizedName(MODID + ".dreamFleeceSmall").func_111022_d(MODID + ":dreamFleece").setCreativeTab(tabDream);
-        dreamLog = new BlockDreamLog(idDreamLog).setUnlocalizedName(MODID + ":dreamWood").setCreativeTab(tabDream);
-        dreamLeaf = new BlockDreamLeaf(idDreamLeaf).setUnlocalizedName(MODID + ":dreamLeaves").func_111022_d(MODID + ":dreamLeaves").setCreativeTab(tabDream);
-        dreamPlanks = new BlockDreamBase(idDreamPlanks, Material.wood).setUnlocalizedName(MODID + ".dreamPlanks").func_111022_d(MODID + ":dreamPlanks").setCreativeTab(tabDream);
+        dreamFleece = new BlockDreamFleece(idDreamFleece).setUnlocalizedName(MODID + ".dreamFleeceLarge").setCreativeTab(tabDream).setHardness(1.0F);
+        dreamLog = new BlockDreamLog(idDreamLog).setUnlocalizedName(MODID + ":dreamWood").setCreativeTab(tabDream).setHardness(2.0F);
+        dreamLeaf = new BlockDreamLeaf(idDreamLeaf).setUnlocalizedName(MODID + ":dreamLeaves").func_111022_d(MODID + ":dreamLeaves").setCreativeTab(tabDream).setHardness(0.2F);
+        dreamPlanks = new BlockDreamBase(idDreamPlanks, Material.wood).setUnlocalizedName(MODID + ".dreamPlanks").func_111022_d(MODID + ":dreamPlanks").setCreativeTab(tabDream).setHardness(1.5F);
         dreamSapling = new BlockDreamSapling(idDreamSapling).setUnlocalizedName(MODID + ".dreamSapling").func_111022_d(MODID + ":dreamSapling").setCreativeTab(tabDream);
 
         // items

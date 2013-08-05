@@ -33,6 +33,7 @@ public class Crafting
         GameRegistry.addRecipe(new ItemStack(DreamDimension.fDiamondShovel), " x ", " z ", " z ", 'x', fakeDiamond, 'z', stick);
         GameRegistry.addRecipe(new ItemStack(DreamDimension.fDiamondAxe), "xx ", "xz ", " z ", 'x', fakeDiamond, 'z', stick);
         GameRegistry.addRecipe(new ItemStack(DreamDimension.fDiamondAxe), " xx", " zx", " z ", 'x', fakeDiamond, 'z', stick);
+        GameRegistry.addRecipe(new ItemStack(DreamDimension.dreamCatcher), "xxx", "xyx", "xxx", 'x', stick, 'y', dreamFleece);
 
         // Shapeless
         GameRegistry.addShapelessRecipe(new ItemStack(DreamDimension.dreamPlanks, 4), new ItemStack(DreamDimension.dreamLog));

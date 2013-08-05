@@ -361,7 +361,7 @@ public class EntityConfusedVillager extends EntityMob
 
                     if (item != null)
                     {
-                        setCurrentItemOrArmor(j + 1, new ItemStack(item));
+                        setCurrentItemOrArmor(j, new ItemStack(item));
                     }
                 }
             }
