@@ -9,6 +9,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 
+import com.github.ubiquitousspice.dreamdimension.DreamDimension;
 import com.github.ubiquitousspice.dreamdimension.Util;
 
 import cpw.mods.fml.common.ITickHandler;
@@ -77,7 +78,10 @@ public class BedHandler implements ITickHandler
     @ForgeSubscribe
     public void catchBedEvent(PlayerSleepInBedEvent event)
     {
-        sleepers.add(event.entityPlayer.username);
+        if(!event.entityPlayer.inventory.hasItem(DreamDimension.dreamCatcher.itemID))
+        {
+            sleepers.add(event.entityPlayer.username);
+        }
     }
 
     @Override

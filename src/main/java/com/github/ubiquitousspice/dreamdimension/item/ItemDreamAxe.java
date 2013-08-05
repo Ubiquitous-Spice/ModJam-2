@@ -1,28 +1,26 @@
 package com.github.ubiquitousspice.dreamdimension.item;
 
-import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.EnumToolMaterial;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
-
 import com.github.ubiquitousspice.dreamdimension.dimension.WorldProviderMod;
 
-public class ItemDreamSword extends ItemSword
+import net.minecraft.client.Minecraft;
+import net.minecraft.item.EnumToolMaterial;
+import net.minecraft.item.ItemAxe;
+import net.minecraft.item.ItemStack;
+
+public class ItemDreamAxe extends ItemAxe
 {
+    private String    normalName;
+    private String    dreamName;
 
-    private String                 normalName;
-    private String                 dreamName;
-
-    private boolean                inDreamWorld;
-
-    public ItemDreamSword(int par1, EnumToolMaterial mat, String a, String b)
+    protected boolean inDreamWorld;
+    
+    public ItemDreamAxe(int par1, EnumToolMaterial par2EnumToolMaterial, String a, String b)
     {
-        super(par1, mat);
+        super(par1, par2EnumToolMaterial);
         normalName = a;
         dreamName = b;
     }
-
+    
     @Override
     public String getItemDisplayName(ItemStack stack)
     {
@@ -30,5 +28,4 @@ public class ItemDreamSword extends ItemSword
         inDreamWorld = Minecraft.getMinecraft().thePlayer.worldObj.provider instanceof WorldProviderMod;
         return inDreamWorld ? dreamName : normalName;
     }
-
 }
