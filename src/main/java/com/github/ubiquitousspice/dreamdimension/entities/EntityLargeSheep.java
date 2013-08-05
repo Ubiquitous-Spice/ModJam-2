@@ -1,17 +1,10 @@
 package com.github.ubiquitousspice.dreamdimension.entities;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLivingData;
-import net.minecraft.entity.EnumCreatureAttribute;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAIMate;
-import net.minecraft.entity.ai.EntityAIPanic;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAITempt;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
+import com.github.ubiquitousspice.dreamdimension.DreamDimension;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -24,11 +17,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-
-import com.github.ubiquitousspice.dreamdimension.DreamDimension;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class EntityLargeSheep extends EntityAnimal implements IBossDisplayData
 {
@@ -61,6 +49,7 @@ public class EntityLargeSheep extends EntityAnimal implements IBossDisplayData
         return largeSheepMod;
     }
 
+    @Override
     public EnumCreatureAttribute getCreatureAttribute()
     {
         return EnumCreatureAttribute.UNDEFINED;
@@ -71,11 +60,13 @@ public class EntityLargeSheep extends EntityAnimal implements IBossDisplayData
         return 4;
     }
 
+    @Override
     public int getTotalArmorValue()
     {
         return 2;
     }
 
+    @Override
     public void onLivingUpdate()
     {
 
@@ -93,26 +84,31 @@ public class EntityLargeSheep extends EntityAnimal implements IBossDisplayData
         super.onLivingUpdate();
     }
 
+    @Override
     protected String getLivingSound()
     {
         return "mob.sheep.say";
     }
 
+    @Override
     protected String getHurtSound()
     {
         return "mob.sheep.say";
     }
 
+    @Override
     protected String getDeathSound()
     {
         return "mob.sheep.say";
     }
 
+    @Override
     protected float getSoundPitch()
     {
         return -80000.0F;
     }
 
+    @Override
     protected void playStepSound(int par1, int par2, int par3, int par4)
     {
         this.playSound("mob.sheep.step", 0.15F, 1.0F);
@@ -152,12 +148,12 @@ public class EntityLargeSheep extends EntityAnimal implements IBossDisplayData
         return "King Lambchop";
     }
 
+    @Override
     public void onDeath(DamageSource par1DamageSource)
     {
-
         if (!this.worldObj.isRemote)
         {
-            //this.worldObj.spawnEntityInWorld(new EntityGiantItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(Block.cloth)));
+            //this.worldObj.spawnEntityInWorld(new EntityGiantItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(DreamDimension.giantWool)));
 
             this.worldObj.spawnEntityInWorld(new EntityItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(DreamDimension.dreamFleece)));
         }
@@ -165,6 +161,7 @@ public class EntityLargeSheep extends EntityAnimal implements IBossDisplayData
         super.onDeath(par1DamageSource);
     }
 
+    @Override
     protected void func_110147_ax()
     {
         super.func_110147_ax();
@@ -187,6 +184,7 @@ public class EntityLargeSheep extends EntityAnimal implements IBossDisplayData
         return this.worldObj.getBlockId(i, j - 1, k) == DreamDimension.dreamDirt.blockID;
     }
 
+    @Override
     public EntityLivingData func_110161_a(EntityLivingData par1EntityLivingData)
     {
         par1EntityLivingData = super.func_110161_a(par1EntityLivingData);
@@ -222,6 +220,7 @@ public class EntityLargeSheep extends EntityAnimal implements IBossDisplayData
         return this.dataWatcher.getWatchableObjectByte(16) & 15;
     }
 
+    @Override
     protected void entityInit()
     {
         super.entityInit();

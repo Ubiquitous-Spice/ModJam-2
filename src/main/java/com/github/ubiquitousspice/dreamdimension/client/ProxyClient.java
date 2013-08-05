@@ -1,7 +1,5 @@
 package com.github.ubiquitousspice.dreamdimension.client;
 
-import net.minecraftforge.client.MinecraftForgeClient;
-
 import com.github.ubiquitousspice.dreamdimension.DreamDimension;
 import com.github.ubiquitousspice.dreamdimension.ProxyCommon;
 import com.github.ubiquitousspice.dreamdimension.client.render.RenderConfusedVillager;
@@ -14,8 +12,8 @@ import com.github.ubiquitousspice.dreamdimension.client.render.model.ModelUnicor
 import com.github.ubiquitousspice.dreamdimension.entities.EntityConfusedVillager;
 import com.github.ubiquitousspice.dreamdimension.entities.EntityLargeSheep;
 import com.github.ubiquitousspice.dreamdimension.entities.EntityUnicorn;
-
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.client.MinecraftForgeClient;
 
 public class ProxyClient extends ProxyCommon
 {
@@ -26,6 +24,6 @@ public class ProxyClient extends ProxyCommon
         RenderingRegistry.registerEntityRenderingHandler(EntityConfusedVillager.class, new RenderConfusedVillager());
         RenderingRegistry.registerEntityRenderingHandler(EntityUnicorn.class, new RenderUnicorn(new ModelUnicorn(), 0.7F));
 
-        MinecraftForgeClient.registerItemRenderer(DreamDimension.dreamFleece.blockID, new RenderGiantWool());
+        MinecraftForgeClient.registerItemRenderer(DreamDimension.dreamFleece.itemID, new RenderGiantWool());
     }
 }

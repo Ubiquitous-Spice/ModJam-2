@@ -1,7 +1,29 @@
 package com.github.ubiquitousspice.dreamdimension;
 
-import java.util.logging.Logger;
-
+import com.github.ubiquitousspice.dreamdimension.blocks.*;
+import com.github.ubiquitousspice.dreamdimension.client.CreativeTabDream;
+import com.github.ubiquitousspice.dreamdimension.dimension.WorldProviderMod;
+import com.github.ubiquitousspice.dreamdimension.dimension.world.BiomeGenDream;
+import com.github.ubiquitousspice.dreamdimension.entities.EntityConfusedVillager;
+import com.github.ubiquitousspice.dreamdimension.entities.EntityLargeSheep;
+import com.github.ubiquitousspice.dreamdimension.entities.EntityUnicorn;
+import com.github.ubiquitousspice.dreamdimension.item.ItemDreamBase;
+import com.github.ubiquitousspice.dreamdimension.item.ItemDreamFleece;
+import com.github.ubiquitousspice.dreamdimension.item.ItemFleeceArmor;
+import com.github.ubiquitousspice.dreamdimension.item.ItemPear;
+import com.github.ubiquitousspice.dreamdimension.sleephandle.BedHandler;
+import com.github.ubiquitousspice.dreamdimension.sleephandle.DreamManager;
+import com.github.ubiquitousspice.dreamdimension.sleephandle.KickHandler;
+import com.github.ubiquitousspice.dreamdimension.sleephandle.PlayerTracker;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.registry.EntityRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.TickRegistry;
+import cpw.mods.fml.relauncher.Side;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -17,38 +39,7 @@ import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockBooster;
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockCheatyPortal;
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamBase;
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamFleece;
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamLeaf;
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamLog;
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamSapling;
-import com.github.ubiquitousspice.dreamdimension.client.CreativeTabDream;
-import com.github.ubiquitousspice.dreamdimension.dimension.WorldProviderMod;
-import com.github.ubiquitousspice.dreamdimension.dimension.world.BiomeGenDream;
-import com.github.ubiquitousspice.dreamdimension.entities.EntityConfusedVillager;
-import com.github.ubiquitousspice.dreamdimension.entities.EntityLargeSheep;
-import com.github.ubiquitousspice.dreamdimension.entities.EntityUnicorn;
-import com.github.ubiquitousspice.dreamdimension.item.ItemDreamBase;
-import com.github.ubiquitousspice.dreamdimension.item.ItemFleeceArmor;
-import com.github.ubiquitousspice.dreamdimension.item.ItemPear;
-import com.github.ubiquitousspice.dreamdimension.sleephandle.BedHandler;
-import com.github.ubiquitousspice.dreamdimension.sleephandle.DreamManager;
-import com.github.ubiquitousspice.dreamdimension.sleephandle.KickHandler;
-import com.github.ubiquitousspice.dreamdimension.sleephandle.PlayerTracker;
-
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.TickRegistry;
-import cpw.mods.fml.relauncher.Side;
-
-//import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamDirt;
+import java.util.logging.Logger;
 
 @Mod(modid = DreamDimension.MODID, version = DreamDimension.VERSION, name = "The Dream Dimension")
 public class DreamDimension
@@ -103,7 +94,7 @@ public class DreamDimension
     public static Item unicornHorn;
     public static Item fakeDiamond;
     public static Item pear;
-    public static Block dreamFleece;
+    public static Item dreamFleece;
 
     // blocks
     public static Block dreamDirt;
@@ -145,7 +136,8 @@ public class DreamDimension
             idDreamBooster = config.getTerrainBlock(Configuration.CATEGORY_BLOCK, "DreamLauncher", genId++, "Base dirt for Dream Dimension").getInt();
 
             // config itemIDs
-            int baseItemId = 9000;
+            int baseItemId = 9001;
+            idDreamFleece = config.getItem(Configuration.CATEGORY_ITEM, "DreamFleece", baseItemId++).getInt();
             idFleeceHelm = config.getItem(Configuration.CATEGORY_ITEM, "FleeceHelm", baseItemId++).getInt();
             idFleeceChest = config.getItem(Configuration.CATEGORY_ITEM, "FleeceChest", baseItemId++).getInt();
             idFleeceLegs = config.getItem(Configuration.CATEGORY_ITEM, "FleeceLegs", baseItemId++).getInt();
@@ -192,7 +184,6 @@ public class DreamDimension
         dreamDiamond = new BlockDreamBase(idDreamDiamond, Material.ground).setUnlocalizedName(MODID + ".dreamDiamond").func_111022_d(MODID + ":dreamDiamond");
         boosterBlock = new BlockBooster(idDreamBooster).setCreativeTab(tabDream);
         portalBlock = new BlockCheatyPortal(idPortalBlock).setUnlocalizedName(MODID + ":portalBlock").setCreativeTab(tabDream).func_111022_d("portal");
-        dreamFleece = new BlockDreamFleece(idDreamFleece).setUnlocalizedName(MODID + ".dreamFleeceLarge").setCreativeTab(tabDream);
         dreamLog = new BlockDreamLog(idDreamLog).setUnlocalizedName(MODID + ":dreamWood").setCreativeTab(tabDream);
         dreamLeaf = new BlockDreamLeaf(idDreamLeaf).setUnlocalizedName(MODID + ":dreamLeaves").func_111022_d(MODID + ":dreamLeaves").setCreativeTab(tabDream);
         dreamPlanks = new BlockDreamBase(idDreamPlanks, Material.wood).setUnlocalizedName(MODID + ".dreamPlanks").func_111022_d(MODID + ":dreamPlanks").setCreativeTab(tabDream);
@@ -202,21 +193,28 @@ public class DreamDimension
         unicornHorn = new ItemDreamBase(idUnicornHorn, "Unicorn Horn", "Shiny Thing").setUnlocalizedName(MODID + ".unicornHorn").func_111206_d(MODID + ":unicornHorn").setCreativeTab(tabDream);
         fakeDiamond = new ItemDreamBase(idFakeDiamond, "Fake Diamond", "DIAMONDZ").setUnlocalizedName(MODID + ".fakeDiamond").func_111206_d("diamond").setCreativeTab(tabDream);
         pear = new ItemPear(idPear, "Pear", "I think this is edible...").setUnlocalizedName(MODID + ".pear").func_111206_d(MODID + ":pear").setCreativeTab(tabDream);
+        dreamFleece = new ItemDreamFleece(idDreamFleece).setUnlocalizedName(MODID + ".dreamFleeceLarge").setCreativeTab(tabDream);
         fleeceHelmet = new ItemFleeceArmor(idFleeceHelm, 0, "Fleece Helmet", "Super Hero Mask").setUnlocalizedName(MODID + ".fleeceHelm").setCreativeTab(tabDream);
         fleeceChest = new ItemFleeceArmor(idFleeceChest, 1, "Fleece Tunic", "Pants").setUnlocalizedName(MODID + ".fleeceChest").setCreativeTab(tabDream);
         fleeceLegs = new ItemFleeceArmor(idFleeceLegs, 2, "Fleece Legs", "Snuggy").setUnlocalizedName(MODID + ".fleeceLegs").setCreativeTab(tabDream);
         fleeceBoots = new ItemFleeceArmor(idFleeceBoots, 3, "Fleece Boots", "Animal Slippers").setUnlocalizedName(MODID + ".fleeceBoots").setCreativeTab(tabDream);
 
-        // registrations
+        // register blocks
         GameRegistry.registerBlock(dreamDirt, "dreamDirt");
         GameRegistry.registerBlock(boosterBlock, ItemBlockWithMetadata.class, "dreamBooster");
         GameRegistry.registerBlock(portalBlock, "portalBlock");
         GameRegistry.registerBlock(dreamLog, "dreamWood");
         GameRegistry.registerBlock(dreamLeaf, "dreamLeaves");
-        GameRegistry.registerBlock(dreamFleece, "dreamFleece");
         GameRegistry.registerBlock(dreamDiamond, "dreamDiamond");
         GameRegistry.registerBlock(dreamPlanks, "dreamPlanks");
         GameRegistry.registerBlock(dreamSapling, "dreamSapling");
+
+        // register items.
+        GameRegistry.registerItem(dreamFleece, "dreamFleece");
+        GameRegistry.registerItem(fleeceHelmet, "fleeceHelm");
+        GameRegistry.registerItem(fleeceChest, "fleeceChest");
+        GameRegistry.registerItem(fleeceLegs, "fleeceLegs");
+        GameRegistry.registerItem(fleeceBoots, "fleeceBoots");
 
         // dimension stuff
         dreamy = new BiomeGenDream(25).setDisableRain();

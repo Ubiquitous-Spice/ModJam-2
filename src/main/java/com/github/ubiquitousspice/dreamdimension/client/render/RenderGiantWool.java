@@ -15,7 +15,6 @@ import net.minecraft.util.Icon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
-
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -35,7 +34,6 @@ public class RenderGiantWool implements IItemRenderer
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type)
     {
-
         switch (type)
         {
             case EQUIPPED:
@@ -43,6 +41,8 @@ public class RenderGiantWool implements IItemRenderer
             case EQUIPPED_FIRST_PERSON:
                 return true;
             case ENTITY:
+                return true;
+            case INVENTORY:
                 return true;
             default:
                 return false;
@@ -52,6 +52,8 @@ public class RenderGiantWool implements IItemRenderer
     @Override
     public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper)
     {
+        if (type == ItemRenderType.INVENTORY && helper == ItemRendererHelper.INVENTORY_BLOCK)
+            return true;
 
         return false;
     }
@@ -59,12 +61,11 @@ public class RenderGiantWool implements IItemRenderer
     @Override
     public void renderItem(ItemRenderType type, ItemStack par2ItemStack, Object... data)
     {
-
-        if (type == ItemRenderType.INVENTORY)
-        {
-            this.renderBlockAsItem(Block.blocksList[par2ItemStack.itemID], par2ItemStack.getItemDamage(), 1.0F, type);
-            return;
-        }
+//        if (type == ItemRenderType.INVENTORY)
+//        {
+//            this.renderBlockAsItem(Block.blocksList[par2ItemStack.itemID], par2ItemStack.getItemDamage(), 1.0F, type);
+//            return;
+//        }
 
         GL11.glPushMatrix();
         TextureManager texturemanager = this.mc.func_110434_K();

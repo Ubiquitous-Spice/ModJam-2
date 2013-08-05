@@ -12,10 +12,13 @@ import net.minecraft.entity.ai.EntityAIRunAroundLikeCrazy;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
@@ -157,12 +160,6 @@ public class EntityUnicorn extends EntityFlying implements IMob
     }
 
     @Override
-    protected int getDropItemId()
-    {
-        return DreamDimension.unicornHorn.itemID;
-    }
-
-    @Override
     protected float getSoundPitch()
     {
         return 10000.0F;
@@ -195,10 +192,21 @@ public class EntityUnicorn extends EntityFlying implements IMob
         super.readEntityFromNBT(par1NBTTagCompound);
     }
 
+    public void onDeath(DamageSource par1DamageSource)
+    {
+        if(!this.worldObj.isRemote)
+        {
+            //this.worldObj.spawnEntityInWorld(new EntityGiantItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(DreamDimension.giantWool)));
+
+            this.worldObj.spawnEntityInWorld(new EntityItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(DreamDimension.unicornHorn)));
+        }
+
+        super.onDeath(par1DamageSource);
+    }
+
     @Override
     protected void updateFallState(double par1, boolean par3)
     {
-
         this.motionY -= 0.01;
 
         /**if(this.posY >= 75)
