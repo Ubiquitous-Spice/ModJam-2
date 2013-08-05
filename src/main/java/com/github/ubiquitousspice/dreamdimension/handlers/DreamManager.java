@@ -2,8 +2,11 @@ package com.github.ubiquitousspice.dreamdimension.handlers;
 
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.List;
 
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
@@ -40,17 +43,17 @@ public class DreamManager implements ITickHandler
 
         if (!data.decrementTime())
         {
-            kickDreamer(player, 0);
+            kickDreamer(player, 0, null);
         }
 
         if (player.isInWater())
         {
-            kickDreamer(player, 100);
+            kickDreamer(player, 100, null);
         }
 
         if (player.fallDistance >= 100)
         {
-            kickDreamer(player, 200);
+            kickDreamer(player, 200, null);
         }
     }
 
@@ -123,7 +126,7 @@ public class DreamManager implements ITickHandler
     /**
      * sends the dreamer back to their bed.
      */
-    public static void kickDreamer(EntityPlayerMP player, int confusionTime)
+    public static void kickDreamer(EntityPlayerMP player, int confusionTime, List<ItemStack> spew)
     {
         DreamerData data = dreamers.remove(player.username);
 
@@ -145,5 +148,16 @@ public class DreamManager implements ITickHandler
         player.setPositionAndUpdate(data.getBedX(), data.getBedY(), data.getBedZ());
         player.addPotionEffect(new PotionEffect(Potion.confusion.id, confusionTime, 0));
         player.fallDistance = 0;
+
+        // spew items.
+        if (spew != null)
+        {
+            EntityItem entity;
+            for (ItemStack stack : spew)
+            {
+                entity = new EntityItem(player.worldObj, data.getSpewX(), data.getSpewY(), data.getSpewY(), stack);
+                player.worldObj.spawnEntityInWorld(entity);
+            }
+        }
     }
 }

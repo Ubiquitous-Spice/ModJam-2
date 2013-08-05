@@ -20,7 +20,7 @@ public class KickHandler
         {
             EntityPlayerMP player = (EntityPlayerMP) event.entityLiving;
 
-            DreamManager.kickDreamer(player, 200);
+            DreamManager.kickDreamer(player, 200, null);
 
             event.setCanceled(true);
         }

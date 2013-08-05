@@ -1,12 +1,14 @@
 package com.github.ubiquitousspice.dreamdimension.handlers;
 
 import lombok.Data;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
 import com.github.ubiquitousspice.dreamdimension.Util;
+import net.minecraft.util.ChunkCoordinates;
 
 //@Data
 @Data
@@ -19,6 +21,10 @@ public class DreamerData
     private float           bedY;
     private float           bedZ;
     private int             bedDim;
+
+    private float           spewX;
+    private float           spewY;
+    private float           spewZ;
 
     private int             hunger;
     private float           health;
@@ -38,11 +44,19 @@ public class DreamerData
         oldInv = new InventoryPlayer(player);
         oldInv.copyInventory(player.inventory);
 
+        // come back coords
         float[] coords = Util.getWakeLocation(player);
         bedX = coords[0];
         bedY = coords[1];
         bedZ = coords[2];
 
+        // item spew coords
+        ChunkCoordinates loc = player.playerLocation;
+        spewX = loc.posX;
+        spewY = loc.posY+1;
+        spewZ = loc.posZ;
+
+        // health and hunger
         health = player.func_110143_aJ();
         hunger = player.getFoodStats().getFoodLevel();
 
@@ -70,6 +84,10 @@ public class DreamerData
         nbt.setFloat("bedZ", bedZ);
         nbt.setInteger("bedDim", bedDim);
 
+        nbt.setFloat("spewX", spewX);
+        nbt.setFloat("spewY", spewY);
+        nbt.setFloat("spewZ", spewZ);
+
         nbt.setInteger("hunger", hunger);
         nbt.setFloat("health", health);
 
@@ -92,6 +110,10 @@ public class DreamerData
         data.bedY = nbt.getFloat("bedY");
         data.bedZ = nbt.getFloat("bedZ");
         data.bedDim = nbt.getInteger("bedDim");
+
+        data.spewX = nbt.getFloat("spewX");
+        data.spewY = nbt.getFloat("spewY");
+        data.spewZ = nbt.getFloat("spewZ");
 
         data.health = nbt.getFloat("health");
         data.hunger = nbt.getInteger("hunger");

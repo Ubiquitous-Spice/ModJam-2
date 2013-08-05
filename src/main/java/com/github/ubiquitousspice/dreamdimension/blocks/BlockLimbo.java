@@ -2,13 +2,20 @@ package com.github.ubiquitousspice.dreamdimension.blocks;
 
 import com.github.ubiquitousspice.dreamdimension.DreamDimension;
 import com.github.ubiquitousspice.dreamdimension.client.ProxyClient;
+import com.github.ubiquitousspice.dreamdimension.handlers.DreamManager;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityNote;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Facing;
 import net.minecraft.util.Icon;
@@ -17,7 +24,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class BlockLimbo extends Block
+public class BlockLimbo extends BlockContainer
 {
     @SideOnly(Side.CLIENT)
     public static Icon outsideIcon;
@@ -70,17 +77,43 @@ public class BlockLimbo extends Block
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9)
+    public boolean canPlaceBlockAt(World world, int x, int y, int z)
+    {
+        return world.provider.dimensionId == DreamDimension.dimensionID;
+    }
+
+    @Override
+    public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
+    {
+        if (entity instanceof EntityItem)
+        {
+            // suck item.
+            TileEntityLimbo te = (TileEntityLimbo) world.getBlockTileEntity(x, y, z);
+            te.addItem(((EntityItem) entity).getEntityItem());
+        }
+    }
+
+    @Override
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9)
     {
         if (world.isRemote)
         {
             return true;
         }
 
-        // TODO: teleport.
+        // get spew stuff
+        TileEntityLimbo te = (TileEntityLimbo) world.getBlockTileEntity(x, y, z);
+        List<ItemStack> list = te.getItems();
+
+        // teleport.
+        DreamManager.kickDreamer((EntityPlayerMP)player, 300, list);
+
+        //destroy block.
+        world.setBlockToAir(x, y, z);
 
         return true;
     }
+
 
     @Override
     @SideOnly(Side.CLIENT)
@@ -129,5 +162,11 @@ public class BlockLimbo extends Block
     public String getItemIconName()
     {
         return "limbo";
+    }
+
+    @Override
+    public TileEntity createNewTileEntity(World world)
+    {
+        return new TileEntityLimbo();
     }
 }

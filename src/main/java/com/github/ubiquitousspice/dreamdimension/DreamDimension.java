@@ -35,15 +35,9 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.logging.Logger;
 
-//import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamDirt;
-
 @Mod(modid = DreamDimension.MODID, version = DreamDimension.VERSION, name = "The Dream Dimension")
 public class DreamDimension
 {
-    // TODO: things that need to be done:
-    // item / block names
-    // nightmare dimension counterpart?
-
     public static final String MODID = "dreamdimension";
     public static final String VERSION = "0.1";
 
@@ -247,6 +241,9 @@ public class DreamDimension
         GameRegistry.registerBlock(dreamDiamond, ItemDreamDiamond.class, "dreamDiamond");
         GameRegistry.registerBlock(dreamPlanks, ItemDreamPlanks.class, "dreamPlanks");
         GameRegistry.registerBlock(dreamSapling, ItemDreamSapling.class, "dreamSapling");
+
+        // register TEs.
+        GameRegistry.registerTileEntity(TileEntityLimbo.class, "LimboTransfer");
 
         // dimension stuff
         dreamy = new BiomeGenDream(25).setDisableRain();
