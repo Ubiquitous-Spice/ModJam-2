@@ -33,51 +33,7 @@ import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockBooster;
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockCheatyPortal;
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamBase;
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamFleece;
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamLeaf;
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamLog;
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamOre;
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamSapling;
-import com.github.ubiquitousspice.dreamdimension.client.CreativeTabDream;
-import com.github.ubiquitousspice.dreamdimension.dimension.WorldProviderMod;
-import com.github.ubiquitousspice.dreamdimension.dimension.world.BiomeGenDream;
-import com.github.ubiquitousspice.dreamdimension.entities.EntityConfusedVillager;
-import com.github.ubiquitousspice.dreamdimension.entities.EntityLargeSheep;
-import com.github.ubiquitousspice.dreamdimension.entities.EntityUnicorn;
-import com.github.ubiquitousspice.dreamdimension.handlers.BedHandler;
-import com.github.ubiquitousspice.dreamdimension.handlers.DreamManager;
-import com.github.ubiquitousspice.dreamdimension.handlers.KickHandler;
-import com.github.ubiquitousspice.dreamdimension.handlers.MilkHandler;
-import com.github.ubiquitousspice.dreamdimension.handlers.PlayerTracker;
-import com.github.ubiquitousspice.dreamdimension.item.ItemBlockBooster;
-import com.github.ubiquitousspice.dreamdimension.item.ItemDreamAxe;
-import com.github.ubiquitousspice.dreamdimension.item.ItemDreamBase;
-import com.github.ubiquitousspice.dreamdimension.item.ItemDreamDiamond;
-import com.github.ubiquitousspice.dreamdimension.item.ItemDreamDirt;
-import com.github.ubiquitousspice.dreamdimension.item.ItemDreamFleece;
-import com.github.ubiquitousspice.dreamdimension.item.ItemDreamLeaves;
-import com.github.ubiquitousspice.dreamdimension.item.ItemDreamLog;
-import com.github.ubiquitousspice.dreamdimension.item.ItemDreamPick;
-import com.github.ubiquitousspice.dreamdimension.item.ItemDreamPlanks;
-import com.github.ubiquitousspice.dreamdimension.item.ItemDreamSapling;
-import com.github.ubiquitousspice.dreamdimension.item.ItemDreamSpade;
-import com.github.ubiquitousspice.dreamdimension.item.ItemDreamSword;
-import com.github.ubiquitousspice.dreamdimension.item.ItemFleeceArmor;
-import com.github.ubiquitousspice.dreamdimension.item.ItemPear;
-import com.github.ubiquitousspice.dreamdimension.item.ItemUnicornSword;
-
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.TickRegistry;
-import cpw.mods.fml.relauncher.Side;
+import java.util.logging.Logger;
 
 //import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamDirt;
 
@@ -263,22 +219,6 @@ public class DreamDimension
         limbo = new BlockLimbo(idLimbo).setUnlocalizedName(MODID + ".limbo");
 
         // items
-        unicornHorn = new ItemDreamBase(idUnicornHorn, "Unicorn Horn", "Shiny Thing").setUnlocalizedName(MODID + ".unicornHorn").func_111206_d(MODID + ":unicornHorn").setCreativeTab(tabDream);
-        pear = new ItemPear(idPear, "Pear", "I think this is edible...").setUnlocalizedName(MODID + ".pear").func_111206_d(MODID + ":pear").setCreativeTab(tabDream);
-        fleeceHelmet = new ItemFleeceArmor(idFleeceHelm, 0, "Fleece Helmet", "Super Hero Mask").setUnlocalizedName(MODID + ".fleeceHelm").setCreativeTab(tabDream);
-        fleeceChest = new ItemFleeceArmor(idFleeceChest, 1, "Fleece Tunic", "Pants").setUnlocalizedName(MODID + ".fleeceChest").setCreativeTab(tabDream);
-        fleeceLegs = new ItemFleeceArmor(idFleeceLegs, 2, "Fleece Legs", "Snuggy").setUnlocalizedName(MODID + ".fleeceLegs").setCreativeTab(tabDream);
-        fleeceBoots = new ItemFleeceArmor(idFleeceBoots, 3, "Fleece Boots", "Animal Slippers").setUnlocalizedName(MODID + ".fleeceBoots").setCreativeTab(tabDream);
-        unicornSword = new ItemUnicornSword(idUnicornSword, "Dream Wood Blade", "Shovel", 0).setUnlocalizedName(MODID + ".unicornSword").setCreativeTab(tabDream);
-        unicornSwordUpgrade = new ItemUnicornSword(idUnicornSwordUpgrade, "Unicorn Blade", "A slightly better shovel", 1).setUnlocalizedName(MODID + ".unicornSwordUpgrade").setCreativeTab(tabDream);
-        fakeDiamond = new ItemDreamBase(idFakeDiamond, "False Diamond", "DIAMONDZ!!!").setUnlocalizedName(MODID + ".fakeDiamond").func_111206_d("diamond").setCreativeTab(tabDream);
-        dreamCatcher = new ItemDreamBase(idDreamCatcher, "Dream Catcher", "\u00A7kNormal").setUnlocalizedName(MODID + ".dreamCatcher").func_111206_d(MODID + ":dreamCatcher").setCreativeTab(tabDream);
-
-        // tools
-        fDiamondSword = new ItemDreamSword(idFDiamondSword, mat, "Fake Diamond Sword", "Sword Made of DIAMONDZ!!!").setUnlocalizedName(MODID + ".fDiamondSword").func_111206_d("diamond_sword").setCreativeTab(tabDream);
-        fDiamondShovel = new ItemDreamSpade(idFDiamondShovel, mat, "Fake Diamond Shovel", "Shovel Made of DIAMONDZ!!!").setUnlocalizedName(MODID + ".fDiamondShovel").func_111206_d("diamond_shovel").setCreativeTab(tabDream);
-        fDiamondAxe = new ItemDreamAxe(idFDiamondAxe, mat, "Fake Diamond Axe", "Axe Made of DIAMONDZ!!!").setUnlocalizedName(MODID + ".fDiamondAxe").func_111206_d("diamond_axe").setCreativeTab(tabDream);
-        fDiamondPickaxe = new ItemDreamPick(idFDiamondPickaxe, mat, "Fake Diamond Pickaxe", "Pickaxe Made of DIAMONDZ!!!").setUnlocalizedName(MODID + ".fDiamondPickaxe").func_111206_d("diamond_pickaxe").setCreativeTab(tabDream);
         unicornHorn = new ItemDreamBase(idUnicornHorn, "unicornHorn").setUnlocalizedName(MODID + ".unicornHorn").func_111206_d(MODID + ":unicornHorn").setCreativeTab(tabDream);
         pear = new ItemPear(idPear, "pear").setUnlocalizedName(MODID + ".pear").func_111206_d(MODID + ":pear").setCreativeTab(tabDream);
         fleeceHelmet = new ItemFleeceArmor(idFleeceHelm, 0, "fleeceHelmet").setUnlocalizedName(MODID + ".fleeceHelm").setCreativeTab(tabDream);
@@ -290,6 +230,7 @@ public class DreamDimension
         fakeDiamond = new ItemDreamBase(idFakeDiamond, "fakeDiamond").setUnlocalizedName(MODID + ".fakeDiamond").func_111206_d("diamond").setCreativeTab(tabDream);
         dreamCatcher = new ItemDreamBase(idDreamCatcher, "dreamCatcher").setUnlocalizedName(MODID + ".dreamCatcher").func_111206_d(MODID + ":dreamCatcher").setCreativeTab(tabDream);
 
+        // tools
         fDiamondSword = new ItemDreamSword(idFDiamondSword, mat, "fakeDiamondSword").setUnlocalizedName(MODID + ".fDiamondSword").func_111206_d("diamond_sword").setCreativeTab(tabDream);
         fDiamondShovel = new ItemDreamSpade(idFDiamondShovel, mat, "fakeDiamondShovel").setUnlocalizedName(MODID + ".fDiamondShovel").func_111206_d("diamond_shovel").setCreativeTab(tabDream);
         fDiamondAxe = new ItemDreamAxe(idFDiamondAxe, mat, "fakeDiamondAxe").setUnlocalizedName(MODID + ".fDiamondAxe").func_111206_d("diamond_axe").setCreativeTab(tabDream);
