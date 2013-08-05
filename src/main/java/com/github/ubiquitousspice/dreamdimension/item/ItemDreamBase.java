@@ -2,6 +2,7 @@ package com.github.ubiquitousspice.dreamdimension.item;
 
 import com.github.ubiquitousspice.dreamdimension.dimension.WorldProviderMod;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -20,25 +21,12 @@ public class ItemDreamBase extends Item
         super(par1);
         this.normalName = a;
         this.dreamName = b;
-
-    }
-
-    public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5)
-    {
-        if (par2World.provider instanceof WorldProviderMod)
-        {
-            this.inDreamWorld = true;
-        }
-
-        else
-        {
-            this.inDreamWorld = false;
-        }
     }
 
     public String getItemDisplayName(ItemStack stack)
     {
 
+    	this.inDreamWorld = Minecraft.getMinecraft().thePlayer.worldObj.provider instanceof WorldProviderMod;
         return (this.inDreamWorld) ? dreamName : normalName;
     }
 

@@ -1,5 +1,6 @@
 package com.github.ubiquitousspice.dreamdimension.item;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.EnumArmorMaterial;
@@ -64,23 +65,11 @@ public class ItemFleeceArmor extends ItemArmor
     {
         return this.armorType2 == 2 ? DreamDimension.MODID + ":textures/models/armor/fleeceArmor02.png" : DreamDimension.MODID + ":textures/models/armor/fleeceArmor01.png";
     }
-
-    public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5)
-    {
-        if (par2World.provider instanceof WorldProviderMod)
-        {
-            this.inDreamWorld = true;
-        }
-
-        else
-        {
-            this.inDreamWorld = false;
-        }
-    }
-
+    
     public String getItemDisplayName(ItemStack stack)
     {
 
+    	this.inDreamWorld = Minecraft.getMinecraft().thePlayer.worldObj.provider instanceof WorldProviderMod;
         return (this.inDreamWorld) ? dreamName : normalName;
     }
 
