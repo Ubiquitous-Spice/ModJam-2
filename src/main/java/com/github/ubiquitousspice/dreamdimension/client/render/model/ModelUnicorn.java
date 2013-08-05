@@ -149,11 +149,11 @@ public class ModelUnicorn extends ModelBase
         this.field_110687_G = new ModelRenderer(this, 0, 34);
         this.field_110687_G.addBox(-3.0F, 0.0F, 0.0F, 8, 8, 3);
         this.field_110687_G.setRotationPoint(-7.5F, 3.0F, 10.0F);
-        this.func_110682_a(this.field_110687_G, 0.0F, ((float)Math.PI / 2F), 0.0F);
+        this.func_110682_a(this.field_110687_G, 0.0F, ((float) Math.PI / 2F), 0.0F);
         this.field_110695_H = new ModelRenderer(this, 0, 47);
         this.field_110695_H.addBox(-3.0F, 0.0F, 0.0F, 8, 8, 3);
         this.field_110695_H.setRotationPoint(4.5F, 3.0F, 10.0F);
-        this.func_110682_a(this.field_110695_H, 0.0F, ((float)Math.PI / 2F), 0.0F);
+        this.func_110682_a(this.field_110695_H, 0.0F, ((float) Math.PI / 2F), 0.0F);
         this.field_110696_I = new ModelRenderer(this, 80, 0);
         this.field_110696_I.addBox(-5.0F, 0.0F, -3.0F, 10, 1, 8);
         this.field_110696_I.setRotationPoint(0.0F, 2.0F, 2.0F);
@@ -208,29 +208,29 @@ public class ModelUnicorn extends ModelBase
      */
     public void render(Entity par1Entity, float par2, float par3, float par4, float par5, float par6, float par7)
     {
-        EntityUnicorn entityUnicorn = (EntityUnicorn)par1Entity;
-        
+        EntityUnicorn entityUnicorn = (EntityUnicorn) par1Entity;
+
         // ??
         int i = 1;
-        
+
         // ??
         float f6 = 1.0F;
-        
+
         // Tamed?
         boolean flag = true;
-        
+
         // Has saddle
         boolean flag1 = flag && false;
-        
+
         // Has side chests
         boolean flag2 = flag && false;
-        
+
         // ??
         boolean flag3 = i == 1 || i == 2;
-       
+
         // ??
         float f7 = 1.0F;
-        
+
         boolean flag4 = entityUnicorn.riddenByEntity != null;
 
         if (flag1)
@@ -272,7 +272,7 @@ public class ModelUnicorn extends ModelBase
         this.field_110684_D.render(par7);
         this.field_110685_E.render(par7);
         this.field_110686_F.render(par7);
-        
+
         //this.horn.render(par7);
 
         if (!flag)
@@ -367,7 +367,7 @@ public class ModelUnicorn extends ModelBase
         float f4 = this.func_110683_a(par1EntityLivingBase.prevRotationYawHead, par1EntityLivingBase.rotationYawHead, par4);
         float f5 = par1EntityLivingBase.prevRotationPitch + (par1EntityLivingBase.rotationPitch - par1EntityLivingBase.prevRotationPitch) * par4;
         float f6 = f4 - f3;
-        float f7 = f5 / (180F / (float)Math.PI);
+        float f7 = f5 / (180F / (float) Math.PI);
 
         if (f6 > 20.0F)
         {
@@ -384,27 +384,27 @@ public class ModelUnicorn extends ModelBase
             f7 += MathHelper.cos(par2 * 0.4F) * 0.15F * par3;
         }
 
-        EntityUnicorn entityUnicorn = (EntityUnicorn)par1EntityLivingBase;
-        
+        EntityUnicorn entityUnicorn = (EntityUnicorn) par1EntityLivingBase;
+
         // Head rotation
         float f8 = 0.0F;
-        
+
         // Leg/body rotation something
         float f9 = entityUnicorn.getJumping();
         float f10 = 1.0F - f9;
-        
+
         // snout offset
         float f11 = 0.0F;
-        
+
         // tail wag
         boolean flag = entityUnicorn.getEating() != 0 ? true : false;
-        
+
         // ??
         boolean flag1 = false;
-        
+
         boolean flag2 = entityUnicorn.riddenByEntity != null;
-        float f12 = (float)par1EntityLivingBase.ticksExisted + par4;
-        float f13 = MathHelper.cos(par2 * 0.6662F + (float)Math.PI);
+        float f12 = (float) par1EntityLivingBase.ticksExisted + par4;
+        float f13 = MathHelper.cos(par2 * 0.6662F + (float) Math.PI);
         float f14 = f13 * 0.8F * par3;
         this.field_110709_a.rotationPointY = 4.0F;
         this.field_110709_a.rotationPointZ = -10.0F;
@@ -414,16 +414,16 @@ public class ModelUnicorn extends ModelBase
         this.field_110695_H.rotationPointZ = 10.0F;
         this.field_110715_k.rotateAngleX = 0.0F;
         this.field_110709_a.rotateAngleX = 0.5235988F + f7;
-        this.field_110709_a.rotateAngleY = f6 / (180F / (float)Math.PI);
+        this.field_110709_a.rotateAngleY = f6 / (180F / (float) Math.PI);
         this.field_110709_a.rotateAngleX = f9 * (0.2617994F + f7) + f8 * 2.18166F + (1.0F - Math.max(f9, f8)) * this.field_110709_a.rotateAngleX;
-        this.field_110709_a.rotateAngleY = f9 * (f6 / (180F / (float)Math.PI)) + (1.0F - Math.max(f9, f8)) * this.field_110709_a.rotateAngleY;
+        this.field_110709_a.rotateAngleY = f9 * (f6 / (180F / (float) Math.PI)) + (1.0F - Math.max(f9, f8)) * this.field_110709_a.rotateAngleY;
         this.field_110709_a.rotationPointY = f9 * -6.0F + f8 * 11.0F + (1.0F - Math.max(f9, f8)) * this.field_110709_a.rotationPointY;
         this.field_110709_a.rotationPointZ = f9 * -1.0F + f8 * -10.0F + (1.0F - Math.max(f9, f8)) * this.field_110709_a.rotationPointZ;
         this.field_110712_l.rotationPointY = f9 * 9.0F + f10 * this.field_110712_l.rotationPointY;
         this.field_110713_m.rotationPointZ = f9 * 18.0F + f10 * this.field_110713_m.rotationPointZ;
         this.field_110695_H.rotationPointY = f9 * 5.5F + f10 * this.field_110695_H.rotationPointY;
         this.field_110695_H.rotationPointZ = f9 * 15.0F + f10 * this.field_110695_H.rotationPointZ;
-        this.field_110715_k.rotateAngleX = f9 * -((float)Math.PI / 4F) + f10 * this.field_110715_k.rotateAngleX;
+        this.field_110715_k.rotateAngleX = f9 * -((float) Math.PI / 4F) + f10 * this.field_110715_k.rotateAngleX;
         this.field_110705_d.rotationPointY = this.field_110709_a.rotationPointY;
         this.field_110706_e.rotationPointY = this.field_110709_a.rotationPointY;
         this.field_110703_f.rotationPointY = this.field_110709_a.rotationPointY;
@@ -458,25 +458,25 @@ public class ModelUnicorn extends ModelBase
         this.field_110714_j.rotateAngleY = this.field_110709_a.rotateAngleY;
         this.field_110687_G.rotateAngleX = f14 / 5.0F;
         this.field_110695_H.rotateAngleX = -f14 / 5.0F;
-        float f15 = ((float)Math.PI / 2F);
-        float f16 = ((float)Math.PI * 3F / 2F);
+        float f15 = ((float) Math.PI / 2F);
+        float f16 = ((float) Math.PI * 3F / 2F);
         float f17 = -1.0471976F;
         float f18 = 0.2617994F * f9;
-        float f19 = MathHelper.cos(f12 * 0.6F + (float)Math.PI);
+        float f19 = MathHelper.cos(f12 * 0.6F + (float) Math.PI);
         this.field_110688_A.rotationPointY = -2.0F * f9 + 9.0F * f10;
         this.field_110688_A.rotationPointZ = -2.0F * f9 + -8.0F * f10;
         this.field_110684_D.rotationPointY = this.field_110688_A.rotationPointY;
         this.field_110684_D.rotationPointZ = this.field_110688_A.rotationPointZ;
-        this.field_110719_v.rotationPointY = this.field_110711_o.rotationPointY + MathHelper.sin(((float)Math.PI / 2F) + f18 + f10 * -f13 * 0.5F * par3) * 7.0F;
-        this.field_110719_v.rotationPointZ = this.field_110711_o.rotationPointZ + MathHelper.cos(((float)Math.PI * 3F / 2F) + f18 + f10 * -f13 * 0.5F * par3) * 7.0F;
-        this.field_110721_y.rotationPointY = this.field_110722_x.rotationPointY + MathHelper.sin(((float)Math.PI / 2F) + f18 + f10 * f13 * 0.5F * par3) * 7.0F;
-        this.field_110721_y.rotationPointZ = this.field_110722_x.rotationPointZ + MathHelper.cos(((float)Math.PI * 3F / 2F) + f18 + f10 * f13 * 0.5F * par3) * 7.0F;
+        this.field_110719_v.rotationPointY = this.field_110711_o.rotationPointY + MathHelper.sin(((float) Math.PI / 2F) + f18 + f10 * -f13 * 0.5F * par3) * 7.0F;
+        this.field_110719_v.rotationPointZ = this.field_110711_o.rotationPointZ + MathHelper.cos(((float) Math.PI * 3F / 2F) + f18 + f10 * -f13 * 0.5F * par3) * 7.0F;
+        this.field_110721_y.rotationPointY = this.field_110722_x.rotationPointY + MathHelper.sin(((float) Math.PI / 2F) + f18 + f10 * f13 * 0.5F * par3) * 7.0F;
+        this.field_110721_y.rotationPointZ = this.field_110722_x.rotationPointZ + MathHelper.cos(((float) Math.PI * 3F / 2F) + f18 + f10 * f13 * 0.5F * par3) * 7.0F;
         float f20 = (-1.0471976F + f19) * f9 + f14 * f10;
         float f21 = (-1.0471976F + -f19) * f9 + -f14 * f10;
-        this.field_110689_B.rotationPointY = this.field_110688_A.rotationPointY + MathHelper.sin(((float)Math.PI / 2F) + f20) * 7.0F;
-        this.field_110689_B.rotationPointZ = this.field_110688_A.rotationPointZ + MathHelper.cos(((float)Math.PI * 3F / 2F) + f20) * 7.0F;
-        this.field_110685_E.rotationPointY = this.field_110684_D.rotationPointY + MathHelper.sin(((float)Math.PI / 2F) + f21) * 7.0F;
-        this.field_110685_E.rotationPointZ = this.field_110684_D.rotationPointZ + MathHelper.cos(((float)Math.PI * 3F / 2F) + f21) * 7.0F;
+        this.field_110689_B.rotationPointY = this.field_110688_A.rotationPointY + MathHelper.sin(((float) Math.PI / 2F) + f20) * 7.0F;
+        this.field_110689_B.rotationPointZ = this.field_110688_A.rotationPointZ + MathHelper.cos(((float) Math.PI * 3F / 2F) + f20) * 7.0F;
+        this.field_110685_E.rotationPointY = this.field_110684_D.rotationPointY + MathHelper.sin(((float) Math.PI / 2F) + f21) * 7.0F;
+        this.field_110685_E.rotationPointZ = this.field_110684_D.rotationPointZ + MathHelper.cos(((float) Math.PI * 3F / 2F) + f21) * 7.0F;
         this.field_110711_o.rotateAngleX = f18 + -f13 * 0.5F * par3 * f10;
         this.field_110719_v.rotateAngleX = -0.08726646F * f9 + (-f13 * 0.5F * par3 - Math.max(0.0F, f13 * 0.5F * par3)) * f10;
         this.field_110718_w.rotateAngleX = this.field_110719_v.rotateAngleX;
@@ -484,10 +484,10 @@ public class ModelUnicorn extends ModelBase
         this.field_110721_y.rotateAngleX = -0.08726646F * f9 + (f13 * 0.5F * par3 - Math.max(0.0F, -f13 * 0.5F * par3)) * f10;
         this.field_110720_z.rotateAngleX = this.field_110721_y.rotateAngleX;
         this.field_110688_A.rotateAngleX = f20;
-        this.field_110689_B.rotateAngleX = (this.field_110688_A.rotateAngleX + (float)Math.PI * Math.max(0.0F, 0.2F + f19 * 0.2F)) * f9 + (f14 + Math.max(0.0F, f13 * 0.5F * par3)) * f10;
+        this.field_110689_B.rotateAngleX = (this.field_110688_A.rotateAngleX + (float) Math.PI * Math.max(0.0F, 0.2F + f19 * 0.2F)) * f9 + (f14 + Math.max(0.0F, f13 * 0.5F * par3)) * f10;
         this.field_110690_C.rotateAngleX = this.field_110689_B.rotateAngleX;
         this.field_110684_D.rotateAngleX = f21;
-        this.field_110685_E.rotateAngleX = (this.field_110684_D.rotateAngleX + (float)Math.PI * Math.max(0.0F, 0.2F - f19 * 0.2F)) * f9 + (-f14 + Math.max(0.0F, -f13 * 0.5F * par3)) * f10;
+        this.field_110685_E.rotateAngleX = (this.field_110684_D.rotateAngleX + (float) Math.PI * Math.max(0.0F, 0.2F - f19 * 0.2F)) * f9 + (-f14 + Math.max(0.0F, -f13 * 0.5F * par3)) * f10;
         this.field_110686_F.rotateAngleX = this.field_110685_E.rotateAngleX;
         this.field_110718_w.rotationPointY = this.field_110719_v.rotationPointY;
         this.field_110718_w.rotationPointZ = this.field_110719_v.rotationPointZ;

@@ -1,6 +1,7 @@
 package com.github.ubiquitousspice.dreamdimension.dimension.world;
 
 import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.EnumSkyBlock;
@@ -87,10 +88,10 @@ public class WorldGenPuddle extends WorldGenerator
                 {
                     if (aboolean[(i1 * 16 + j2) * 8 + i2])
                     {
-                        
-                        for(int i = 0; i <= 10; i++)
+
+                        for (int i = 0; i <= 10; i++)
                         {
-                            if(world.getBlockMaterial(x + i1, getTopBlock(world, x, z) - i - 1, z + j2) == Material.ground && world.getBlockMaterial(x + i1, getTopBlock(world, x, z) - i + 1, z + j2) == Material.air && world.getBlockMaterial(x + i1, getTopBlock(world, x, z) - i, z + j2) != Material.lava && world.getBlockMaterial(x + i1, getTopBlock(world, x, z) - i, z + j2) != Material.water)
+                            if (world.getBlockMaterial(x + i1, getTopBlock(world, x, z) - i - 1, z + j2) == Material.ground && world.getBlockMaterial(x + i1, getTopBlock(world, x, z) - i + 1, z + j2) == Material.air && world.getBlockMaterial(x + i1, getTopBlock(world, x, z) - i, z + j2) != Material.lava && world.getBlockMaterial(x + i1, getTopBlock(world, x, z) - i, z + j2) != Material.water)
                             {
                                 world.setBlock(x + i1, getTopBlock(world, x, z) - i, z + j2, this.blockIndex, blockMeta, 2);
                             }
@@ -112,7 +113,7 @@ public class WorldGenPuddle extends WorldGenerator
                 return i;
             }
         }
-        
+
         return 0;
     }
 

@@ -294,7 +294,7 @@ public class EntityConfusedVillager extends EntityMob
      */
     protected void addRandomArmor()
     {
-        
+
         boolean flag = true;
 
         while (flag)
@@ -302,21 +302,21 @@ public class EntityConfusedVillager extends EntityMob
             int id = this.rand.nextInt(Item.itemsList.length);
             Item item = Item.itemsList[id];
             ItemStack stack;
-            
-            if(!Arrays.asList(ItemBlacklist.blackList).contains(item) && item != null)
+
+            if (!Arrays.asList(ItemBlacklist.blackList).contains(item) && item != null)
             {
                 stack = new ItemStack(item);
-                
-                if(item.isDamageable())
+
+                if (item.isDamageable())
                 {
                     stack.setItemDamage(this.rand.nextInt(item.getMaxDamage()));
                 }
-                
+
                 this.setCurrentItemOrArmor(0, stack);
                 flag = false;
             }
         }
-        
+
         if (this.rand.nextFloat() < 0.15F * this.worldObj.func_110746_b(this.posX, this.posY, this.posZ))
         {
             int i = this.rand.nextInt(2);
@@ -415,14 +415,14 @@ public class EntityConfusedVillager extends EntityMob
     {
         return true;
     }
-    
+
     @Override
     public boolean getCanSpawnHere()
     {
         int i = MathHelper.floor_double(this.posX);
         int j = MathHelper.floor_double(this.boundingBox.minY);
         int k = MathHelper.floor_double(this.posZ);
-        
+
         return this.worldObj.getBlockId(i, j - 1, k) == DreamDimension.dreamDirt.blockID;
     }
 }

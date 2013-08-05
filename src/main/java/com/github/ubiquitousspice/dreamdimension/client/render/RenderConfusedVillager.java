@@ -20,14 +20,14 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderConfusedVillager extends RenderBiped
 {
-    private ResourceLocation      location      = new ResourceLocation(DreamDimension.MODID, "textures/entity/confusedVillager.png");
-    private ModelBiped            field_82434_o;
+    private ResourceLocation location = new ResourceLocation(DreamDimension.MODID, "textures/entity/confusedVillager.png");
+    private ModelBiped field_82434_o;
     private ModelConfusedVillager field_82432_p;
-    protected ModelBiped          field_82437_k;
-    protected ModelBiped          field_82435_l;
-    protected ModelBiped          field_82436_m;
-    protected ModelBiped          field_82433_n;
-    private int                   field_82431_q = 1;
+    protected ModelBiped field_82437_k;
+    protected ModelBiped field_82435_l;
+    protected ModelBiped field_82436_m;
+    protected ModelBiped field_82433_n;
+    private int field_82431_q = 1;
 
     public RenderConfusedVillager()
     {

@@ -9,8 +9,7 @@ public class Crafting
 
     public static void addRecipes()
     {
-        
-        
+
     }
 
 }

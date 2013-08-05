@@ -14,11 +14,10 @@ import org.lwjgl.opengl.GL11;
 
 public class SkyRenderer extends IRenderHandler
 {
-    
+
     @Override
     public void render(float partialTicks, WorldClient world, Minecraft mc)
     {
-            
 
     }
 

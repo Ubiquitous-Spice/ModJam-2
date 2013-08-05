@@ -32,7 +32,7 @@ public class Util
                 loc = new ChunkCoordinates(loc.posX, loc.posY + 1, loc.posZ);
             }
 
-            return new float[] {loc.posX + 0.5F, loc.posY + player.yOffset + 0.1F, loc.posZ + 0.5F};
+            return new float[]{loc.posX + 0.5F, loc.posY + player.yOffset + 0.1F, loc.posZ + 0.5F};
         }
 
         return null;

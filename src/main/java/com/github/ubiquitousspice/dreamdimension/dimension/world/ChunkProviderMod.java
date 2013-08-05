@@ -141,7 +141,7 @@ public class ChunkProviderMod implements IChunkProvider
         this.noiseGen5 = noiseGens[4];
         this.noiseGen6 = noiseGens[5];
         this.mobSpawnerNoise = noiseGens[6];
-        
+
     }
 
     /**
@@ -348,7 +348,7 @@ public class ChunkProviderMod implements IChunkProvider
         {
             abyte1[k] = (byte) this.biomesForGeneration[k].biomeID;
         }
-        
+
         chunk.generateSkylightMap();
         return chunk;
     }
@@ -531,46 +531,46 @@ public class ChunkProviderMod implements IChunkProvider
 
         int k = par2 * 16;
         int l = par3 * 16;
-        
+
         int k1;
         int l1;
         int i2;
-        
+
         k1 = k + this.rand.nextInt(16) + 8;
         i2 = l + this.rand.nextInt(16) + 8;
         l1 = getTopBlock(k1, i2);
-        
+
         boolean randBool = rand.nextBoolean();
-        
-        if(this.rand.nextInt(8) == 1)
+
+        if (this.rand.nextInt(8) == 1)
         {
             (new WorldGenPuddle(DreamDimension.boosterBlock.blockID, (randBool) ? 8 : 0)).generate(this.worldObj, this.rand, k1, l1, i2);
         }
-        
-        if(this.rand.nextInt(16) == 1)
+
+        if (this.rand.nextInt(16) == 1)
         {
             (new WorldGenDreamForest()).generate(this.worldObj, this.rand, k1, l1 + 1, i2);
         }
-        
+
         int x2 = k + rand.nextInt(16);
         int z2 = l + rand.nextInt(16);
         int y2 = getTopBlock(x2, z2);
-        
+
         (new WorldGenMinable(DreamDimension.dreamDiamond.blockID, 4, DreamDimension.dreamDirt.blockID)).generate(this.worldObj, rand, x2, y2, z2);
-        
+
         MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(par1IChunkProvider, worldObj, rand, par2, par3, flag));
     }
 
     public int getTopBlock(int x, int z)
     {
-        for(int i = 0; i <= 128; i++)
+        for (int i = 0; i <= 128; i++)
         {
-            if(worldObj.getBlockMaterial(x, i, z) == Material.air)
+            if (worldObj.getBlockMaterial(x, i, z) == Material.air)
             {
                 return i;
             }
         }
-        
+
         return this.rand.nextInt(128);
     }
 
@@ -616,11 +616,11 @@ public class ChunkProviderMod implements IChunkProvider
      */
     public List getPossibleCreatures(EnumCreatureType par1EnumCreatureType, int par2, int par3, int par4)
     {
-    	
-    	Random rand = new Random();
-    	
-    	int i = rand.nextInt(200);
-    	
+
+        Random rand = new Random();
+
+        int i = rand.nextInt(200);
+
         return (i == 1) ? ((BiomeGenDream) (DreamDimension.dreamy)).getSpawnableCreatures() : null;
     }
 
@@ -641,11 +641,11 @@ public class ChunkProviderMod implements IChunkProvider
     {
 
     }
-    
+
     @SideOnly(Side.CLIENT)
     public IRenderHandler getSkyRenderer()
     {
-        
+
         return new SkyRenderer();
     }
 }

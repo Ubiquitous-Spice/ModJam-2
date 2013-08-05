@@ -67,7 +67,7 @@ public class RenderUnicorn extends RenderLiving
      */
     protected void preRenderCallback(EntityLivingBase par1EntityLivingBase, float par2)
     {
-        this.func_110847_a((EntityUnicorn)par1EntityLivingBase, par2);
+        this.func_110847_a((EntityUnicorn) par1EntityLivingBase, par2);
     }
 
     /**
@@ -75,11 +75,11 @@ public class RenderUnicorn extends RenderLiving
      */
     protected void renderModel(EntityLivingBase par1EntityLivingBase, float par2, float par3, float par4, float par5, float par6, float par7)
     {
-        this.func_110846_a((EntityUnicorn)par1EntityLivingBase, par2, par3, par4, par5, par6, par7);
+        this.func_110846_a((EntityUnicorn) par1EntityLivingBase, par2, par3, par4, par5, par6, par7);
     }
 
     protected ResourceLocation func_110775_a(Entity par1Entity)
     {
-        return this.func_110849_a((EntityUnicorn)par1Entity);
+        return this.func_110849_a((EntityUnicorn) par1Entity);
     }
 }

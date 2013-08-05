@@ -13,7 +13,7 @@ public class PlayerTracker implements IPlayerTracker
     {
         if (player.worldObj.provider.dimensionId == DreamDimension.dimensionID)
         {
-            DreamManager.loadDreamer((EntityPlayerMP)player);
+            DreamManager.loadDreamer((EntityPlayerMP) player);
         }
     }
 
@@ -22,7 +22,7 @@ public class PlayerTracker implements IPlayerTracker
     {
         if (player.worldObj.provider.dimensionId == DreamDimension.dimensionID)
         {
-            DreamManager.saveDreamer((EntityPlayerMP)player);
+            DreamManager.saveDreamer((EntityPlayerMP) player);
         }
     }
 

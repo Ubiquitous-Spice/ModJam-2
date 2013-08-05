@@ -66,25 +66,24 @@ public class BlockBooster extends BlockDreamBase
     public boolean canPlaceBlockOnSide(World par1World, int par2, int par3, int par4, int par5)
     {
         ForgeDirection dir = ForgeDirection.getOrientation(par5);
-        return (dir == DOWN  && par1World.isBlockSolidOnSide(par2, par3 + 1, par4, DOWN )) ||
-               (dir == UP    && par1World.isBlockSolidOnSide(par2, par3 - 1, par4, UP   )) ||
+        return (dir == DOWN && par1World.isBlockSolidOnSide(par2, par3 + 1, par4, DOWN)) ||
+               (dir == UP && par1World.isBlockSolidOnSide(par2, par3 - 1, par4, UP)) ||
                (dir == NORTH && par1World.isBlockSolidOnSide(par2, par3, par4 + 1, NORTH)) ||
                (dir == SOUTH && par1World.isBlockSolidOnSide(par2, par3, par4 - 1, SOUTH)) ||
-               (dir == WEST  && par1World.isBlockSolidOnSide(par2 + 1, par3, par4, WEST )) ||
-               (dir == EAST  && par1World.isBlockSolidOnSide(par2 - 1, par3, par4, EAST ));
+               (dir == WEST && par1World.isBlockSolidOnSide(par2 + 1, par3, par4, WEST)) ||
+               (dir == EAST && par1World.isBlockSolidOnSide(par2 - 1, par3, par4, EAST));
     }
 
     @Override
     public boolean canPlaceBlockAt(World par1World, int par2, int par3, int par4)
     {
-        return par1World.isBlockSolidOnSide(par2 - 1, par3, par4, EAST ) ||
-               par1World.isBlockSolidOnSide(par2 + 1, par3, par4, WEST ) ||
+        return par1World.isBlockSolidOnSide(par2 - 1, par3, par4, EAST) ||
+               par1World.isBlockSolidOnSide(par2 + 1, par3, par4, WEST) ||
                par1World.isBlockSolidOnSide(par2, par3, par4 - 1, SOUTH) ||
                par1World.isBlockSolidOnSide(par2, par3, par4 + 1, NORTH) ||
-               par1World.isBlockSolidOnSide(par2, par3 - 1, par4, UP   ) ||
-               par1World.isBlockSolidOnSide(par2, par3 + 1, par4, DOWN );
+               par1World.isBlockSolidOnSide(par2, par3 - 1, par4, UP) ||
+               par1World.isBlockSolidOnSide(par2, par3 + 1, par4, DOWN);
     }
-
 
     @Override
     public int onBlockPlaced(World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ, int metadata)

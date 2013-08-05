@@ -15,7 +15,7 @@ public class ItemPear extends ItemDreamBase
     public final int itemUseDuration;
     private final int healAmount;
     private final float saturationModifier;
-    
+
     public ItemPear(int par1, String a, String b)
     {
         super(par1, a, b);
@@ -70,20 +70,20 @@ public class ItemPear extends ItemDreamBase
     {
         return this.saturationModifier;
     }
-    
-    public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) 
+
+    public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5)
     {
         super.onUpdate(par1ItemStack, par2World, par3Entity, par4, par5);
-        
-        if(this.inDreamWorld)
+
+        if (this.inDreamWorld)
         {
-            if(((EntityPlayer) par3Entity).getItemInUseCount() > 0)
+            if (((EntityPlayer) par3Entity).getItemInUseCount() > 0)
             {
                 System.out.println("fly");
-                
+
                 par3Entity.fallDistance = 0;
-                
-                if(par3Entity.motionY != 0.1)
+
+                if (par3Entity.motionY != 0.1)
                 {
                     par3Entity.motionY = 0.1;
                 }

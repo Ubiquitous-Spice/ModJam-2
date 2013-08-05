@@ -13,9 +13,9 @@ import net.minecraftforge.common.ForgeDirection;
 
 public class WorldGenDreamTree extends WorldGenerator
 {
-    public static Block treeWood      = DreamDimension.dreamLog;
-    public static Block treeLeaf      = DreamDimension.dreamLeaf;
-    private int         minTreeHeight = 6;
+    public static Block treeWood = DreamDimension.dreamLog;
+    public static Block treeLeaf = DreamDimension.dreamLeaf;
+    private int minTreeHeight = 6;
     private boolean enderFlag;
 
     public WorldGenDreamTree(boolean b)
@@ -56,17 +56,17 @@ public class WorldGenDreamTree extends WorldGenerator
         {
             world.setBlock(x, y + i, z, treeWood.blockID);
         }
-        
-        if(rand.nextInt(30) == 1)
+
+        if (rand.nextInt(30) == 1)
         {
-            if(this.enderFlag)world.setBlock(x, y + l + 1, z, Block.enderChest.blockID);
+            if (this.enderFlag)
+                world.setBlock(x, y + l + 1, z, Block.enderChest.blockID);
         }
-        
+
         return true;
     }
 
-    public static void addLeaves(int x, int y, int z, int w, int h, int d,
-            int bid, World world)
+    public static void addLeaves(int x, int y, int z, int w, int h, int d, int bid, World world)
     {
         for (int i = x; i < x + w; i++)
         {

@@ -23,7 +23,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class EntityUnicorn extends EntityFlying implements IMob
 {
-    
+
     public int courseChangeCooldown;
     public double waypointX;
     public double waypointY;
@@ -47,7 +47,7 @@ public class EntityUnicorn extends EntityFlying implements IMob
 
     public float getJumping()
     {
-        return this.jumping ;
+        return this.jumping;
     }
 
     @SideOnly(Side.CLIENT)
@@ -79,15 +79,15 @@ public class EntityUnicorn extends EntityFlying implements IMob
 
         if (d3 < 1.0D || d3 > 3600.0D)
         {
-            this.waypointX = this.posX + (double)((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
-            this.waypointY = this.posY + (double)((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
-            this.waypointZ = this.posZ + (double)((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
+            this.waypointX = this.posX + (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
+            this.waypointY = this.posY + (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
+            this.waypointZ = this.posZ + (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
         }
 
         if (this.courseChangeCooldown-- <= 0)
         {
             this.courseChangeCooldown += this.rand.nextInt(5) + 2;
-            d3 = (double)MathHelper.sqrt_double(d3);
+            d3 = (double) MathHelper.sqrt_double(d3);
 
             if (this.isCourseTraversable(this.waypointX, this.waypointY, this.waypointZ, d3))
             {
@@ -116,7 +116,7 @@ public class EntityUnicorn extends EntityFlying implements IMob
         double d6 = (this.waypointZ - this.posZ) / par7;
         AxisAlignedBB axisalignedbb = this.boundingBox.copy();
 
-        for (int i = 1; (double)i < par7; ++i)
+        for (int i = 1; (double) i < par7; ++i)
         {
             axisalignedbb.offset(d4, d5, d6);
 
@@ -196,56 +196,57 @@ public class EntityUnicorn extends EntityFlying implements IMob
     }
 
     @Override
-    protected void updateFallState(double par1, boolean par3) {
-        
+    protected void updateFallState(double par1, boolean par3)
+    {
+
         this.motionY -= 0.01;
-        
+
         /**if(this.posY >= 75)
-        {
-            this.motionY -= 0.05;
-        }*/
+         {
+         this.motionY -= 0.05;
+         }*/
     }
-    
+
     @Override
     public void onUpdate()
     {
         super.onUpdate();
-        
+
         this.actionTicks += 1;
-        
-        if(this.jumping == 0 && this.eating == 0)
+
+        if (this.jumping == 0 && this.eating == 0)
         {
             int i = this.rand.nextInt(200);
-            
-            if(i == 1)
+
+            if (i == 1)
             {
                 this.jumping = 1;
                 this.actionTicks = 0;
             }
-            
-            if(i >= 160)
+
+            if (i >= 160)
             {
                 this.eating = 1;
                 this.actionTicks = 0;
             }
-            
+
         }
-        
-        if(actionTicks >= 20)
+
+        if (actionTicks >= 20)
         {
             this.jumping = 0.0F;
             this.eating = 0.0F;
         }
     }
-    
+
     @Override
     public boolean getCanSpawnHere()
     {
-        
+
         int i = MathHelper.floor_double(this.posX);
         int j = MathHelper.floor_double(this.boundingBox.minY);
         int k = MathHelper.floor_double(this.posZ);
-        
+
         return this.worldObj.getBlockId(i, j - 1, k) == DreamDimension.dreamDirt.blockID;
     }
 }

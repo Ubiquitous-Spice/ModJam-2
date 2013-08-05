@@ -24,7 +24,9 @@ public class DreamerData
 
     private InventoryPlayer oldInv;
 
-    public DreamerData() {}
+    public DreamerData()
+    {
+    }
 
     /**
      * Only loads data from the player, doesn't edit the player.
@@ -100,7 +102,6 @@ public class DreamerData
         return data;
     }
 
-    
     // Hardcoded methods, not project lombok
     // Sorry Abrar, technology doesn't like me =P
     public void setTimeLeft(long time)
@@ -132,17 +133,17 @@ public class DreamerData
     {
         return this.bedX;
     }
-    
+
     public double getBedY()
     {
         return this.bedY;
     }
-    
+
     public double getBedZ()
     {
         return this.bedZ;
     }
-    
+
     public double getTimeLeft()
     {
         return this.timeLeft;

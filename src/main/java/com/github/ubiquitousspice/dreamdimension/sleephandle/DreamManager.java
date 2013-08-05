@@ -21,20 +21,20 @@ public class DreamManager implements ITickHandler
     public void tickStart(EnumSet<TickType> type, Object... tickData)
     {
         // do stuff here.
-        EntityPlayerMP player = (EntityPlayerMP)tickData[0];
+        EntityPlayerMP player = (EntityPlayerMP) tickData[0];
 
         DreamerData data = dreamers.get(player.username);
 
         // null check.
         if (data == null)
             return;
-        
-        if(data.getTimeLeft() == 600)
+
+        if (data.getTimeLeft() == 600)
         {
             // why?
             player.addPotionEffect(new PotionEffect(Potion.confusion.id, 600, 0));
         }
-        
+
         if (!data.decrementTime())
         {
             kickDreamer(player, 0);
@@ -83,7 +83,6 @@ public class DreamManager implements ITickHandler
         DreamerData data = dreamers.remove(player.username);
         data.writeToNBT(player.getEntityData());
     }
-
 
     /**
      * Adds the player to the dreamer list, and replaces their inventory.

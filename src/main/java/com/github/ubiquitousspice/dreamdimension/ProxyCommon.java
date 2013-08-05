@@ -6,12 +6,14 @@ import cpw.mods.fml.relauncher.Side;
 public class ProxyCommon
 {
 
-    public void registerRenderers() {}
+    public void registerRenderers()
+    {
+    }
 
     public void registerTickHandler()
     {
         TickRegistry.registerTickHandler(new TickHandler(), Side.SERVER);
-        
+
     }
 
 }

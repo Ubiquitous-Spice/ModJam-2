@@ -22,15 +22,15 @@ public class WorldProviderMod extends WorldProvider
 
     private static float skyColorMax = 1.0F;
     private static float skyColorMin = 0.05F;
-    private int         fogTicks;
-    private float       skyR       = 0.01F;
-    private float       skyG       = 0.01F;
-    private float       skyB       = 0.01F;
-    private float       incrementR;
-    private float       incrementG;
-    private float       incrementB;
+    private int fogTicks;
+    private float skyR = 0.01F;
+    private float skyG = 0.01F;
+    private float skyB = 0.01F;
+    private float incrementR;
+    private float incrementG;
+    private float incrementB;
 
-    Random               rand        = new Random();
+    Random rand = new Random();
 
     public void registerWorldChunkManager()
     {
@@ -119,8 +119,8 @@ public class WorldProviderMod extends WorldProvider
 
     /**
      * @SideOnly(Side.CLIENT) public String getSunTexture() {
-     *                        return "/Main:TwinSuns.png";
-     *                        }
+     * return "/Main:TwinSuns.png";
+     * }
      */
 
     public ChunkCoordinates getEntrancePortalLocation()
@@ -184,19 +184,7 @@ public class WorldProviderMod extends WorldProvider
         return 18000;
     }
 
-    public static int[] skyColors = new int[] {
-                                  0xb64040,
-                                  0xb68b40,
-                                  0xb5b640,
-                                  0x50b640,
-                                  0x40b682,
-                                  0x40b2b6,
-                                  0x4067b6,
-                                  0x4042b6,
-                                  0xa140b6,
-                                  0xb6408b,
-                                  0xb64050
-                                  };
+    public static int[] skyColors = new int[]{0xb64040, 0xb68b40, 0xb5b640, 0x50b640, 0x40b682, 0x40b2b6, 0x4067b6, 0x4042b6, 0xa140b6, 0xb6408b, 0xb64050};
 
     @SideOnly(Side.CLIENT)
     public Vec3 getFogColor(float par1, float par2)
@@ -204,48 +192,48 @@ public class WorldProviderMod extends WorldProvider
 
         //System.out.println("getting fog color");
 
-        if(!DreamDimension.boringSky)
+        if (!DreamDimension.boringSky)
         {
             fogTicks++;
-    
+
             if (fogTicks % 50 == 0) //checks if fogTicks is divisible by x
             {
-    
+
                 this.incrementR = 0;
                 this.incrementB = 0;
                 this.incrementG = 0;
-    
+
                 int i = rand.nextInt(3) + 1;
                 float inc = (rand.nextInt(20) + 1 - 10);
                 int i2 = 200;
-                
+
                 //System.out.println("Changing an increment to: " + inc);
-    
+
                 if (i == 1)
                 {
                     incrementR = inc / i2;
                 }
-    
+
                 if (i == 2)
                 {
                     incrementG = inc / i2;
                 }
-    
+
                 if (i == 3)
                 {
                     incrementB = inc / i2;
                 }
             }
-    
+
             if (fogTicks % 2 == 0)
             {
-                
+
                 this.skyR = this.skyR + (incrementR);
                 //System.out.println("R: " + this.skyR + ", incrementR: " + incrementR);
-    
+
                 this.skyB = this.skyB + (incrementB);
                 //System.out.println("B: " + this.skyB + ", incrementB: " + incrementB);
-    
+
                 this.skyG = this.skyG + (incrementG);
                 //System.out.println("G: " + this.skyR + ", incrementG: " + incrementG);
             }
@@ -253,13 +241,13 @@ public class WorldProviderMod extends WorldProvider
 
         return this.worldObj.getWorldVec3Pool().getVecFromPool(this.skyR, this.skyB, this.skyG);
     }
-    
+
     @SideOnly(Side.CLIENT)
     public IRenderHandler getSkyRenderer()
     {
         return new SkyRenderer();
     }
-    
+
     @SideOnly(Side.CLIENT)
     public IRenderHandler getCloudRenderer()
     {
