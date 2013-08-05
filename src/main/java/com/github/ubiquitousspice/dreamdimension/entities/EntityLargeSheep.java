@@ -14,6 +14,7 @@ import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.boss.IBossDisplayData;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
@@ -157,9 +158,9 @@ public class EntityLargeSheep extends EntityAnimal implements IBossDisplayData
 
     	if(!this.worldObj.isRemote)
     	{
-    		this.worldObj.spawnEntityInWorld(new EntityGiantItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(Block.cloth)));
+    		//this.worldObj.spawnEntityInWorld(new EntityGiantItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(DreamDimension.giantWool)));
     		
-    		//this.worldObj.spawnEntityInWorld(new EntityItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(Block.cloth, 42)));
+    		this.worldObj.spawnEntityInWorld(new EntityItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(DreamDimension.dreamFleece)));
     	}
     		
         super.onDeath(par1DamageSource);
@@ -201,7 +202,7 @@ public class EntityLargeSheep extends EntityAnimal implements IBossDisplayData
         if(this.rand.nextInt(5) == 1)
         {
             
-            PotionEffect effect = new PotionEffect(Potion.invisibility.id, 100, 1);
+            PotionEffect effect = new PotionEffect(Potion.invisibility.id, 999999999, 1);
             effect.setPotionDurationMax(true);
             this.addPotionEffect(effect);
         }

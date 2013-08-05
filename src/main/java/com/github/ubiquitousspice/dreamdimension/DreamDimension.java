@@ -1,6 +1,22 @@
 package com.github.ubiquitousspice.dreamdimension;
 
 import com.github.ubiquitousspice.dreamdimension.blocks.*;
+import java.util.logging.Logger;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityEggInfo;
+import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlockWithMetadata;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.DimensionManager;
+
+import com.github.ubiquitousspice.dreamdimension.blocks.BlockBooster;
+import com.github.ubiquitousspice.dreamdimension.blocks.BlockCheatyPortal;
+import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamFleece;
 import com.github.ubiquitousspice.dreamdimension.client.CreativeTabDream;
 import com.github.ubiquitousspice.dreamdimension.dimension.WorldProviderMod;
 import com.github.ubiquitousspice.dreamdimension.dimension.world.BiomeGenDream;
@@ -12,6 +28,8 @@ import com.github.ubiquitousspice.dreamdimension.sleephandle.BedHandler;
 import com.github.ubiquitousspice.dreamdimension.sleephandle.DreamManager;
 import com.github.ubiquitousspice.dreamdimension.sleephandle.KickHandler;
 import com.github.ubiquitousspice.dreamdimension.sleephandle.PlayerTracker;
+import com.github.ubiquitousspice.dreamdimension.item.FleeceArmor;
+
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
@@ -35,6 +53,7 @@ import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 
 import java.util.logging.Logger;
+//import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamDirt;
 
 @Mod(modid = DreamDimension.MODID, version = DreamDimension.VERSION, name = "The Dream Dimension")
 public class DreamDimension
@@ -65,6 +84,10 @@ public class DreamDimension
     // IDS
     public static int dimensionID;
     static int startEntityId = 300;
+    private int idFleeceHelm;
+    private int idFleeceChest;
+    private int idFleeceLegs;
+    private int idFleeceBoots;
     private int idDreamDirt;
     private int idDreamBooster;
     private int idPortalBlock;
@@ -72,7 +95,14 @@ public class DreamDimension
     private int idDreamLog;
     private int idDreamLeaf;
     private int idUnicornHorn;
+    private int idDreamFleece;
 
+    // items
+    public static Item fleeceHelmet;
+    public static Item fleeceChest;
+    public static Item fleeceLegs;
+    public static Item fleeceBoots;
+    
     // blocks
     public static Block dreamDirt;
     public static Block boosterBlock;
@@ -83,6 +113,7 @@ public class DreamDimension
 
     // items
     public static Item unicornHorn;
+    public static Block dreamFleece;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -98,7 +129,16 @@ public class DreamDimension
             Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 
             // config terrainIDs
+            // config itemIDs
+            int baseItemId = 9000;
+            idFleeceHelm = config.getItem(Configuration.CATEGORY_ITEM, "FleeceHelm", baseItemId++).getInt();
+            idFleeceChest = config.getItem(Configuration.CATEGORY_ITEM, "FleeceChest", baseItemId++).getInt();
+            idFleeceLegs = config.getItem(Configuration.CATEGORY_ITEM, "FleeceLegs", baseItemId++).getInt();
+            idFleeceBoots = config.getItem(Configuration.CATEGORY_ITEM, "FleeceBoots", baseItemId++).getInt();
+            
+            // config blockIDs
             int genId = 200;
+            int baseId = 300;
             idDreamDirt = config.getTerrainBlock(Configuration.CATEGORY_BLOCK, "DreamDirt", genId++, "Base dirt for Dream Dimension").getInt();
             idDreamBooster = config.getTerrainBlock(Configuration.CATEGORY_BLOCK, "DreamLauncher", genId++, "Base dirt for Dream Dimension").getInt();
             idDreamLog = config.getTerrainBlock(Configuration.CATEGORY_BLOCK, "DreamLog", genId++, "Logs for dream trees").getInt();
@@ -108,6 +148,7 @@ public class DreamDimension
             int baseId = 300;
             idPortalBlock = config.getBlock(Configuration.CATEGORY_BLOCK, "PortalBlock", baseId++).getInt();
             idGiantWool = config.getBlock(Configuration.CATEGORY_BLOCK, "GiantWool", baseId++).getInt();
+            idDreamFleece = config.getBlock(Configuration.CATEGORY_BLOCK, "DreamFleece", baseId++).getInt();
 
             // config itemIDs
             int baseItemID = 9001;
@@ -156,6 +197,16 @@ public class DreamDimension
 
         // items
         unicornHorn = new Item(idUnicornHorn).func_111206_d(MODID + ":unicornHorn");
+        fleeceHelmet = new FleeceArmor(idFleeceHelm, 0).setUnlocalizedName(MODID + ".fleeceHelm").setCreativeTab(tabDream);
+        fleeceChest = new FleeceArmor(idFleeceChest, 1).setUnlocalizedName(MODID + ".fleeceChest").setCreativeTab(tabDream);
+        fleeceLegs = new FleeceArmor(idFleeceLegs, 2).setUnlocalizedName(MODID + ".fleeceLegs").setCreativeTab(tabDream);
+        fleeceBoots = new FleeceArmor(idFleeceBoots, 3).setUnlocalizedName(MODID + ".fleeceBoots").setCreativeTab(tabDream);
+        
+        // do blocks and stuff here.
+        dreamDirt = new Block(idDreamDirt, Material.ground).setUnlocalizedName(MODID + ".dreamDirt").func_111022_d(MODID + ":dreamDirt").setCreativeTab(tabDream);
+        boosterBlock = new BlockBooster(idDreamBooster).setCreativeTab(tabDream);
+        portalBlock = new BlockCheatyPortal(idPortalBlock).setUnlocalizedName(MODID + ".portalBlock").setCreativeTab(tabDream);
+        dreamFleece = new BlockDreamFleece(idDreamFleece).setUnlocalizedName(MODID + ".dreamFleeceLarge").setCreativeTab(tabDream);
 
         // registrations
         GameRegistry.registerBlock(dreamDirt, "dreamDirt");
@@ -163,9 +214,10 @@ public class DreamDimension
         GameRegistry.registerBlock(portalBlock, "portalBlock");
         GameRegistry.registerBlock(dreamLog, "dreamWood");
         GameRegistry.registerBlock(dreamLeaf, "dreamLeaves");
+        GameRegistry.registerBlock(dreamFleece, "dreamFleece");
 
         // dimension stuff
-        dreamy = new BiomeGenDream(25);
+        dreamy = new BiomeGenDream(25).setDisableRain();
         DimensionManager.registerProviderType(dimensionID, WorldProviderMod.class, true);
         DimensionManager.registerDimension(dimensionID, dimensionID);
 
@@ -180,9 +232,13 @@ public class DreamDimension
         // entity spawning
         EntityRegistry.addSpawn(EntityLargeSheep.class, 1, 1, 1, EnumCreatureType.creature, dreamy);
         EntityRegistry.addSpawn(EntityConfusedVillager.class, 10, 4, 6, EnumCreatureType.creature, dreamy);
+        EntityRegistry.addSpawn(EntityUnicorn.class, 6, 4, 6, EnumCreatureType.creature, dreamy);
 
         // renders
         proxy.registerRenderers();
+        
+        // crafting
+        Crafting.addRecipes();
     }
 
     /**
