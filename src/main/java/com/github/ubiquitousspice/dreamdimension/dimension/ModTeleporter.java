@@ -1,21 +1,19 @@
 package com.github.ubiquitousspice.dreamdimension.dimension;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.LongHashMap;
+import net.minecraft.util.HashMap;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.PortalPosition;
 import net.minecraft.world.Teleporter;
 import net.minecraft.world.WorldServer;
 
-import com.github.ubiquitousspice.dreamdimension.DreamDimension;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 
 public class ModTeleporter extends Teleporter
 {
@@ -25,18 +23,18 @@ public class ModTeleporter extends Teleporter
     /**
      * A private Random() function in Teleporter
      */
-    private final Random      random;
+    private final Random random;
 
     /**
      * Stores successful portal placement locations for rapid lookup.
      */
-    private final LongHashMap destinationCoordinateCache = new LongHashMap();
+    private final HashMap destinationCoordinateCache = new HashMap();
 
     /**
      * A list of valid keys for the destinationCoordainteCache. These are based
      * on the X & Z of the players initial location.
      */
-    private final List        destinationCoordinateKeys  = new ArrayList();
+    private final List destinationCoordinateKeys = new ArrayList();
 
     public ModTeleporter(WorldServer par1WorldServer)
     {
@@ -125,10 +123,10 @@ public class ModTeleporter extends Teleporter
                     for (int i2 = worldServerInstance.getActualHeight() - 1; i2 >= 0; --i2)
                     {
                         /** change this block **/
-                        if (worldServerInstance.getBlockId(k1, i2, l1) == DreamDimension.portalBlock.blockID)
+                        if (worldServerInstance.isAirBlock(k1, i2, l1))
                         {
                             /** change this block **/
-                            while (worldServerInstance.getBlockId(k1, i2 - 1, l1) == DreamDimension.portalBlock.blockID)
+                            while (worldServerInstance.isAirBlock(k1, i2 - 1, l1))
                             {
                                 --i2;
                             }
@@ -158,22 +156,22 @@ public class ModTeleporter extends Teleporter
             d4 = k + 0.5D;
             int j2 = -1;
             /** change this block **/
-            if (worldServerInstance.getBlockId(i - 1, j, k) == DreamDimension.portalBlock.blockID)
+            if (worldServerInstance.isAirBlock(i - 1, j, k))
             {
                 j2 = 2;
             }
             /** change this block **/
-            if (worldServerInstance.getBlockId(i + 1, j, k) == DreamDimension.portalBlock.blockID)
+            if (worldServerInstance.isAirBlock(i + 1, j, k))
             {
                 j2 = 0;
             }
             /** change this block **/
-            if (worldServerInstance.getBlockId(i, j, k - 1) == DreamDimension.portalBlock.blockID)
+            if (worldServerInstance.isAirBlock(i, j, k - 1))
             {
                 j2 = 3;
             }
             /** change this block **/
-            if (worldServerInstance.getBlockId(i, j, k + 1) == DreamDimension.portalBlock.blockID)
+            if (worldServerInstance.isAirBlock(i, j, k + 1))
             {
                 j2 = 1;
             }
@@ -264,7 +262,6 @@ public class ModTeleporter extends Teleporter
     @Override
     public boolean makePortal(Entity par1Entity)
     {
-
         return true;
     }
 
@@ -281,12 +278,12 @@ public class ModTeleporter extends Teleporter
             long j = par1 - 600L;
             while (iterator.hasNext())
             {
-                Long olong = (Long) iterator.next();
-                PortalPosition portalposition = (PortalPosition) destinationCoordinateCache.getValueByKey(olong.longValue());
+                Long key = (Long) iterator.next();
+                PortalPosition portalposition = (PortalPosition) destinationCoordinateCache.getValueByKey(key.longValue());
                 if (portalposition == null || portalposition.lastUpdateTime < j)
                 {
                     iterator.remove();
-                    destinationCoordinateCache.remove(olong.longValue());
+                    destinationCoordinateCache.remove(key.longValue());
                 }
             }
         }
