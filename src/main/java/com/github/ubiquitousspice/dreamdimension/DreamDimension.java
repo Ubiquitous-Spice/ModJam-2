@@ -113,6 +113,7 @@ public class DreamDimension
     private int                    idFDiamondShovel;
     private int                    idFDiamondAxe;
     private int                    idFDiamondPickaxe;
+    private int                    idDreamCatcher;
 
     // items
     public static Item             fleeceHelmet;
@@ -128,6 +129,7 @@ public class DreamDimension
     public static Item             fDiamondAxe;
     public static Item             fDiamondPickaxe;
     public static Item             fDiamondShovel;
+    public static Item             dreamCatcher;
     public static Block            dreamFleece;
 
     // blocks
@@ -163,6 +165,7 @@ public class DreamDimension
             idUnicornSword = config.getItem(Configuration.CATEGORY_ITEM, "DreamWoodSword", baseItemId++).getInt();
             idUnicornSwordUpgrade = config.getItem(Configuration.CATEGORY_ITEM, "UnicornBlade", baseItemId++).getInt();
             idPear = config.getItem(Configuration.CATEGORY_ITEM, "Pear", baseItemId++).getInt();
+            idDreamCatcher = config.getItem(Configuration.CATEGORY_ITEM, "DreamCatcher", baseItemId++).getInt();
             idFleeceHelm = config.getItem(Configuration.CATEGORY_ITEM, "FleeceHelm", baseItemId++).getInt();
             idFleeceChest = config.getItem(Configuration.CATEGORY_ITEM, "FleeceChest", baseItemId++).getInt();
             idFleeceLegs = config.getItem(Configuration.CATEGORY_ITEM, "FleeceLegs", baseItemId++).getInt();
@@ -244,6 +247,7 @@ public class DreamDimension
         unicornSword = new ItemUnicornSword(idUnicornSword, "Dream Wood Blade", "Shovel", 0).setUnlocalizedName(MODID + ".unicornSword").setCreativeTab(tabDream);
         unicornSwordUpgrade = new ItemUnicornSword(idUnicornSwordUpgrade, "Unicorn Blade", "A slightly better shovel", 1).setUnlocalizedName(MODID + ".unicornSwordUpgrade").setCreativeTab(tabDream);
         fakeDiamond = new ItemDreamBase(idFakeDiamond, "False Diamond", "DIAMONDZ!!!").setUnlocalizedName(MODID + ".fakeDiamond").func_111206_d("diamond").setCreativeTab(tabDream);
+        dreamCatcher = new ItemDreamBase(idDreamCatcher, "Dream Catcher", "\u00A7kNormal").setUnlocalizedName(MODID + ".dreamCatcher").func_111206_d(MODID + ":dreamCatcher").setCreativeTab(tabDream);
         
         fDiamondSword = new ItemDreamSword(idFDiamondSword, mat, "Fake Diamond Sword", "Sword Made of DIAMONDZ!!!").setUnlocalizedName(MODID + ".fDiamondSword").func_111206_d("diamond_sword").setCreativeTab(tabDream);
         fDiamondShovel = new ItemDreamSpade(idFDiamondShovel, mat, "Fake Diamond Shovel", "Shovel Made of DIAMONDZ!!!").setUnlocalizedName(MODID + ".fDiamondShovel").func_111206_d("diamond_shovel").setCreativeTab(tabDream);
@@ -252,7 +256,7 @@ public class DreamDimension
 
         // registrations
         GameRegistry.registerBlock(dreamDirt, "dreamDirt");
-        GameRegistry.registerBlock(boosterBlock, ItemBlockBooster.class, "dreamBooster");
+        GameRegistry.registerBlock(boosterBlock, ItemBlockWithMetadata.class, "dreamBooster");
         GameRegistry.registerBlock(portalBlock, "portalBlock");
         GameRegistry.registerBlock(dreamLog, "dreamWood");
         GameRegistry.registerBlock(dreamLeaf, "dreamLeaves");
