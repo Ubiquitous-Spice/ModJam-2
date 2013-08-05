@@ -23,8 +23,7 @@ public class KickHandler
         {
             EntityPlayerMP player = (EntityPlayerMP) event.entityLiving;
 
-            DreamManager.kickDreamer(player);
-            player.addPotionEffect(new PotionEffect(Potion.confusion.id, 200, 0));
+            DreamManager.kickDreamer(player, 200);
 
             event.setCanceled(true);
         }

@@ -90,7 +90,6 @@ public class DreamDimension
     private int idDreamDirt;
     private int idDreamBooster;
     private int idPortalBlock;
-    private int idGiantWool;
     private int idDreamLog;
     private int idDreamLeaf;
     private int idUnicornHorn;
@@ -128,27 +127,24 @@ public class DreamDimension
             Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 
             // config terrainIDs
-            // config itemIDs
-            int baseItemId = 9000;
-            idFleeceHelm = config.getItem(Configuration.CATEGORY_ITEM, "FleeceHelm", baseItemId++).getInt();
-            idFleeceChest = config.getItem(Configuration.CATEGORY_ITEM, "FleeceChest", baseItemId++).getInt();
-            idFleeceLegs = config.getItem(Configuration.CATEGORY_ITEM, "FleeceLegs", baseItemId++).getInt();
-            idFleeceBoots = config.getItem(Configuration.CATEGORY_ITEM, "FleeceBoots", baseItemId++).getInt();
-            
-            // config blockIDs
             int genId = 200;
-            int baseId = 300;
             idDreamDirt = config.getTerrainBlock(Configuration.CATEGORY_BLOCK, "DreamDirt", genId++, "Base dirt for Dream Dimension").getInt();
             idDreamBooster = config.getTerrainBlock(Configuration.CATEGORY_BLOCK, "DreamLauncher", genId++, "Base dirt for Dream Dimension").getInt();
             idDreamLog = config.getTerrainBlock(Configuration.CATEGORY_BLOCK, "DreamLog", genId++, "Logs for dream trees").getInt();
             idDreamLeaf = config.getTerrainBlock(Configuration.CATEGORY_BLOCK, "DreamLeaf", genId++, "leaves for dream trees").getInt();
+            
+            // config blockIDs
+            int baseId = 300;
             idPortalBlock = config.getBlock(Configuration.CATEGORY_BLOCK, "PortalBlock", baseId++).getInt();
-            idGiantWool = config.getBlock(Configuration.CATEGORY_BLOCK, "GiantWool", baseId++).getInt();
             idDreamFleece = config.getBlock(Configuration.CATEGORY_BLOCK, "DreamFleece", baseId++).getInt();
 
             // config itemIDs
             int baseItemID = 9001;
             idUnicornHorn = config.getItem(Configuration.CATEGORY_ITEM, "UnicornHorn", baseItemID++).getInt();
+            idFleeceHelm = config.getItem(Configuration.CATEGORY_ITEM, "FleeceHelm", baseItemID++).getInt();
+            idFleeceChest = config.getItem(Configuration.CATEGORY_ITEM, "FleeceChest", baseItemID++).getInt();
+            idFleeceLegs = config.getItem(Configuration.CATEGORY_ITEM, "FleeceLegs", baseItemID++).getInt();
+            idFleeceBoots = config.getItem(Configuration.CATEGORY_ITEM, "FleeceBoots", baseItemID++).getInt();
 
             // config dimension
             dimensionID = config.get(Configuration.CATEGORY_GENERAL, "Dream Dimension Idea", 2).getInt();

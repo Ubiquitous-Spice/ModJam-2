@@ -31,18 +31,18 @@ public class DreamManager implements ITickHandler
         
         if(data.getTimeLeft() == 600)
         {
+            // why?
             player.addPotionEffect(new PotionEffect(Potion.confusion.id, 600, 0));
         }
         
         if (!data.decrementTime())
         {
-            kickDreamer(player);
+            kickDreamer(player, 0);
         }
 
         if (player.fallDistance >= 100)
         {
-            kickDreamer(player);
-            player.addPotionEffect(new PotionEffect(Potion.confusion.id, 200, 0));
+            kickDreamer(player, 200);
         }
     }
 
@@ -109,7 +109,7 @@ public class DreamManager implements ITickHandler
     /**
      * sends the dreamer back to their bed.
      */
-    public static void kickDreamer(EntityPlayerMP player)
+    public static void kickDreamer(EntityPlayerMP player, int confusionTime)
     {
         DreamerData data = dreamers.remove(player.username);
 
@@ -129,6 +129,7 @@ public class DreamManager implements ITickHandler
 
         // and now to the place.
         player.setPositionAndUpdate(data.getBedX(), data.getBedY(), data.getBedZ());
+        player.addPotionEffect(new PotionEffect(Potion.confusion.id, confusionTime, 0));
         player.fallDistance = 0;
     }
 }
