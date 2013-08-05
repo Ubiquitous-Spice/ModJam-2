@@ -1,23 +1,25 @@
 package com.github.ubiquitousspice.dreamdimension.handlers;
 
-import com.github.ubiquitousspice.dreamdimension.DreamDimension;
-import cpw.mods.fml.common.ITickHandler;
-import cpw.mods.fml.common.TickType;
+import java.util.EnumSet;
+import java.util.HashSet;
+
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
-import java.util.EnumSet;
-import java.util.HashSet;
+import com.github.ubiquitousspice.dreamdimension.DreamDimension;
+
+import cpw.mods.fml.common.ITickHandler;
+import cpw.mods.fml.common.TickType;
 
 public class MilkHandler implements ITickHandler
 {
-    public static final int MILK_TIME = 1 * 60 * 20;
-    public static final int MAX_MILK_TIME = 12 * 60 * 20;
+    public static final int       MILK_TIME     = 1 * 60 * 20;
+    public static final int       MAX_MILK_TIME = 12 * 60 * 20;
 
-    private final HashSet<String> mayDrinkList = new HashSet<String>();
-    private final HashSet<String> drinkingList = new HashSet<String>();
+    private final HashSet<String> mayDrinkList  = new HashSet<String>();
+    private final HashSet<String> drinkingList  = new HashSet<String>();
 
     @Override
     public void tickStart(EnumSet<TickType> type, Object... tickData)
@@ -46,7 +48,9 @@ public class MilkHandler implements ITickHandler
             milkTime += MILK_TIME;
 
             if (milkTime > MAX_MILK_TIME)
+            {
                 milkTime = MAX_MILK_TIME;
+            }
 
             player.getEntityData().setLong(DreamDimension.MODID + ".extraDreamTime", milkTime);
         }

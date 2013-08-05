@@ -15,45 +15,48 @@ import net.minecraft.util.Icon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 public class RenderGiantWool implements IItemRenderer
 {
 
-    private Minecraft mc;
-    private static final ResourceLocation field_110930_b = new ResourceLocation("textures/misc/enchanted_item_glint.png");
+    private Minecraft                     mc;
+    private static final ResourceLocation field_110930_b       = new ResourceLocation("textures/misc/enchanted_item_glint.png");
 
-    private RenderBlocks renderBlocksInstance = new RenderBlocks();
+    private RenderBlocks                  renderBlocksInstance = new RenderBlocks();
 
     public RenderGiantWool()
     {
-        this.mc = Minecraft.getMinecraft();
+        mc = Minecraft.getMinecraft();
     }
 
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type)
     {
         switch (type)
-        {
-            case EQUIPPED:
-                return true;
-            case EQUIPPED_FIRST_PERSON:
-                return true;
-            case ENTITY:
-                return true;
-            case INVENTORY:
-                return true;
-            default:
-                return false;
-        }
+            {
+                case EQUIPPED:
+                    return true;
+                case EQUIPPED_FIRST_PERSON:
+                    return true;
+                case ENTITY:
+                    return true;
+                case INVENTORY:
+                    return true;
+                default:
+                    return false;
+            }
     }
 
     @Override
     public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper)
     {
         if (type == ItemRenderType.INVENTORY && helper == ItemRendererHelper.INVENTORY_BLOCK)
+        {
             return true;
+        }
 
         return false;
     }
@@ -61,14 +64,14 @@ public class RenderGiantWool implements IItemRenderer
     @Override
     public void renderItem(ItemRenderType type, ItemStack par2ItemStack, Object... data)
     {
-//        if (type == ItemRenderType.INVENTORY)
-//        {
-//            this.renderBlockAsItem(Block.blocksList[par2ItemStack.itemID], par2ItemStack.getItemDamage(), 1.0F, type);
-//            return;
-//        }
+        //        if (type == ItemRenderType.INVENTORY)
+        //        {
+        //            this.renderBlockAsItem(Block.blocksList[par2ItemStack.itemID], par2ItemStack.getItemDamage(), 1.0F, type);
+        //            return;
+        //        }
 
         GL11.glPushMatrix();
-        TextureManager texturemanager = this.mc.func_110434_K();
+        TextureManager texturemanager = mc.func_110434_K();
 
         Block block = null;
         if (par2ItemStack.getItem() instanceof ItemBlock && par2ItemStack.itemID < Block.blocksList.length)
@@ -76,11 +79,11 @@ public class RenderGiantWool implements IItemRenderer
             block = Block.blocksList[par2ItemStack.itemID];
         }
 
-        IItemRenderer customRenderer = MinecraftForgeClient.getItemRenderer(par2ItemStack, type);
+        MinecraftForgeClient.getItemRenderer(par2ItemStack, type);
         if (block != null && par2ItemStack.getItemSpriteNumber() == 0 && RenderBlocks.renderItemIn3d(Block.blocksList[par2ItemStack.itemID].getRenderType()))
         {
             texturemanager.func_110577_a(texturemanager.func_130087_a(0));
-            this.renderBlockAsItem(Block.blocksList[par2ItemStack.itemID], par2ItemStack.getItemDamage(), 1.0F, type);
+            renderBlockAsItem(Block.blocksList[par2ItemStack.itemID], par2ItemStack.getItemDamage(), 1.0F, type);
         }
         else
         {
@@ -122,14 +125,14 @@ public class RenderGiantWool implements IItemRenderer
                 GL11.glPushMatrix();
                 float f8 = 0.125F;
                 GL11.glScalef(f8, f8, f8);
-                float f9 = (float) (Minecraft.getSystemTime() % 3000L) / 3000.0F * 8.0F;
+                float f9 = (Minecraft.getSystemTime() % 3000L) / 3000.0F * 8.0F;
                 GL11.glTranslatef(f9, 0.0F, 0.0F);
                 GL11.glRotatef(-50.0F, 0.0F, 0.0F, 1.0F);
                 renderItemIn2D(tessellator, 0.0F, 0.0F, 1.0F, 1.0F, 256, 256, 0.0625F);
                 GL11.glPopMatrix();
                 GL11.glPushMatrix();
                 GL11.glScalef(f8, f8, f8);
-                f9 = (float) (Minecraft.getSystemTime() % 4873L) / 4873.0F * 8.0F;
+                f9 = (Minecraft.getSystemTime() % 4873L) / 4873.0F * 8.0F;
                 GL11.glTranslatef(-f9, 0.0F, 0.0F);
                 GL11.glRotatef(10.0F, 0.0F, 0.0F, 1.0F);
                 renderItemIn2D(tessellator, 0.0F, 0.0F, 1.0F, 1.0F, 256, 256, 0.0625F);
@@ -150,20 +153,20 @@ public class RenderGiantWool implements IItemRenderer
     {
         par0Tessellator.startDrawingQuads();
         par0Tessellator.setNormal(0.0F, 0.0F, 1.0F);
-        par0Tessellator.addVertexWithUV(0.0D, 0.0D, 0.0D, (double) par1, (double) par4);
-        par0Tessellator.addVertexWithUV(1.0D, 0.0D, 0.0D, (double) par3, (double) par4);
-        par0Tessellator.addVertexWithUV(1.0D, 1.0D, 0.0D, (double) par3, (double) par2);
-        par0Tessellator.addVertexWithUV(0.0D, 1.0D, 0.0D, (double) par1, (double) par2);
+        par0Tessellator.addVertexWithUV(0.0D, 0.0D, 0.0D, par1, par4);
+        par0Tessellator.addVertexWithUV(1.0D, 0.0D, 0.0D, par3, par4);
+        par0Tessellator.addVertexWithUV(1.0D, 1.0D, 0.0D, par3, par2);
+        par0Tessellator.addVertexWithUV(0.0D, 1.0D, 0.0D, par1, par2);
         par0Tessellator.draw();
         par0Tessellator.startDrawingQuads();
         par0Tessellator.setNormal(0.0F, 0.0F, -1.0F);
-        par0Tessellator.addVertexWithUV(0.0D, 1.0D, (double) (0.0F - par7), (double) par1, (double) par2);
-        par0Tessellator.addVertexWithUV(1.0D, 1.0D, (double) (0.0F - par7), (double) par3, (double) par2);
-        par0Tessellator.addVertexWithUV(1.0D, 0.0D, (double) (0.0F - par7), (double) par3, (double) par4);
-        par0Tessellator.addVertexWithUV(0.0D, 0.0D, (double) (0.0F - par7), (double) par1, (double) par4);
+        par0Tessellator.addVertexWithUV(0.0D, 1.0D, (0.0F - par7), par1, par2);
+        par0Tessellator.addVertexWithUV(1.0D, 1.0D, (0.0F - par7), par3, par2);
+        par0Tessellator.addVertexWithUV(1.0D, 0.0D, (0.0F - par7), par3, par4);
+        par0Tessellator.addVertexWithUV(0.0D, 0.0D, (0.0F - par7), par1, par4);
         par0Tessellator.draw();
-        float f5 = 0.5F * (par1 - par3) / (float) par5;
-        float f6 = 0.5F * (par4 - par2) / (float) par6;
+        float f5 = 0.5F * (par1 - par3) / par5;
+        float f6 = 0.5F * (par4 - par2) / par6;
         par0Tessellator.startDrawingQuads();
         par0Tessellator.setNormal(-1.0F, 0.0F, 0.0F);
         int k;
@@ -174,10 +177,10 @@ public class RenderGiantWool implements IItemRenderer
         {
             f7 = (float) k / (float) par5;
             f8 = par1 + (par3 - par1) * f7 - f5;
-            par0Tessellator.addVertexWithUV((double) f7, 0.0D, (double) (0.0F - par7), (double) f8, (double) par4);
-            par0Tessellator.addVertexWithUV((double) f7, 0.0D, 0.0D, (double) f8, (double) par4);
-            par0Tessellator.addVertexWithUV((double) f7, 1.0D, 0.0D, (double) f8, (double) par2);
-            par0Tessellator.addVertexWithUV((double) f7, 1.0D, (double) (0.0F - par7), (double) f8, (double) par2);
+            par0Tessellator.addVertexWithUV(f7, 0.0D, (0.0F - par7), f8, par4);
+            par0Tessellator.addVertexWithUV(f7, 0.0D, 0.0D, f8, par4);
+            par0Tessellator.addVertexWithUV(f7, 1.0D, 0.0D, f8, par2);
+            par0Tessellator.addVertexWithUV(f7, 1.0D, (0.0F - par7), f8, par2);
         }
 
         par0Tessellator.draw();
@@ -189,11 +192,11 @@ public class RenderGiantWool implements IItemRenderer
         {
             f7 = (float) k / (float) par5;
             f8 = par1 + (par3 - par1) * f7 - f5;
-            f9 = f7 + 1.0F / (float) par5;
-            par0Tessellator.addVertexWithUV((double) f9, 1.0D, (double) (0.0F - par7), (double) f8, (double) par2);
-            par0Tessellator.addVertexWithUV((double) f9, 1.0D, 0.0D, (double) f8, (double) par2);
-            par0Tessellator.addVertexWithUV((double) f9, 0.0D, 0.0D, (double) f8, (double) par4);
-            par0Tessellator.addVertexWithUV((double) f9, 0.0D, (double) (0.0F - par7), (double) f8, (double) par4);
+            f9 = f7 + 1.0F / par5;
+            par0Tessellator.addVertexWithUV(f9, 1.0D, (0.0F - par7), f8, par2);
+            par0Tessellator.addVertexWithUV(f9, 1.0D, 0.0D, f8, par2);
+            par0Tessellator.addVertexWithUV(f9, 0.0D, 0.0D, f8, par4);
+            par0Tessellator.addVertexWithUV(f9, 0.0D, (0.0F - par7), f8, par4);
         }
 
         par0Tessellator.draw();
@@ -204,11 +207,11 @@ public class RenderGiantWool implements IItemRenderer
         {
             f7 = (float) k / (float) par6;
             f8 = par4 + (par2 - par4) * f7 - f6;
-            f9 = f7 + 1.0F / (float) par6;
-            par0Tessellator.addVertexWithUV(0.0D, (double) f9, 0.0D, (double) par1, (double) f8);
-            par0Tessellator.addVertexWithUV(1.0D, (double) f9, 0.0D, (double) par3, (double) f8);
-            par0Tessellator.addVertexWithUV(1.0D, (double) f9, (double) (0.0F - par7), (double) par3, (double) f8);
-            par0Tessellator.addVertexWithUV(0.0D, (double) f9, (double) (0.0F - par7), (double) par1, (double) f8);
+            f9 = f7 + 1.0F / par6;
+            par0Tessellator.addVertexWithUV(0.0D, f9, 0.0D, par1, f8);
+            par0Tessellator.addVertexWithUV(1.0D, f9, 0.0D, par3, f8);
+            par0Tessellator.addVertexWithUV(1.0D, f9, (0.0F - par7), par3, f8);
+            par0Tessellator.addVertexWithUV(0.0D, f9, (0.0F - par7), par1, f8);
         }
 
         par0Tessellator.draw();
@@ -219,10 +222,10 @@ public class RenderGiantWool implements IItemRenderer
         {
             f7 = (float) k / (float) par6;
             f8 = par4 + (par2 - par4) * f7 - f6;
-            par0Tessellator.addVertexWithUV(1.0D, (double) f7, 0.0D, (double) par3, (double) f8);
-            par0Tessellator.addVertexWithUV(0.0D, (double) f7, 0.0D, (double) par1, (double) f8);
-            par0Tessellator.addVertexWithUV(0.0D, (double) f7, (double) (0.0F - par7), (double) par1, (double) f8);
-            par0Tessellator.addVertexWithUV(1.0D, (double) f7, (double) (0.0F - par7), (double) par3, (double) f8);
+            par0Tessellator.addVertexWithUV(1.0D, f7, 0.0D, par3, f8);
+            par0Tessellator.addVertexWithUV(0.0D, f7, 0.0D, par1, f8);
+            par0Tessellator.addVertexWithUV(0.0D, f7, (0.0F - par7), par1, f8);
+            par0Tessellator.addVertexWithUV(1.0D, f7, (0.0F - par7), par3, f8);
         }
 
         par0Tessellator.draw();
@@ -252,9 +255,9 @@ public class RenderGiantWool implements IItemRenderer
                 j = 16777215;
             }
 
-            f1 = (float) (j >> 16 & 255) / 255.0F;
-            f2 = (float) (j >> 8 & 255) / 255.0F;
-            f3 = (float) (j & 255) / 255.0F;
+            f1 = (j >> 16 & 255) / 255.0F;
+            f2 = (j >> 8 & 255) / 255.0F;
+            f3 = (j & 255) / 255.0F;
             GL11.glColor4f(f1 * par3, f2 * par3, f3 * par3, 1.0F);
         }
 
@@ -483,11 +486,11 @@ public class RenderGiantWool implements IItemRenderer
                         b0 = 3;
                     }
 
-                    float f4 = (float) b0 / 16.0F;
-                    float f5 = 1.0F - (float) k / 16.0F;
-                    float f6 = 1.0F - (float) (k + b1) / 16.0F;
+                    float f4 = b0 / 16.0F;
+                    float f5 = 1.0F - k / 16.0F;
+                    float f6 = 1.0F - (k + b1) / 16.0F;
                     k += b1;
-                    renderBlocksInstance.setRenderBounds((double) (0.5F - f4), (double) f6, (double) (0.5F - f4), (double) (0.5F + f4), (double) f5, (double) (0.5F + f4));
+                    renderBlocksInstance.setRenderBounds((0.5F - f4), f6, (0.5F - f4), (0.5F + f4), f5, (0.5F + f4));
                     tessellator.setNormal(0.0F, -1.0F, 0.0F);
                     renderBlocksInstance.renderFaceYNeg(par1Block, 0.0D, 0.0D, 0.0D, renderBlocksInstance.getBlockIconFromSide(par1Block, 0));
                     tessellator.setNormal(0.0F, 1.0F, 0.0F);
@@ -514,24 +517,24 @@ public class RenderGiantWool implements IItemRenderer
 
                     if (k == 0)
                     {
-                        renderBlocksInstance.setRenderBounds((double) (0.5F - f2), 0.0D, 0.0D, (double) (0.5F + f2), 1.0D, (double) (f2 * 2.0F));
+                        renderBlocksInstance.setRenderBounds((0.5F - f2), 0.0D, 0.0D, (0.5F + f2), 1.0D, (f2 * 2.0F));
                     }
 
                     if (k == 1)
                     {
-                        renderBlocksInstance.setRenderBounds((double) (0.5F - f2), 0.0D, (double) (1.0F - f2 * 2.0F), (double) (0.5F + f2), 1.0D, 1.0D);
+                        renderBlocksInstance.setRenderBounds((0.5F - f2), 0.0D, (1.0F - f2 * 2.0F), (0.5F + f2), 1.0D, 1.0D);
                     }
 
                     f2 = 0.0625F;
 
                     if (k == 2)
                     {
-                        renderBlocksInstance.setRenderBounds((double) (0.5F - f2), (double) (1.0F - f2 * 3.0F), (double) (-f2 * 2.0F), (double) (0.5F + f2), (double) (1.0F - f2), (double) (1.0F + f2 * 2.0F));
+                        renderBlocksInstance.setRenderBounds((0.5F - f2), (1.0F - f2 * 3.0F), (-f2 * 2.0F), (0.5F + f2), (1.0F - f2), (1.0F + f2 * 2.0F));
                     }
 
                     if (k == 3)
                     {
-                        renderBlocksInstance.setRenderBounds((double) (0.5F - f2), (double) (0.5F - f2 * 3.0F), (double) (-f2 * 2.0F), (double) (0.5F + f2), (double) (0.5F - f2), (double) (1.0F + f2 * 2.0F));
+                        renderBlocksInstance.setRenderBounds((0.5F - f2), (0.5F - f2 * 3.0F), (-f2 * 2.0F), (0.5F + f2), (0.5F - f2), (1.0F + f2 * 2.0F));
                     }
 
                     GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
@@ -572,19 +575,19 @@ public class RenderGiantWool implements IItemRenderer
 
                     if (k == 0)
                     {
-                        renderBlocksInstance.setRenderBounds((double) (0.5F - f2), 0.30000001192092896D, 0.0D, (double) (0.5F + f2), 1.0D, (double) (f2 * 2.0F));
+                        renderBlocksInstance.setRenderBounds((0.5F - f2), 0.30000001192092896D, 0.0D, (0.5F + f2), 1.0D, (f2 * 2.0F));
                     }
 
                     if (k == 1)
                     {
-                        renderBlocksInstance.setRenderBounds((double) (0.5F - f2), 0.30000001192092896D, (double) (1.0F - f2 * 2.0F), (double) (0.5F + f2), 1.0D, 1.0D);
+                        renderBlocksInstance.setRenderBounds((0.5F - f2), 0.30000001192092896D, (1.0F - f2 * 2.0F), (0.5F + f2), 1.0D, 1.0D);
                     }
 
                     f2 = 0.0625F;
 
                     if (k == 2)
                     {
-                        renderBlocksInstance.setRenderBounds((double) (0.5F - f2), 0.5D, 0.0D, (double) (0.5F + f2), (double) (1.0F - f2), 1.0D);
+                        renderBlocksInstance.setRenderBounds((0.5F - f2), 0.5D, 0.0D, (0.5F + f2), (1.0F - f2), 1.0D);
                     }
 
                     GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
@@ -746,9 +749,9 @@ public class RenderGiantWool implements IItemRenderer
             if (flag && renderBlocksInstance.useInventoryTint)
             {
                 k = par1Block.getRenderColor(par2);
-                f2 = (float) (k >> 16 & 255) / 255.0F;
-                f3 = (float) (k >> 8 & 255) / 255.0F;
-                float f7 = (float) (k & 255) / 255.0F;
+                f2 = (k >> 16 & 255) / 255.0F;
+                f3 = (k >> 8 & 255) / 255.0F;
+                float f7 = (k & 255) / 255.0F;
                 GL11.glColor4f(f2 * par3, f3 * par3, f7 * par3, 1.0F);
             }
 

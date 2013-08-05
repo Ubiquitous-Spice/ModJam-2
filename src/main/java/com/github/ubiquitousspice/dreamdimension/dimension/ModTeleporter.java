@@ -25,7 +25,7 @@ public class ModTeleporter extends Teleporter
     /**
      * A private Random() function in Teleporter
      */
-    private final Random random;
+    private final Random      random;
 
     /**
      * Stores successful portal placement locations for rapid lookup.
@@ -36,26 +36,27 @@ public class ModTeleporter extends Teleporter
      * A list of valid keys for the destinationCoordainteCache. These are based
      * on the X & Z of the players initial location.
      */
-    private final List destinationCoordinateKeys = new ArrayList();
+    private final List        destinationCoordinateKeys  = new ArrayList();
 
     public ModTeleporter(WorldServer par1WorldServer)
     {
         super(par1WorldServer);
-        this.worldServerInstance = par1WorldServer;
-        this.random = new Random(par1WorldServer.getSeed());
+        worldServerInstance = par1WorldServer;
+        random = new Random(par1WorldServer.getSeed());
     }
 
     /**
      * Place an entity in a nearby portal, creating one if necessary.
      */
+    @Override
     public void placeInPortal(Entity par1Entity, double par2, double par4, double par6, float par8)
     {
-        if (this.worldServerInstance.provider.dimensionId != 1)
+        if (worldServerInstance.provider.dimensionId != 1)
         {
-            if (!this.placeInExistingPortal(par1Entity, par2, par4, par6, par8))
+            if (!placeInExistingPortal(par1Entity, par2, par4, par6, par8))
             {
-                this.makePortal(par1Entity);
-                this.placeInExistingPortal(par1Entity, par2, par4, par6, par8);
+                makePortal(par1Entity);
+                placeInExistingPortal(par1Entity, par2, par4, par6, par8);
             }
         }
         else
@@ -77,11 +78,11 @@ public class ModTeleporter extends Teleporter
                         boolean flag = j1 < 0;
 
                         /** change this block **/
-                        this.worldServerInstance.setBlock(k1, l1, i2, flag ? Block.blockDiamond.blockID : 0);
+                        worldServerInstance.setBlock(k1, l1, i2, flag ? Block.blockDiamond.blockID : 0);
                     }
                 }
             }
-            par1Entity.setLocationAndAngles((double) i, (double) j, (double) k, par1Entity.rotationYaw, 0.0F);
+            par1Entity.setLocationAndAngles(i, j, k, par1Entity.rotationYaw, 0.0F);
             par1Entity.motionX = par1Entity.motionY = par1Entity.motionZ = 0.0D;
         }
     }
@@ -89,6 +90,7 @@ public class ModTeleporter extends Teleporter
     /**
      * Place an entity in a nearby portal which already exists.
      */
+    @Override
     public boolean placeInExistingPortal(Entity par1Entity, double par2, double par4, double par6, float par8)
     {
         short short1 = 128;
@@ -102,35 +104,35 @@ public class ModTeleporter extends Teleporter
         boolean flag = true;
         double d4;
         int k1;
-        if (this.destinationCoordinateCache.containsItem(j1))
+        if (destinationCoordinateCache.containsItem(j1))
         {
-            PortalPosition portalposition = (PortalPosition) this.destinationCoordinateCache.getValueByKey(j1);
+            PortalPosition portalposition = (PortalPosition) destinationCoordinateCache.getValueByKey(j1);
             d3 = 0.0D;
             i = portalposition.posX;
             j = portalposition.posY;
             k = portalposition.posZ;
-            portalposition.lastUpdateTime = this.worldServerInstance.getTotalWorldTime();
+            portalposition.lastUpdateTime = worldServerInstance.getTotalWorldTime();
             flag = false;
         }
         else
         {
             for (k1 = l - short1; k1 <= l + short1; ++k1)
             {
-                double d5 = (double) k1 + 0.5D - par1Entity.posX;
+                double d5 = k1 + 0.5D - par1Entity.posX;
                 for (int l1 = i1 - short1; l1 <= i1 + short1; ++l1)
                 {
-                    double d6 = (double) l1 + 0.5D - par1Entity.posZ;
-                    for (int i2 = this.worldServerInstance.getActualHeight() - 1; i2 >= 0; --i2)
+                    double d6 = l1 + 0.5D - par1Entity.posZ;
+                    for (int i2 = worldServerInstance.getActualHeight() - 1; i2 >= 0; --i2)
                     {
                         /** change this block **/
-                        if (this.worldServerInstance.getBlockId(k1, i2, l1) == DreamDimension.portalBlock.blockID)
+                        if (worldServerInstance.getBlockId(k1, i2, l1) == DreamDimension.portalBlock.blockID)
                         {
                             /** change this block **/
-                            while (this.worldServerInstance.getBlockId(k1, i2 - 1, l1) == DreamDimension.portalBlock.blockID)
+                            while (worldServerInstance.getBlockId(k1, i2 - 1, l1) == DreamDimension.portalBlock.blockID)
                             {
                                 --i2;
                             }
-                            d4 = (double) i2 + 0.5D - par1Entity.posY;
+                            d4 = i2 + 0.5D - par1Entity.posY;
                             double d7 = d5 * d5 + d4 * d4 + d6 * d6;
                             if (d3 < 0.0D || d7 < d3)
                             {
@@ -148,30 +150,30 @@ public class ModTeleporter extends Teleporter
         {
             if (flag)
             {
-                this.destinationCoordinateCache.add(j1, new ModPortalPosition(this, i, j, k, this.worldServerInstance.getTotalWorldTime()));
-                this.destinationCoordinateKeys.add(Long.valueOf(j1));
+                destinationCoordinateCache.add(j1, new ModPortalPosition(this, i, j, k, worldServerInstance.getTotalWorldTime()));
+                destinationCoordinateKeys.add(Long.valueOf(j1));
             }
-            double d8 = (double) i + 0.5D;
-            double d9 = (double) j + 0.5D;
-            d4 = (double) k + 0.5D;
+            double d8 = i + 0.5D;
+            double d9 = j + 0.5D;
+            d4 = k + 0.5D;
             int j2 = -1;
             /** change this block **/
-            if (this.worldServerInstance.getBlockId(i - 1, j, k) == DreamDimension.portalBlock.blockID)
+            if (worldServerInstance.getBlockId(i - 1, j, k) == DreamDimension.portalBlock.blockID)
             {
                 j2 = 2;
             }
             /** change this block **/
-            if (this.worldServerInstance.getBlockId(i + 1, j, k) == DreamDimension.portalBlock.blockID)
+            if (worldServerInstance.getBlockId(i + 1, j, k) == DreamDimension.portalBlock.blockID)
             {
                 j2 = 0;
             }
             /** change this block **/
-            if (this.worldServerInstance.getBlockId(i, j, k - 1) == DreamDimension.portalBlock.blockID)
+            if (worldServerInstance.getBlockId(i, j, k - 1) == DreamDimension.portalBlock.blockID)
             {
                 j2 = 3;
             }
             /** change this block **/
-            if (this.worldServerInstance.getBlockId(i, j, k + 1) == DreamDimension.portalBlock.blockID)
+            if (worldServerInstance.getBlockId(i, j, k + 1) == DreamDimension.portalBlock.blockID)
             {
                 j2 = 1;
             }
@@ -183,8 +185,8 @@ public class ModTeleporter extends Teleporter
                 int j3 = Direction.offsetZ[j2];
                 int k3 = Direction.offsetX[l2];
                 int l3 = Direction.offsetZ[l2];
-                boolean flag1 = !this.worldServerInstance.isAirBlock(i + i3 + k3, j, k + j3 + l3) || !this.worldServerInstance.isAirBlock(i + i3 + k3, j + 1, k + j3 + l3);
-                boolean flag2 = !this.worldServerInstance.isAirBlock(i + i3, j, k + j3) || !this.worldServerInstance.isAirBlock(i + i3, j + 1, k + j3);
+                boolean flag1 = !worldServerInstance.isAirBlock(i + i3 + k3, j, k + j3 + l3) || !worldServerInstance.isAirBlock(i + i3 + k3, j + 1, k + j3 + l3);
+                boolean flag2 = !worldServerInstance.isAirBlock(i + i3, j, k + j3) || !worldServerInstance.isAirBlock(i + i3, j + 1, k + j3);
                 if (flag1 && flag2)
                 {
                     j2 = Direction.rotateOpposite[j2];
@@ -194,11 +196,11 @@ public class ModTeleporter extends Teleporter
                     k3 = Direction.offsetX[l2];
                     l3 = Direction.offsetZ[l2];
                     k1 = i - k3;
-                    d8 -= (double) k3;
+                    d8 -= k3;
                     int i4 = k - l3;
-                    d4 -= (double) l3;
-                    flag1 = !this.worldServerInstance.isAirBlock(k1 + i3 + k3, j, i4 + j3 + l3) || !this.worldServerInstance.isAirBlock(k1 + i3 + k3, j + 1, i4 + j3 + l3);
-                    flag2 = !this.worldServerInstance.isAirBlock(k1 + i3, j, i4 + j3) || !this.worldServerInstance.isAirBlock(k1 + i3, j + 1, i4 + j3);
+                    d4 -= l3;
+                    flag1 = !worldServerInstance.isAirBlock(k1 + i3 + k3, j, i4 + j3 + l3) || !worldServerInstance.isAirBlock(k1 + i3 + k3, j + 1, i4 + j3 + l3);
+                    flag2 = !worldServerInstance.isAirBlock(k1 + i3, j, i4 + j3) || !worldServerInstance.isAirBlock(k1 + i3, j + 1, i4 + j3);
                 }
                 float f1 = 0.5F;
                 float f2 = 0.5F;
@@ -214,8 +216,8 @@ public class ModTeleporter extends Teleporter
                 {
                     f2 = 0.0F;
                 }
-                d8 += (double) ((float) k3 * f1 + f2 * (float) i3);
-                d4 += (double) ((float) l3 * f1 + f2 * (float) j3);
+                d8 += (k3 * f1 + f2 * i3);
+                d4 += (l3 * f1 + f2 * j3);
                 float f3 = 0.0F;
                 float f4 = 0.0F;
                 float f5 = 0.0F;
@@ -242,9 +244,9 @@ public class ModTeleporter extends Teleporter
                 }
                 double d10 = par1Entity.motionX;
                 double d11 = par1Entity.motionZ;
-                par1Entity.motionX = d10 * (double) f3 + d11 * (double) f6;
-                par1Entity.motionZ = d10 * (double) f5 + d11 * (double) f4;
-                par1Entity.rotationYaw = par8 - (float) (k2 * 90) + (float) (j2 * 90);
+                par1Entity.motionX = d10 * f3 + d11 * f6;
+                par1Entity.motionZ = d10 * f5 + d11 * f4;
+                par1Entity.rotationYaw = par8 - (k2 * 90) + (j2 * 90);
             }
             else
             {
@@ -259,6 +261,7 @@ public class ModTeleporter extends Teleporter
         }
     }
 
+    @Override
     public boolean makePortal(Entity par1Entity)
     {
 
@@ -269,20 +272,21 @@ public class ModTeleporter extends Teleporter
      * called periodically to remove out-of-date portal locations from the cache
      * list. Argument par1 is a WorldServer.getTotalWorldTime() value.
      */
+    @Override
     public void removeStalePortalLocations(long par1)
     {
         if (par1 % 100L == 0L)
         {
-            Iterator iterator = this.destinationCoordinateKeys.iterator();
+            Iterator iterator = destinationCoordinateKeys.iterator();
             long j = par1 - 600L;
             while (iterator.hasNext())
             {
                 Long olong = (Long) iterator.next();
-                PortalPosition portalposition = (PortalPosition) this.destinationCoordinateCache.getValueByKey(olong.longValue());
+                PortalPosition portalposition = (PortalPosition) destinationCoordinateCache.getValueByKey(olong.longValue());
                 if (portalposition == null || portalposition.lastUpdateTime < j)
                 {
                     iterator.remove();
-                    this.destinationCoordinateCache.remove(olong.longValue());
+                    destinationCoordinateCache.remove(olong.longValue());
                 }
             }
         }

@@ -3,11 +3,11 @@ package com.github.ubiquitousspice.dreamdimension.handlers;
 import java.util.EnumSet;
 import java.util.HashMap;
 
-import com.github.ubiquitousspice.dreamdimension.DreamDimension;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
+import com.github.ubiquitousspice.dreamdimension.DreamDimension;
 import com.github.ubiquitousspice.dreamdimension.Util;
 import com.github.ubiquitousspice.dreamdimension.dimension.ModTeleporter;
 
@@ -28,7 +28,9 @@ public class DreamManager implements ITickHandler
 
         // null check.
         if (data == null)
+        {
             return;
+        }
 
         if (data.getTimeLeft() == 600)
         {
@@ -98,7 +100,7 @@ public class DreamManager implements ITickHandler
             milkTime = player.getEntityData().getLong(DreamDimension.MODID + ".extraDreamTime");
         }
 
-        data.setTimeLeft(milkTime+time);
+        data.setTimeLeft(milkTime + time);
 
         player.inventory.clearInventory(-1, -1);
 

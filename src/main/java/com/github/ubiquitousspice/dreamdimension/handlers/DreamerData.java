@@ -1,28 +1,27 @@
 package com.github.ubiquitousspice.dreamdimension.handlers;
 
-import com.github.ubiquitousspice.dreamdimension.Util;
-//import lombok.Data;
-//import lombok.RequiredArgsConstructor;
 import lombok.Data;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
+import com.github.ubiquitousspice.dreamdimension.Util;
+
 //@Data
 @Data
 public class DreamerData
 {
-    private long timeLeft = Long.MAX_VALUE; // seconds
+    private long            timeLeft = Long.MAX_VALUE; // seconds
 
     // bed coordinates.
-    private float bedX;
-    private float bedY;
-    private float bedZ;
-    private int bedDim;
+    private float           bedX;
+    private float           bedY;
+    private float           bedZ;
+    private int             bedDim;
 
-    private int hunger;
-    private float health;
+    private int             hunger;
+    private float           health;
 
     private InventoryPlayer oldInv;
 

@@ -1,8 +1,8 @@
 package com.github.ubiquitousspice.dreamdimension;
 
-import cpw.mods.fml.common.ObfuscationReflectionHelper;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import cpw.mods.fml.common.ObfuscationReflectionHelper;
 
 public class MaterialDream extends Material
 {
@@ -11,7 +11,7 @@ public class MaterialDream extends Material
     public MaterialDream()
     {
         super(MapColor.dirtColor);
-        this.setTranslucent();
+        setTranslucent();
 
         if (adventureBreak)
         {

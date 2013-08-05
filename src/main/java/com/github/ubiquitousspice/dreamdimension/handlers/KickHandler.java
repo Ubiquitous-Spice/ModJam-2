@@ -1,13 +1,15 @@
 package com.github.ubiquitousspice.dreamdimension.handlers;
 
-import com.github.ubiquitousspice.dreamdimension.DreamDimension;
-import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+
+import com.github.ubiquitousspice.dreamdimension.DreamDimension;
+
+import cpw.mods.fml.common.FMLCommonHandler;
 
 public class KickHandler
 {
@@ -30,7 +32,9 @@ public class KickHandler
 
         // only server events.
         if (FMLCommonHandler.instance().getEffectiveSide().isClient())
+        {
             return false;
+        }
 
         return entity instanceof EntityPlayer && entity.worldObj.provider.dimensionId == DreamDimension.dimensionID;
     }

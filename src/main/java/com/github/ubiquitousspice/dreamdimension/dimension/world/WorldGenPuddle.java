@@ -2,11 +2,8 @@ package com.github.ubiquitousspice.dreamdimension.dimension.world;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class WorldGenPuddle extends WorldGenerator
@@ -16,16 +13,17 @@ public class WorldGenPuddle extends WorldGenerator
 
     public WorldGenPuddle(int par1)
     {
-        this.blockIndex = par1;
-        this.blockMeta = 0;
+        blockIndex = par1;
+        blockMeta = 0;
     }
 
     public WorldGenPuddle(int par1, int par2)
     {
-        this.blockIndex = par1;
-        this.blockMeta = par2;
+        blockIndex = par1;
+        blockMeta = par2;
     }
 
+    @Override
     public boolean generate(World world, Random rand, int x, int y, int z)
     {
         x -= 8;
@@ -50,9 +48,9 @@ public class WorldGenPuddle extends WorldGenerator
                 {
                     for (int l1 = 1; l1 < 7; ++l1)
                     {
-                        double d6 = ((double) j1 - d3) / (d0 / 2.0D);
-                        double d7 = ((double) l1 - d4) / (d1 / 2.0D);
-                        double d8 = ((double) k1 - d5) / (d2 / 2.0D);
+                        double d6 = (j1 - d3) / (d0 / 2.0D);
+                        double d7 = (l1 - d4) / (d1 / 2.0D);
+                        double d8 = (k1 - d5) / (d2 / 2.0D);
                         double d9 = d6 * d6 + d7 * d7 + d8 * d8;
 
                         if (d9 < 1.0D)
@@ -66,15 +64,12 @@ public class WorldGenPuddle extends WorldGenerator
 
         int i2;
         int j2;
-        boolean flag;
-
         for (i1 = 0; i1 < 16; ++i1)
         {
             for (j2 = 0; j2 < 16; ++j2)
             {
                 for (i2 = 0; i2 < 8; ++i2)
                 {
-                    flag = !aboolean[(i1 * 16 + j2) * 8 + i2] && (i1 < 15 && aboolean[((i1 + 1) * 16 + j2) * 8 + i2] || i1 > 0 && aboolean[((i1 - 1) * 16 + j2) * 8 + i2] || j2 < 15 && aboolean[(i1 * 16 + j2 + 1) * 8 + i2] || j2 > 0 && aboolean[(i1 * 16 + (j2 - 1)) * 8 + i2] || i2 < 7 && aboolean[(i1 * 16 + j2) * 8 + i2 + 1] || i2 > 0 && aboolean[(i1 * 16 + j2) * 8 + (i2 - 1)]);
 
                 }
             }
@@ -93,7 +88,7 @@ public class WorldGenPuddle extends WorldGenerator
                         {
                             if (world.getBlockMaterial(x + i1, getTopBlock(world, x, z) - i - 1, z + j2) == Material.ground && world.getBlockMaterial(x + i1, getTopBlock(world, x, z) - i + 1, z + j2) == Material.air && world.getBlockMaterial(x + i1, getTopBlock(world, x, z) - i, z + j2) != Material.lava && world.getBlockMaterial(x + i1, getTopBlock(world, x, z) - i, z + j2) != Material.water)
                             {
-                                world.setBlock(x + i1, getTopBlock(world, x, z) - i, z + j2, this.blockIndex, blockMeta, 2);
+                                world.setBlock(x + i1, getTopBlock(world, x, z) - i, z + j2, blockIndex, blockMeta, 2);
                             }
                         }
                     }

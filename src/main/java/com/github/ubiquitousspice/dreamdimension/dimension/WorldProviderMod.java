@@ -22,39 +22,44 @@ public class WorldProviderMod extends WorldProvider
 
     private static float skyColorMax = 1.0F;
     private static float skyColorMin = 0.05F;
-    private int fogTicks;
-    private float skyR = 0.01F;
-    private float skyG = 0.01F;
-    private float skyB = 0.01F;
-    private float incrementR;
-    private float incrementG;
-    private float incrementB;
+    private int          fogTicks;
+    private float        skyR        = 0.01F;
+    private float        skyG        = 0.01F;
+    private float        skyB        = 0.01F;
+    private float        incrementR;
+    private float        incrementG;
+    private float        incrementB;
 
-    Random rand = new Random();
+    Random               rand        = new Random();
 
+    @Override
     public void registerWorldChunkManager()
     {
-        this.worldChunkMgr = new WorldChunkManagerHell(DreamDimension.dreamy, this.dimensionId, this.dimensionId);
-        this.dimensionId = DreamDimension.dimensionID;
+        worldChunkMgr = new WorldChunkManagerHell(DreamDimension.dreamy, dimensionId, dimensionId);
+        dimensionId = DreamDimension.dimensionID;
         //this.hasNoSky = false;
     }
 
+    @Override
     public IChunkProvider createChunkGenerator()
     {
-        return new ChunkProviderMod(this.worldObj, this.worldObj.getSeed(), false);
+        return new ChunkProviderMod(worldObj, worldObj.getSeed(), false);
     }
 
+    @Override
     public int getAverageGroundLevel()
     {
         return 0;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public boolean doesXZShowFog(int par1, int par2)
     {
         return false;
     }
 
+    @Override
     public String getDimensionName()
     {
         return "Dream Dimension";
@@ -95,22 +100,26 @@ public class WorldProviderMod extends WorldProvider
         return 2.0F;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public boolean isSkyColored()
     {
         return true;
     }
 
+    @Override
     public boolean canRespawnHere()
     {
         return false;
     }
 
+    @Override
     public boolean isSurfaceWorld()
     {
         return false;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public float getCloudHeight()
     {
@@ -119,29 +128,32 @@ public class WorldProviderMod extends WorldProvider
 
     /**
      * @SideOnly(Side.CLIENT) public String getSunTexture() {
-     * return "/Main:TwinSuns.png";
-     * }
+     *                        return "/Main:TwinSuns.png";
+     *                        }
      */
 
+    @Override
     public ChunkCoordinates getEntrancePortalLocation()
     {
         return new ChunkCoordinates(50, 5, 0);
     }
 
+    @Override
     protected void generateLightBrightnessTable()
     {
         float f = 12.0F;
         for (int i = 0; i <= 15; i++)
         {
             float f1 = 12.0F - i / 15.0F;
-            this.lightBrightnessTable[i] = ((1.0F - f1) / (f1 * 3.0F + 1.0F) * (1.0F - f) + f);
+            lightBrightnessTable[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * (1.0F - f) + f;
         }
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public String getWelcomeMessage()
     {
-        if ((this instanceof WorldProviderMod))
+        if (this instanceof WorldProviderMod)
         {
             return "Come with me, and you'll be...";
         }
@@ -149,6 +161,7 @@ public class WorldProviderMod extends WorldProvider
         return null;
     }
 
+    @Override
     public String getDepartMessage()
     {
         if (this instanceof WorldProviderMod)
@@ -159,6 +172,7 @@ public class WorldProviderMod extends WorldProvider
         return null;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public float[] calcSunriseSunsetColors(float par1, float par2)
     {
@@ -166,6 +180,7 @@ public class WorldProviderMod extends WorldProvider
         return null;
     }
 
+    @Override
     public float calculateCelestialAngle(long par1, float par3)
     {
         /**
@@ -184,8 +199,9 @@ public class WorldProviderMod extends WorldProvider
         return 18000;
     }
 
-    public static int[] skyColors = new int[]{0xb64040, 0xb68b40, 0xb5b640, 0x50b640, 0x40b682, 0x40b2b6, 0x4067b6, 0x4042b6, 0xa140b6, 0xb6408b, 0xb64050};
+    public static int[] skyColors = new int[] { 0xb64040, 0xb68b40, 0xb5b640, 0x50b640, 0x40b682, 0x40b2b6, 0x4067b6, 0x4042b6, 0xa140b6, 0xb6408b, 0xb64050 };
 
+    @Override
     @SideOnly(Side.CLIENT)
     public Vec3 getFogColor(float par1, float par2)
     {
@@ -199,12 +215,12 @@ public class WorldProviderMod extends WorldProvider
             if (fogTicks % 50 == 0) //checks if fogTicks is divisible by x
             {
 
-                this.incrementR = 0;
-                this.incrementB = 0;
-                this.incrementG = 0;
+                incrementR = 0;
+                incrementB = 0;
+                incrementG = 0;
 
                 int i = rand.nextInt(3) + 1;
-                float inc = (rand.nextInt(20) + 1 - 10);
+                float inc = rand.nextInt(20) + 1 - 10;
                 int i2 = 200;
 
                 //System.out.println("Changing an increment to: " + inc);
@@ -228,26 +244,28 @@ public class WorldProviderMod extends WorldProvider
             if (fogTicks % 2 == 0)
             {
 
-                this.skyR = this.skyR + (incrementR);
+                skyR = skyR + incrementR;
                 //System.out.println("R: " + this.skyR + ", incrementR: " + incrementR);
 
-                this.skyB = this.skyB + (incrementB);
+                skyB = skyB + incrementB;
                 //System.out.println("B: " + this.skyB + ", incrementB: " + incrementB);
 
-                this.skyG = this.skyG + (incrementG);
+                skyG = skyG + incrementG;
                 //System.out.println("G: " + this.skyR + ", incrementG: " + incrementG);
             }
         }
 
-        return this.worldObj.getWorldVec3Pool().getVecFromPool(this.skyR, this.skyB, this.skyG);
+        return worldObj.getWorldVec3Pool().getVecFromPool(skyR, skyB, skyG);
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public IRenderHandler getSkyRenderer()
     {
         return new SkyRenderer();
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public IRenderHandler getCloudRenderer()
     {

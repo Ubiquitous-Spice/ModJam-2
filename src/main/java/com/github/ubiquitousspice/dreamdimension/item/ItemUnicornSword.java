@@ -22,45 +22,52 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemUnicornSword extends ItemSword
 {
 
-    public static EnumToolMaterial unicorn = EnumHelper.addToolMaterial("UNICORN", 1, 131, 6.0F, 1.0F, 22);
+    public static EnumToolMaterial unicorn  = EnumHelper.addToolMaterial("UNICORN", 1, 131, 6.0F, 1.0F, 22);
     public static EnumToolMaterial unicorn2 = EnumHelper.addToolMaterial("UNICORN2", 1, 1561, 6.0F, 2.0F, 100);
 
-    private String normalName;
-    private String dreamName;
+    private String                 normalName;
+    private String                 dreamName;
 
-    protected boolean inDreamWorld;
+    protected boolean              inDreamWorld;
 
-    Random rand = new Random();
+    Random                         rand     = new Random();
 
-    private int level;
+    private int                    level;
 
     public ItemUnicornSword(int par1, String a, String b, int level)
     {
-        super(par1, (level == 0) ? unicorn : unicorn2);
-        this.normalName = a;
-        this.dreamName = b;
+        super(par1, level == 0 ? unicorn : unicorn2);
+        normalName = a;
+        dreamName = b;
         this.level = level;
 
     }
 
+    @Override
     public String getItemDisplayName(ItemStack stack)
     {
-        this.inDreamWorld = Minecraft.getMinecraft().thePlayer.worldObj.provider instanceof WorldProviderMod;
-        return (this.inDreamWorld) ? dreamName : normalName;
+        inDreamWorld = Minecraft.getMinecraft().thePlayer.worldObj.provider instanceof WorldProviderMod;
+        return inDreamWorld ? dreamName : normalName;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister par1IconRegister)
     {
         super.registerIcons(par1IconRegister);
 
         if (level == 0)
-            this.itemIcon = par1IconRegister.registerIcon(DreamDimension.MODID + ":unicornSword");
+        {
+            itemIcon = par1IconRegister.registerIcon(DreamDimension.MODID + ":unicornSword");
+        }
 
         if (level == 1)
-            this.itemIcon = par1IconRegister.registerIcon(DreamDimension.MODID + ":unicornSwordUpgraded");
+        {
+            itemIcon = par1IconRegister.registerIcon(DreamDimension.MODID + ":unicornSwordUpgraded");
+        }
     }
 
+    @Override
     public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase)
     {
         if (!par3EntityLivingBase.isEntityInvulnerable())
@@ -68,7 +75,7 @@ public class ItemUnicornSword extends ItemSword
 
             ArrayList arraylist = new ArrayList();
 
-            arraylist.add(Integer.valueOf(ItemDye.dyeColors[this.rand.nextInt(ItemDye.dyeColors.length)]));
+            arraylist.add(Integer.valueOf(ItemDye.dyeColors[rand.nextInt(ItemDye.dyeColors.length)]));
 
             int[] aint = new int[arraylist.size()];
 

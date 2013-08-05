@@ -1,30 +1,29 @@
 package com.github.ubiquitousspice.dreamdimension.item;
 
-import com.github.ubiquitousspice.dreamdimension.DreamDimension;
-import com.github.ubiquitousspice.dreamdimension.dimension.WorldProviderMod;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
+
+import com.github.ubiquitousspice.dreamdimension.DreamDimension;
 
 public class ItemPear extends ItemDreamBase
 {
 
-    public final int itemUseDuration;
-    private final int healAmount;
+    public final int    itemUseDuration;
+    private final int   healAmount;
     private final float saturationModifier;
 
     public ItemPear(int par1, String a, String b)
     {
         super(par1, a, b);
-        this.healAmount = 2;
-        this.saturationModifier = 5;
-        this.itemUseDuration = 32;
+        healAmount = 2;
+        saturationModifier = 5;
+        itemUseDuration = 32;
     }
 
+    @Override
     public ItemStack onEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
     {
         --par1ItemStack.stackSize;
@@ -36,6 +35,7 @@ public class ItemPear extends ItemDreamBase
     /**
      * How long it takes to use or consume an item
      */
+    @Override
     public int getMaxItemUseDuration(ItemStack par1ItemStack)
     {
         return 32;
@@ -44,6 +44,7 @@ public class ItemPear extends ItemDreamBase
     /**
      * returns the action that specifies what animation to play when the items is being used
      */
+    @Override
     public EnumAction getItemUseAction(ItemStack par1ItemStack)
     {
         return EnumAction.eat;
@@ -52,16 +53,17 @@ public class ItemPear extends ItemDreamBase
     /**
      * Called whenever this item is equipped and the right mouse button is pressed. Args: itemStack, world, entityPlayer
      */
+    @Override
     public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
     {
-        par3EntityPlayer.setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
+        par3EntityPlayer.setItemInUse(par1ItemStack, getMaxItemUseDuration(par1ItemStack));
 
         return par1ItemStack;
     }
 
     public int getHealAmount()
     {
-        return this.healAmount;
+        return healAmount;
     }
 
     /**
@@ -69,14 +71,15 @@ public class ItemPear extends ItemDreamBase
      */
     public float getSaturationModifier()
     {
-        return this.saturationModifier;
+        return saturationModifier;
     }
 
+    @Override
     public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5)
     {
         super.onUpdate(par1ItemStack, par2World, par3Entity, par4, par5);
 
-        if (this.inDreamWorld)
+        if (inDreamWorld)
         {
             if (((EntityPlayer) par3Entity).getItemInUseCount() > 0 && ((EntityPlayer) par3Entity).inventory.getCurrentItem().getItem() == DreamDimension.pear)
             {

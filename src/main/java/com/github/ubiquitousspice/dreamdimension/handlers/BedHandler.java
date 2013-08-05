@@ -1,16 +1,18 @@
 package com.github.ubiquitousspice.dreamdimension.handlers;
 
-import com.github.ubiquitousspice.dreamdimension.Util;
-import cpw.mods.fml.common.ITickHandler;
-import cpw.mods.fml.common.TickType;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.HashSet;
+
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.world.World;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.HashSet;
+import com.github.ubiquitousspice.dreamdimension.Util;
+
+import cpw.mods.fml.common.ITickHandler;
+import cpw.mods.fml.common.TickType;
 
 public class BedHandler implements ITickHandler
 {
@@ -21,14 +23,18 @@ public class BedHandler implements ITickHandler
     {
         // efficiency
         if (sleepers.isEmpty())
+        {
             return;
+        }
 
         // had better by the world tickType.
         World world = (World) tickData[0];
 
         // avoid client stuff alone.
         if (world.isRemote)
+        {
             return;
+        }
 
         EntityPlayerMP player;
         ArrayList<String> removeList = new ArrayList<String>();

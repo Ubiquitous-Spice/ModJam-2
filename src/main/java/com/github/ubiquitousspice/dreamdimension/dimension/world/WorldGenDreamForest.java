@@ -15,10 +15,10 @@ public class WorldGenDreamForest
 
         for (int i = 0; i <= trees; i++)
         {
-            int randX = (rand.nextInt(30)) - 15;
-            int randZ = (rand.nextInt(30)) - 15;
+            int randX = rand.nextInt(30) - 15;
+            int randZ = rand.nextInt(30) - 15;
 
-            (new WorldGenDreamTree(true)).generate(world, rand, x + randX, getTopBlock(world, x, z, rand), z + randZ);
+            new WorldGenDreamTree(true).generate(world, rand, x + randX, getTopBlock(world, x, z, rand), z + randZ);
         }
 
         return true;

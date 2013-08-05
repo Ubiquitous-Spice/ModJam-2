@@ -1,8 +1,7 @@
 package com.github.ubiquitousspice.dreamdimension.blocks;
 
-import com.github.ubiquitousspice.dreamdimension.DreamDimension;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.material.Material;
@@ -11,7 +10,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
-import java.util.Random;
+import com.github.ubiquitousspice.dreamdimension.DreamDimension;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockDreamLog extends BlockRotatedPillar
 {

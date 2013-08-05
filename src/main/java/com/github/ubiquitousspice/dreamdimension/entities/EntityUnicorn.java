@@ -1,112 +1,102 @@
 package com.github.ubiquitousspice.dreamdimension.entities;
 
-import com.github.ubiquitousspice.dreamdimension.DreamDimension;
-
 import net.minecraft.entity.EntityFlying;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIFollowParent;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAIMate;
-import net.minecraft.entity.ai.EntityAIPanic;
-import net.minecraft.entity.ai.EntityAIRunAroundLikeCrazy;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.IMob;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+
+import com.github.ubiquitousspice.dreamdimension.DreamDimension;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class EntityUnicorn extends EntityFlying implements IMob
 {
 
-    public int courseChangeCooldown;
+    public int    courseChangeCooldown;
     public double waypointX;
     public double waypointY;
     public double waypointZ;
-    private float eating = 0.00F;
+    private float eating  = 0.00F;
     private float jumping = 0.00F;
     private float actionTicks;
 
     public EntityUnicorn(World par1World)
     {
         super(par1World);
-        this.setSize(1.4F, 1.6F);
-        this.isImmuneToFire = true;
-        this.experienceValue = 5;
+        setSize(1.4F, 1.6F);
+        isImmuneToFire = true;
+        experienceValue = 5;
     }
 
     public float getEating()
     {
-        return this.eating;
+        return eating;
     }
 
     public float getJumping()
     {
-        return this.jumping;
+        return jumping;
     }
 
     @SideOnly(Side.CLIENT)
     public boolean func_110182_bF()
     {
-        return this.dataWatcher.getWatchableObjectByte(16) != 0;
+        return dataWatcher.getWatchableObjectByte(16) != 0;
     }
 
     @Override
     protected void func_110147_ax()
     {
         super.func_110147_ax();
-        this.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(4.0D);
+        func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(4.0D);
     }
 
     @Override
     protected void updateEntityActionState()
     {
-        if (!this.worldObj.isRemote && this.worldObj.difficultySetting == 0)
+        if (!worldObj.isRemote && worldObj.difficultySetting == 0)
         {
-            this.setDead();
+            setDead();
         }
 
-        this.despawnEntity();
-        double d0 = this.waypointX - this.posX;
-        double d1 = this.waypointY - this.posY;
-        double d2 = this.waypointZ - this.posZ;
+        despawnEntity();
+        double d0 = waypointX - posX;
+        double d1 = waypointY - posY;
+        double d2 = waypointZ - posZ;
         double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 
         if (d3 < 1.0D || d3 > 3600.0D)
         {
-            this.waypointX = this.posX + (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
-            this.waypointY = this.posY + (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
-            this.waypointZ = this.posZ + (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
+            waypointX = posX + ((rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
+            waypointY = posY + ((rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
+            waypointZ = posZ + ((rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
         }
 
-        if (this.courseChangeCooldown-- <= 0)
+        if (courseChangeCooldown-- <= 0)
         {
-            this.courseChangeCooldown += this.rand.nextInt(5) + 2;
-            d3 = (double) MathHelper.sqrt_double(d3);
+            courseChangeCooldown += rand.nextInt(5) + 2;
+            d3 = MathHelper.sqrt_double(d3);
 
-            if (this.isCourseTraversable(this.waypointX, this.waypointY, this.waypointZ, d3))
+            if (isCourseTraversable(waypointX, waypointY, waypointZ, d3))
             {
-                this.motionX += d0 / d3 * 0.1D;
-                this.motionY += d1 / d3 * 0.1D;
-                this.motionZ += d2 / d3 * 0.1D;
+                motionX += d0 / d3 * 0.1D;
+                motionY += d1 / d3 * 0.1D;
+                motionZ += d2 / d3 * 0.1D;
             }
             else
             {
-                this.waypointX = this.posX;
-                this.waypointY = this.posY;
-                this.waypointZ = this.posZ;
+                waypointX = posX;
+                waypointY = posY;
+                waypointZ = posZ;
             }
         }
-
-        double d4 = 64.0D;
     }
 
     /**
@@ -114,16 +104,16 @@ public class EntityUnicorn extends EntityFlying implements IMob
      */
     private boolean isCourseTraversable(double par1, double par3, double par5, double par7)
     {
-        double d4 = (this.waypointX - this.posX) / par7;
-        double d5 = (this.waypointY - this.posY) / par7;
-        double d6 = (this.waypointZ - this.posZ) / par7;
-        AxisAlignedBB axisalignedbb = this.boundingBox.copy();
+        double d4 = (waypointX - posX) / par7;
+        double d5 = (waypointY - posY) / par7;
+        double d6 = (waypointZ - posZ) / par7;
+        AxisAlignedBB axisalignedbb = boundingBox.copy();
 
-        for (int i = 1; (double) i < par7; ++i)
+        for (int i = 1; i < par7; ++i)
         {
             axisalignedbb.offset(d4, d5, d6);
 
-            if (!this.worldObj.getCollidingBoundingBoxes(this, axisalignedbb).isEmpty())
+            if (!worldObj.getCollidingBoundingBoxes(this, axisalignedbb).isEmpty())
             {
                 return false;
             }
@@ -192,13 +182,14 @@ public class EntityUnicorn extends EntityFlying implements IMob
         super.readEntityFromNBT(par1NBTTagCompound);
     }
 
+    @Override
     public void onDeath(DamageSource par1DamageSource)
     {
-        if (!this.worldObj.isRemote)
+        if (!worldObj.isRemote)
         {
             //this.worldObj.spawnEntityInWorld(new EntityGiantItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(DreamDimension.giantWool)));
 
-            this.worldObj.spawnEntityInWorld(new EntityItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(DreamDimension.unicornHorn)));
+            worldObj.spawnEntityInWorld(new EntityItem(worldObj, posX, posY, posZ, new ItemStack(DreamDimension.unicornHorn)));
         }
 
         super.onDeath(par1DamageSource);
@@ -207,12 +198,14 @@ public class EntityUnicorn extends EntityFlying implements IMob
     @Override
     protected void updateFallState(double par1, boolean par3)
     {
-        this.motionY -= 0.01;
+        motionY -= 0.01;
 
-        /**if(this.posY >= 75)
-         {
-         this.motionY -= 0.05;
-         }*/
+        /**
+         * if(this.posY >= 75)
+         * {
+         * this.motionY -= 0.05;
+         * }
+         */
     }
 
     @Override
@@ -220,30 +213,30 @@ public class EntityUnicorn extends EntityFlying implements IMob
     {
         super.onUpdate();
 
-        this.actionTicks += 1;
+        actionTicks += 1;
 
-        if (this.jumping == 0 && this.eating == 0)
+        if (jumping == 0 && eating == 0)
         {
-            int i = this.rand.nextInt(200);
+            int i = rand.nextInt(200);
 
             if (i == 1)
             {
-                this.jumping = 1;
-                this.actionTicks = 0;
+                jumping = 1;
+                actionTicks = 0;
             }
 
             if (i >= 160)
             {
-                this.eating = 1;
-                this.actionTicks = 0;
+                eating = 1;
+                actionTicks = 0;
             }
 
         }
 
         if (actionTicks >= 20)
         {
-            this.jumping = 0.0F;
-            this.eating = 0.0F;
+            jumping = 0.0F;
+            eating = 0.0F;
         }
     }
 
@@ -251,11 +244,11 @@ public class EntityUnicorn extends EntityFlying implements IMob
     public boolean getCanSpawnHere()
     {
 
-        int i = MathHelper.floor_double(this.posX);
-        int j = MathHelper.floor_double(this.boundingBox.minY);
-        int k = MathHelper.floor_double(this.posZ);
+        int i = MathHelper.floor_double(posX);
+        int j = MathHelper.floor_double(boundingBox.minY);
+        int k = MathHelper.floor_double(posZ);
 
-        return this.worldObj.getBlockId(i, j - 1, k) == DreamDimension.dreamDirt.blockID;
+        return worldObj.getBlockId(i, j - 1, k) == DreamDimension.dreamDirt.blockID;
     }
 
 }

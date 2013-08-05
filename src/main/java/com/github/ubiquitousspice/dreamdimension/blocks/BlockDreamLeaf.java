@@ -1,20 +1,18 @@
 package com.github.ubiquitousspice.dreamdimension.blocks;
 
-import com.github.ubiquitousspice.dreamdimension.DreamDimension;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+import java.util.Random;
+
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockLeavesBase;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 
-import java.util.ArrayList;
-import java.util.Random;
+import com.github.ubiquitousspice.dreamdimension.DreamDimension;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockDreamLeaf extends BlockDreamBase implements IShearable
 {
@@ -23,7 +21,7 @@ public class BlockDreamLeaf extends BlockDreamBase implements IShearable
     public BlockDreamLeaf(int par1)
     {
         super(par1, Material.leaves);
-        this.setTickRandomly(true);
+        setTickRandomly(true);
     }
 
     @Override
@@ -67,9 +65,9 @@ public class BlockDreamLeaf extends BlockDreamBase implements IShearable
                 int j1 = b1 * b1;
                 int k1 = b1 / 2;
 
-                if (this.adjacentTreeBlocks == null)
+                if (adjacentTreeBlocks == null)
                 {
-                    this.adjacentTreeBlocks = new int[b1 * b1 * b1];
+                    adjacentTreeBlocks = new int[b1 * b1 * b1];
                 }
 
                 int l1;
@@ -92,15 +90,15 @@ public class BlockDreamLeaf extends BlockDreamBase implements IShearable
 
                                 if (block != null && block.canSustainLeaves(par1World, par2 + l1, par3 + i2, par4 + j2))
                                 {
-                                    this.adjacentTreeBlocks[(l1 + k1) * j1 + (i2 + k1) * b1 + j2 + k1] = 0;
+                                    adjacentTreeBlocks[(l1 + k1) * j1 + (i2 + k1) * b1 + j2 + k1] = 0;
                                 }
                                 else if (block != null && block.isLeaves(par1World, par2 + l1, par3 + i2, par4 + j2))
                                 {
-                                    this.adjacentTreeBlocks[(l1 + k1) * j1 + (i2 + k1) * b1 + j2 + k1] = -2;
+                                    adjacentTreeBlocks[(l1 + k1) * j1 + (i2 + k1) * b1 + j2 + k1] = -2;
                                 }
                                 else
                                 {
-                                    this.adjacentTreeBlocks[(l1 + k1) * j1 + (i2 + k1) * b1 + j2 + k1] = -1;
+                                    adjacentTreeBlocks[(l1 + k1) * j1 + (i2 + k1) * b1 + j2 + k1] = -1;
                                 }
                             }
                         }
@@ -114,36 +112,36 @@ public class BlockDreamLeaf extends BlockDreamBase implements IShearable
                             {
                                 for (k2 = -b0; k2 <= b0; ++k2)
                                 {
-                                    if (this.adjacentTreeBlocks[(i2 + k1) * j1 + (j2 + k1) * b1 + k2 + k1] == l1 - 1)
+                                    if (adjacentTreeBlocks[(i2 + k1) * j1 + (j2 + k1) * b1 + k2 + k1] == l1 - 1)
                                     {
-                                        if (this.adjacentTreeBlocks[(i2 + k1 - 1) * j1 + (j2 + k1) * b1 + k2 + k1] == -2)
+                                        if (adjacentTreeBlocks[(i2 + k1 - 1) * j1 + (j2 + k1) * b1 + k2 + k1] == -2)
                                         {
-                                            this.adjacentTreeBlocks[(i2 + k1 - 1) * j1 + (j2 + k1) * b1 + k2 + k1] = l1;
+                                            adjacentTreeBlocks[(i2 + k1 - 1) * j1 + (j2 + k1) * b1 + k2 + k1] = l1;
                                         }
 
-                                        if (this.adjacentTreeBlocks[(i2 + k1 + 1) * j1 + (j2 + k1) * b1 + k2 + k1] == -2)
+                                        if (adjacentTreeBlocks[(i2 + k1 + 1) * j1 + (j2 + k1) * b1 + k2 + k1] == -2)
                                         {
-                                            this.adjacentTreeBlocks[(i2 + k1 + 1) * j1 + (j2 + k1) * b1 + k2 + k1] = l1;
+                                            adjacentTreeBlocks[(i2 + k1 + 1) * j1 + (j2 + k1) * b1 + k2 + k1] = l1;
                                         }
 
-                                        if (this.adjacentTreeBlocks[(i2 + k1) * j1 + (j2 + k1 - 1) * b1 + k2 + k1] == -2)
+                                        if (adjacentTreeBlocks[(i2 + k1) * j1 + (j2 + k1 - 1) * b1 + k2 + k1] == -2)
                                         {
-                                            this.adjacentTreeBlocks[(i2 + k1) * j1 + (j2 + k1 - 1) * b1 + k2 + k1] = l1;
+                                            adjacentTreeBlocks[(i2 + k1) * j1 + (j2 + k1 - 1) * b1 + k2 + k1] = l1;
                                         }
 
-                                        if (this.adjacentTreeBlocks[(i2 + k1) * j1 + (j2 + k1 + 1) * b1 + k2 + k1] == -2)
+                                        if (adjacentTreeBlocks[(i2 + k1) * j1 + (j2 + k1 + 1) * b1 + k2 + k1] == -2)
                                         {
-                                            this.adjacentTreeBlocks[(i2 + k1) * j1 + (j2 + k1 + 1) * b1 + k2 + k1] = l1;
+                                            adjacentTreeBlocks[(i2 + k1) * j1 + (j2 + k1 + 1) * b1 + k2 + k1] = l1;
                                         }
 
-                                        if (this.adjacentTreeBlocks[(i2 + k1) * j1 + (j2 + k1) * b1 + (k2 + k1 - 1)] == -2)
+                                        if (adjacentTreeBlocks[(i2 + k1) * j1 + (j2 + k1) * b1 + k2 + k1 - 1] == -2)
                                         {
-                                            this.adjacentTreeBlocks[(i2 + k1) * j1 + (j2 + k1) * b1 + (k2 + k1 - 1)] = l1;
+                                            adjacentTreeBlocks[(i2 + k1) * j1 + (j2 + k1) * b1 + k2 + k1 - 1] = l1;
                                         }
 
-                                        if (this.adjacentTreeBlocks[(i2 + k1) * j1 + (j2 + k1) * b1 + k2 + k1 + 1] == -2)
+                                        if (adjacentTreeBlocks[(i2 + k1) * j1 + (j2 + k1) * b1 + k2 + k1 + 1] == -2)
                                         {
-                                            this.adjacentTreeBlocks[(i2 + k1) * j1 + (j2 + k1) * b1 + k2 + k1 + 1] = l1;
+                                            adjacentTreeBlocks[(i2 + k1) * j1 + (j2 + k1) * b1 + k2 + k1 + 1] = l1;
                                         }
                                     }
                                 }
@@ -152,7 +150,7 @@ public class BlockDreamLeaf extends BlockDreamBase implements IShearable
                     }
                 }
 
-                l1 = this.adjacentTreeBlocks[k1 * j1 + k1 * b1 + k1];
+                l1 = adjacentTreeBlocks[k1 * j1 + k1 * b1 + k1];
 
                 if (l1 >= 0)
                 {
@@ -160,7 +158,7 @@ public class BlockDreamLeaf extends BlockDreamBase implements IShearable
                 }
                 else
                 {
-                    this.removeLeaves(par1World, par2, par3, par4);
+                    removeLeaves(par1World, par2, par3, par4);
                 }
             }
         }
@@ -172,16 +170,16 @@ public class BlockDreamLeaf extends BlockDreamBase implements IShearable
     {
         if (par1World.canLightningStrikeAt(par2, par3 + 1, par4) && !par1World.doesBlockHaveSolidTopSurface(par2, par3 - 1, par4) && par5Random.nextInt(15) == 1)
         {
-            double d0 = (double) ((float) par2 + par5Random.nextFloat());
-            double d1 = (double) par3 - 0.05D;
-            double d2 = (double) ((float) par4 + par5Random.nextFloat());
+            double d0 = (par2 + par5Random.nextFloat());
+            double d1 = par3 - 0.05D;
+            double d2 = (par4 + par5Random.nextFloat());
             par1World.spawnParticle("dripWater", d0, d1, d2, 0.0D, 0.0D, 0.0D);
         }
     }
 
     private void removeLeaves(World par1World, int par2, int par3, int par4)
     {
-        this.dropBlockAsItem(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
+        dropBlockAsItem(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
         par1World.setBlockToAir(par2, par3, par4);
     }
 
@@ -228,8 +226,8 @@ public class BlockDreamLeaf extends BlockDreamBase implements IShearable
 
             if (par1World.rand.nextInt(j1) == 0)
             {
-                int k1 = this.idDropped(par5, par1World.rand, par7);
-                this.dropBlockAsItem_do(par1World, par2, par3, par4, new ItemStack(k1, 1, this.damageDropped(par5)));
+                int k1 = idDropped(par5, par1World.rand, par7);
+                dropBlockAsItem_do(par1World, par2, par3, par4, new ItemStack(k1, 1, damageDropped(par5)));
             }
 
             j1 = 200;
@@ -247,7 +245,7 @@ public class BlockDreamLeaf extends BlockDreamBase implements IShearable
             // TODO: APPLES.
             if ((par5 & 3) == 0 && par1World.rand.nextInt(30) == 0)
             {
-                this.dropBlockAsItem_do(par1World, par2, par3, par4, new ItemStack(DreamDimension.pear, 1, 0));
+                dropBlockAsItem_do(par1World, par2, par3, par4, new ItemStack(DreamDimension.pear, 1, 0));
             }
         }
     }

@@ -18,4 +18,3 @@ public class CreativeTabDream extends CreativeTabs
         return new ItemStack(DreamDimension.unicornSword);
     }
 }
-

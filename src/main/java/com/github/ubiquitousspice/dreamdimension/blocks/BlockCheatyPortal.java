@@ -23,25 +23,29 @@ public class BlockCheatyPortal extends Block
     {
         super(i, Material.portal);
 
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        setCreativeTab(CreativeTabs.tabBlock);
 
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
     {
         return null;
     }
 
+    @Override
     public boolean isOpaqueCube()
     {
         return false;
     }
 
+    @Override
     public int quantityDropped(Random rand)
     {
         return 0;
     }
 
+    @Override
     public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
     {
         if (entity.ridingEntity == null && entity.riddenByEntity == null && entity instanceof EntityPlayerMP)
@@ -64,6 +68,7 @@ public class BlockCheatyPortal extends Block
         }
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public int idPicked(World par1World, int par2, int par3, int par4)
     {

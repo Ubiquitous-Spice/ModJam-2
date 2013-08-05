@@ -1,13 +1,15 @@
 package com.github.ubiquitousspice.dreamdimension.blocks;
 
-import com.github.ubiquitousspice.dreamdimension.DreamDimension;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+
+import com.github.ubiquitousspice.dreamdimension.DreamDimension;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockDreamFleece extends Block
 {
@@ -22,9 +24,10 @@ public class BlockDreamFleece extends Block
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister register)
     {
-        this.blockIcon = register.registerIcon(DreamDimension.MODID + ":dreamFleece");
+        blockIcon = register.registerIcon(DreamDimension.MODID + ":dreamFleece");
     }
 
+    @Override
     public int onBlockPlaced(World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ, int meta)
     {
         int centerX, centerY, centerZ;
@@ -53,8 +56,6 @@ public class BlockDreamFleece extends Block
     @Override
     public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int side)
     {
-        boolean canWork;
-
         int centerX, centerY, centerZ;
         ForgeDirection dir = ForgeDirection.getOrientation(side);
         centerX = dir.offsetX * RADIUS;
@@ -69,7 +70,9 @@ public class BlockDreamFleece extends Block
                 for (int testZ = -RADIUS; testZ <= RADIUS; testZ++)
                 {
                     if (!world.isAirBlock(centerX + x + testX, centerY + y + testY, centerZ + z + testZ))
+                    {
                         return false;
+                    }
                 }
             }
         }

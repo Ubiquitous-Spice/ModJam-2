@@ -1,9 +1,11 @@
 package com.github.ubiquitousspice.dreamdimension.handlers;
 
-import com.github.ubiquitousspice.dreamdimension.DreamDimension;
-import cpw.mods.fml.common.IPlayerTracker;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+
+import com.github.ubiquitousspice.dreamdimension.DreamDimension;
+
+import cpw.mods.fml.common.IPlayerTracker;
 
 public class PlayerTracker implements IPlayerTracker
 {

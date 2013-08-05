@@ -1,6 +1,5 @@
 package com.github.ubiquitousspice.dreamdimension.client;
 
-import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraftforge.client.MinecraftForgeClient;
 
 import com.github.ubiquitousspice.dreamdimension.DreamDimension;
