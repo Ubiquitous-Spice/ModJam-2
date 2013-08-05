@@ -54,11 +54,11 @@ public class ItemUnicornSword extends ItemSword
     {
         super.registerIcons(par1IconRegister);
 
-        if(level == 0)
-        this.itemIcon = par1IconRegister.registerIcon(DreamDimension.MODID + ":unicornSword");
-        
-        if(level == 1)
-        this.itemIcon = par1IconRegister.registerIcon(DreamDimension.MODID + ":unicornSwordUpgraded");
+        if (level == 0)
+            this.itemIcon = par1IconRegister.registerIcon(DreamDimension.MODID + ":unicornSword");
+
+        if (level == 1)
+            this.itemIcon = par1IconRegister.registerIcon(DreamDimension.MODID + ":unicornSwordUpgraded");
     }
 
     public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase)

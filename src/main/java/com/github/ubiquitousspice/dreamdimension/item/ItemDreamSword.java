@@ -15,23 +15,23 @@ public class ItemDreamSword extends ItemSword
 
     private String normalName;
     private String dreamName;
-    
+
     private boolean inDreamWorld;
 
     public static EnumToolMaterial mat = EnumToolMaterial.WOOD;
-    
+
     public ItemDreamSword(int par1, String a, String b)
     {
         super(par1, mat);
         this.normalName = a;
         this.dreamName = b;
     }
-    
+
     public String getItemDisplayName(ItemStack stack)
     {
 
         this.inDreamWorld = Minecraft.getMinecraft().thePlayer.worldObj.provider instanceof WorldProviderMod;
         return (this.inDreamWorld) ? dreamName : normalName;
     }
-    
+
 }
