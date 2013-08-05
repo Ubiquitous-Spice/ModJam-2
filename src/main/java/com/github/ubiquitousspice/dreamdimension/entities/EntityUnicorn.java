@@ -63,7 +63,7 @@ public class EntityUnicorn extends EntityFlying implements IMob
     protected void func_110147_ax()
     {
         super.func_110147_ax();
-        this.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(10.0D);
+        this.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(4.0D);
     }
 
     @Override
@@ -257,4 +257,5 @@ public class EntityUnicorn extends EntityFlying implements IMob
 
         return this.worldObj.getBlockId(i, j - 1, k) == DreamDimension.dreamDirt.blockID;
     }
+    
 }

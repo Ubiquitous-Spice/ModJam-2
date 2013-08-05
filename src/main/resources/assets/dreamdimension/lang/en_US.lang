@@ -5,7 +5,6 @@ tile.dreamdimension:dreamLeaves.name=DreamLeaves
 tile.dreamdimension:dreamLog.name=DreamLog
 
 #items
-item.dreamdimension:dreamFleece.name=DreamFleece
 
 #entities
 entity.dreamdimension.LargeSheep.name=King Lambchop

@@ -23,6 +23,7 @@ public class ItemUnicornSword extends ItemSword
 {
 
     public static EnumToolMaterial unicorn = EnumHelper.addToolMaterial("UNICORN", 1, 131, 6.0F, 1.0F, 22);
+    public static EnumToolMaterial unicorn2 = EnumHelper.addToolMaterial("UNICORN2", 1, 1561, 6.0F, 2.0F, 100);
 
     private String normalName;
     private String dreamName;
@@ -31,11 +32,14 @@ public class ItemUnicornSword extends ItemSword
 
     Random rand = new Random();
 
-    public ItemUnicornSword(int par1, String a, String b)
+    private int level;
+
+    public ItemUnicornSword(int par1, String a, String b, int level)
     {
-        super(par1, unicorn);
+        super(par1, (level == 0) ? unicorn : unicorn2);
         this.normalName = a;
         this.dreamName = b;
+        this.level = level;
 
     }
 
@@ -50,14 +54,17 @@ public class ItemUnicornSword extends ItemSword
     {
         super.registerIcons(par1IconRegister);
 
+        if(level == 0)
         this.itemIcon = par1IconRegister.registerIcon(DreamDimension.MODID + ":unicornSword");
+        
+        if(level == 1)
+        this.itemIcon = par1IconRegister.registerIcon(DreamDimension.MODID + ":unicornSwordUpgraded");
     }
 
     public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase)
     {
         if (!par3EntityLivingBase.isEntityInvulnerable())
         {
-            System.out.println("hello");
 
             ArrayList arraylist = new ArrayList();
 
@@ -73,7 +80,7 @@ public class ItemUnicornSword extends ItemSword
             if (par3EntityLivingBase.worldObj.isRemote)
             {
                 System.out.println("hello");
-                EntityFirework fireWork = new EntityFirework(par2EntityLivingBase.worldObj, par2EntityLivingBase.posX, par2EntityLivingBase.posY + 0.5F, par2EntityLivingBase.posZ, 0, 0, 0, Minecraft.getMinecraft().effectRenderer, 20, 1, rand.nextBoolean(), 1, aint, aint, rand.nextBoolean());
+                EntityFirework fireWork = new EntityFirework(par2EntityLivingBase.worldObj, par2EntityLivingBase.posX, par2EntityLivingBase.posY + 0.5F, par2EntityLivingBase.posZ, 0, 0, 0, Minecraft.getMinecraft().effectRenderer, 20, 1, rand.nextBoolean(), level + 1, aint, aint, rand.nextBoolean());
                 par3EntityLivingBase.worldObj.spawnEntityInWorld(fireWork);
             }
         }

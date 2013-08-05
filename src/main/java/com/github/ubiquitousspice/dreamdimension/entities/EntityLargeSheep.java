@@ -31,7 +31,7 @@ public class EntityLargeSheep extends EntityAnimal implements IBossDisplayData
         super(par1World);
         this.setAIMoveSpeed(3F);
         this.renderDistanceWeight = 80.0D;
-        this.setSize(5F, 5F);
+        this.setSize(0.9F * largeSheepMod, 1.3F * largeSheepMod);
         this.setEntityHealth(sheepHealth);
 
         this.tasks.addTask(0, new EntityAISwimming(this));
@@ -159,18 +159,6 @@ public class EntityLargeSheep extends EntityAnimal implements IBossDisplayData
         }
 
         super.onDeath(par1DamageSource);
-    }
-
-    @Override
-    protected void func_110147_ax()
-    {
-        super.func_110147_ax();
-        // Max Health - default 20.0D - min 0.0D - max Double.MAX_VALUE
-        this.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(100.0D);
-        // Knockback Resistance - default 0.0D - min 0.0D - max 1.0D
-        this.func_110148_a(SharedMonsterAttributes.field_111266_c).func_111128_a(1.0D);
-        // Movement Speed - default 0.699D - min 0.0D - max Double.MAX_VALUE
-        this.func_110148_a(SharedMonsterAttributes.field_111263_d).func_111128_a(0.699D);
     }
 
     @Override

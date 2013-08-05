@@ -15,6 +15,11 @@ public class Crafting
 
         Item unicornHorn = DreamDimension.unicornHorn;
         Item stick = Item.stick;
+        Item diamond = Item.diamond;
+        Item fakeDiamond = DreamDimension.fakeDiamond;
+        Item magmaCream = Item.magmaCream;
+        
+        ItemStack dreamSword = new ItemStack(DreamDimension.unicornSword);
 
         // Shaped
         GameRegistry.addRecipe(new ItemStack(DreamDimension.fleeceHelmet), "xxx", "x x", "   ", 'x', dreamFleece);
@@ -22,9 +27,11 @@ public class Crafting
         GameRegistry.addRecipe(new ItemStack(DreamDimension.fleeceLegs), "xxx", "x x", "x x", 'x', dreamFleece);
         GameRegistry.addRecipe(new ItemStack(DreamDimension.fleeceBoots), "   ", "x x", "x x", 'x', dreamFleece);
         GameRegistry.addRecipe(new ItemStack(DreamDimension.unicornSword), " y ", " y ", " z ", 'x', unicornHorn, 'y', dreamPlank, 'z', stick);
+        GameRegistry.addRecipe(new ItemStack(DreamDimension.unicornSwordUpgrade), " x ", " y ", " z ", 'x', diamond, 'y', unicornHorn, 'z', dreamSword);
 
         // Shapeless
         GameRegistry.addShapelessRecipe(new ItemStack(DreamDimension.dreamPlanks, 4), new ItemStack(DreamDimension.dreamLog));
+        GameRegistry.addShapelessRecipe(new ItemStack(Item.diamond), fakeDiamond, fakeDiamond, fakeDiamond, fakeDiamond, fakeDiamond, fakeDiamond, fakeDiamond, unicornHorn, magmaCream);
 
     }
 

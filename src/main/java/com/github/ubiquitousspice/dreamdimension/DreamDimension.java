@@ -1,6 +1,33 @@
 package com.github.ubiquitousspice.dreamdimension;
 
 import com.github.ubiquitousspice.dreamdimension.blocks.*;
+import java.util.logging.Logger;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityEggInfo;
+import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.item.EnumToolMaterial;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlockWithMetadata;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.common.EnumHelper;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.oredict.OreDictionary;
+
+import com.github.ubiquitousspice.dreamdimension.blocks.BlockBooster;
+import com.github.ubiquitousspice.dreamdimension.blocks.BlockCheatyPortal;
+import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamBase;
+import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamFleece;
+import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamLeaf;
+import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamLog;
+import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamOre;
+import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamSapling;
 import com.github.ubiquitousspice.dreamdimension.client.CreativeTabDream;
 import com.github.ubiquitousspice.dreamdimension.dimension.WorldProviderMod;
 import com.github.ubiquitousspice.dreamdimension.dimension.world.BiomeGenDream;
@@ -8,6 +35,7 @@ import com.github.ubiquitousspice.dreamdimension.entities.EntityConfusedVillager
 import com.github.ubiquitousspice.dreamdimension.entities.EntityLargeSheep;
 import com.github.ubiquitousspice.dreamdimension.entities.EntityUnicorn;
 import com.github.ubiquitousspice.dreamdimension.item.ItemDreamBase;
+import com.github.ubiquitousspice.dreamdimension.item.ItemDreamSword;
 import com.github.ubiquitousspice.dreamdimension.item.ItemFleeceArmor;
 import com.github.ubiquitousspice.dreamdimension.item.ItemPear;
 import com.github.ubiquitousspice.dreamdimension.item.ItemUnicornSword;
@@ -15,6 +43,7 @@ import com.github.ubiquitousspice.dreamdimension.sleephandle.BedHandler;
 import com.github.ubiquitousspice.dreamdimension.sleephandle.DreamManager;
 import com.github.ubiquitousspice.dreamdimension.sleephandle.KickHandler;
 import com.github.ubiquitousspice.dreamdimension.sleephandle.PlayerTracker;
+
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
@@ -95,6 +124,11 @@ public class DreamDimension
     private int idPear;
     private int idDreamPlanks;
     private int idUnicornSword;
+    private int idUnicornSwordUpgrade;
+    private int idFDiamondSword;
+    private int idFDiamondShovel;
+    private int idFDiamondAxe;
+    private int idFDiamondPickaxe;
 
     // items
     public static Item fleeceHelmet;
@@ -105,6 +139,8 @@ public class DreamDimension
     public static Item fakeDiamond;
     public static Item pear;
     public static Item unicornSword;
+    public static Item unicornSwordUpgrade;
+    public static Item fDiamondSword;
     public static Block dreamFleece;
 
     // blocks
@@ -133,14 +169,19 @@ public class DreamDimension
 
             // config itemIDs
             int baseItemId = 9000;
+            idFakeDiamond = config.getItem(Configuration.CATEGORY_ITEM, "fakeDiamond", baseItemId++).getInt();
+            idUnicornHorn = config.getItem(Configuration.CATEGORY_ITEM, "UnicornHorn", baseItemId++).getInt();
+            idUnicornSword = config.getItem(Configuration.CATEGORY_ITEM, "DreamWoodSword", baseItemId++).getInt();
+            idUnicornSwordUpgrade = config.getItem(Configuration.CATEGORY_ITEM, "UnicornBlade", baseItemId++).getInt();
+            idPear = config.getItem(Configuration.CATEGORY_ITEM, "Pear", baseItemId++).getInt();
             idFleeceHelm = config.getItem(Configuration.CATEGORY_ITEM, "FleeceHelm", baseItemId++).getInt();
             idFleeceChest = config.getItem(Configuration.CATEGORY_ITEM, "FleeceChest", baseItemId++).getInt();
             idFleeceLegs = config.getItem(Configuration.CATEGORY_ITEM, "FleeceLegs", baseItemId++).getInt();
             idFleeceBoots = config.getItem(Configuration.CATEGORY_ITEM, "FleeceBoots", baseItemId++).getInt();
-            idUnicornHorn = config.getItem(Configuration.CATEGORY_ITEM, "UnicornHorn", baseItemId++).getInt();
-            idUnicornSword = config.getItem(Configuration.CATEGORY_ITEM, "UnicornBlade", baseItemId++).getInt();
-            idFakeDiamond = config.getItem(Configuration.CATEGORY_ITEM, "FakeDiamond", baseItemId++).getInt();
-            idPear = config.getItem(Configuration.CATEGORY_ITEM, "Pear", baseItemId++).getInt();
+            idFDiamondSword = config.getItem(Configuration.CATEGORY_ITEM, "FakeDiamondSword", baseItemId++).getInt();
+            idFDiamondShovel = config.getItem(Configuration.CATEGORY_ITEM, "FakeDiamondSword", baseItemId++).getInt();
+            idFDiamondAxe = config.getItem(Configuration.CATEGORY_ITEM, "FakeDiamondSword", baseItemId++).getInt();
+            idFDiamondPickaxe = config.getItem(Configuration.CATEGORY_ITEM, "FakeDiamondSword", baseItemId++).getInt();
 
             // config terrain blockIDs
             int genId = 200;
@@ -192,7 +233,7 @@ public class DreamDimension
 
         // blocks
         dreamDirt = new BlockDreamBase(idDreamDirt, Material.ground).setUnlocalizedName(MODID + ":dreamDirt").func_111022_d(MODID + ":dreamDirt");
-        dreamDiamond = new BlockDreamBase(idDreamDiamond, Material.ground).setUnlocalizedName(MODID + ".dreamDiamond").func_111022_d(MODID + ":dreamDiamond");
+        dreamDiamond = new BlockDreamOre(idDreamDiamond, Material.ground).setUnlocalizedName(MODID + ".dreamDiamond").func_111022_d(MODID + ":dreamDiamond");
         boosterBlock = new BlockBooster(idDreamBooster).setCreativeTab(tabDream);
         portalBlock = new BlockCheatyPortal(idPortalBlock).setUnlocalizedName(MODID + ":portalBlock").setCreativeTab(tabDream).func_111022_d("portal");
         dreamFleece = new BlockDreamFleece(idDreamFleece).setUnlocalizedName(MODID + ".dreamFleeceLarge").setCreativeTab(tabDream);
@@ -203,13 +244,15 @@ public class DreamDimension
 
         // items
         unicornHorn = new ItemDreamBase(idUnicornHorn, "Unicorn Horn", "Shiny Thing").setUnlocalizedName(MODID + ".unicornHorn").func_111206_d(MODID + ":unicornHorn").setCreativeTab(tabDream);
-        fakeDiamond = new ItemDreamBase(idFakeDiamond, "Fake Diamond", "DIAMONDZ").setUnlocalizedName(MODID + ".fakeDiamond").func_111206_d("diamond").setCreativeTab(tabDream);
         pear = new ItemPear(idPear, "Pear", "I think this is edible...").setUnlocalizedName(MODID + ".pear").func_111206_d(MODID + ":pear").setCreativeTab(tabDream);
         fleeceHelmet = new ItemFleeceArmor(idFleeceHelm, 0, "Fleece Helmet", "Super Hero Mask").setUnlocalizedName(MODID + ".fleeceHelm").setCreativeTab(tabDream);
         fleeceChest = new ItemFleeceArmor(idFleeceChest, 1, "Fleece Tunic", "Pants").setUnlocalizedName(MODID + ".fleeceChest").setCreativeTab(tabDream);
         fleeceLegs = new ItemFleeceArmor(idFleeceLegs, 2, "Fleece Legs", "Snuggy").setUnlocalizedName(MODID + ".fleeceLegs").setCreativeTab(tabDream);
         fleeceBoots = new ItemFleeceArmor(idFleeceBoots, 3, "Fleece Boots", "Animal Slippers").setUnlocalizedName(MODID + ".fleeceBoots").setCreativeTab(tabDream);
-        unicornSword = new ItemUnicornSword(idUnicornSword, "Dream Wood Blade", "Shovel").setUnlocalizedName(MODID + ".unicornSword").setCreativeTab(tabDream);
+        unicornSword = new ItemUnicornSword(idUnicornSword, "Dream Wood Blade", "Shovel", 0).setUnlocalizedName(MODID + ".unicornSword").setCreativeTab(tabDream);
+        unicornSwordUpgrade = new ItemUnicornSword(idUnicornSwordUpgrade, "Unicorn Blade", "A slightly better shovel", 1).setUnlocalizedName(MODID + ".unicornSwordUpgrade").setCreativeTab(tabDream);
+        fakeDiamond = new ItemDreamBase(idFakeDiamond, "False Diamond", "DIAMONDZ!!!").setUnlocalizedName(MODID + ".fakeDiamond").func_111206_d("diamond").setCreativeTab(tabDream);
+        fDiamondSword = new ItemDreamSword(idFDiamondSword, "Fake Diamond Sword", "Sword Made of DIAMONDZ!!!").setUnlocalizedName(MODID + ".fDiamondSword").func_111206_d("diamond_sword").setCreativeTab(tabDream);
 
         // registrations
         GameRegistry.registerBlock(dreamDirt, "dreamDirt");

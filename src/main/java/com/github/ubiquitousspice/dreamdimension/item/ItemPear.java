@@ -1,5 +1,6 @@
 package com.github.ubiquitousspice.dreamdimension.item;
 
+import com.github.ubiquitousspice.dreamdimension.DreamDimension;
 import com.github.ubiquitousspice.dreamdimension.dimension.WorldProviderMod;
 
 import net.minecraft.entity.Entity;
@@ -77,10 +78,8 @@ public class ItemPear extends ItemDreamBase
 
         if (this.inDreamWorld)
         {
-            if (((EntityPlayer) par3Entity).getItemInUseCount() > 0)
+            if (((EntityPlayer) par3Entity).getItemInUseCount() > 0 && ((EntityPlayer) par3Entity).inventory.getCurrentItem().getItem() == DreamDimension.pear)
             {
-                System.out.println("fly");
-
                 par3Entity.fallDistance = 0;
 
                 if (par3Entity.motionY != 0.1)

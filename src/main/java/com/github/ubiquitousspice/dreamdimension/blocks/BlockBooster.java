@@ -99,7 +99,7 @@ public class BlockBooster extends BlockDreamBase
     @Override
     public void setBlockBoundsForItemRender()
     {
-        setBlockBounds(0f, 0f, 0f, 1f, 1f, 1f);
+        setBlockBounds(0f, 0f, 0f, 1f, .2f, 1f);
     }
 
     @Override
