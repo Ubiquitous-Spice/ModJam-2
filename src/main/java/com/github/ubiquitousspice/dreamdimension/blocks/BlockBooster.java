@@ -21,6 +21,8 @@ import static net.minecraftforge.common.ForgeDirection.*;
 public class BlockBooster extends BlockDreamBase
 {
     public static final int MAX_SPEED = 3;
+    public static final float SPEED_MULT = 1.5f;
+    public static final float BOUNCE_MULT = 1.5f;
     Icon speed, bounce;
 
     public BlockBooster(int par1)
@@ -133,171 +135,9 @@ public class BlockBooster extends BlockDreamBase
     }
 
     @Override
-    public void onEntityWalking(World world, int x, int y, int z, Entity entity)
+    public int damageDropped(int metadata)
     {
-        if (entity.isSneaking())
-            return;
-
-        // rebound entity.
-        boolean isSpeed = (world.getBlockMetadata(x, y, z) & 8) == 8;
-        ForgeDirection dir = ForgeDirection.getOrientation(world.getBlockMetadata(x, y, z) & 7);
-
-        double nmX = entity.motionX;
-        double nmY = entity.motionY;
-        double nmZ = entity.motionZ;
-
-        if (isSpeed)
-        {
-            if (dir.offsetX == 0)
-            {
-                nmX = 2 * entity.motionX;
-
-                if (nmX > MAX_SPEED)
-                    nmX = MAX_SPEED;
-                else if (nmX < -MAX_SPEED)
-                    nmX = -MAX_SPEED;
-            }
-
-            if (dir.offsetY == 0)
-            {
-                nmY = 2 * entity.motionY;
-
-                if (nmY > MAX_SPEED)
-                    nmY = MAX_SPEED;
-                else if (nmY < -MAX_SPEED)
-                    nmY = -MAX_SPEED;
-            }
-
-            if (dir.offsetZ == 0)
-            {
-                nmZ = 2 * entity.motionZ;
-
-                if (nmZ > MAX_SPEED)
-                    nmZ = MAX_SPEED;
-                else if (nmZ < -MAX_SPEED)
-                    nmZ = -MAX_SPEED;
-            }
-        }
-        else
-        {
-            if (dir.offsetX != 0)
-            {
-                nmX = -2 * entity.motionX;
-
-                if (nmX > MAX_SPEED)
-                    nmX = MAX_SPEED;
-                else if (nmX < -MAX_SPEED)
-                    nmX = -MAX_SPEED;
-            }
-
-            if (dir.offsetY != 0)
-            {
-                nmY = -2 * entity.motionY;
-
-                if (nmY > MAX_SPEED)
-                    nmY = MAX_SPEED;
-                else if (nmY < -MAX_SPEED)
-                    nmY = -MAX_SPEED;
-            }
-            else if (nmY == 0)
-            {
-                nmY = 1;
-            }
-
-            if (dir.offsetZ != 0)
-            {
-                nmZ = -2 * entity.motionZ;
-
-                if (nmZ > MAX_SPEED)
-                    nmZ = MAX_SPEED;
-                else if (nmZ < -MAX_SPEED)
-                    nmZ = -MAX_SPEED;
-            }
-        }
-
-        entity.setVelocity(nmX, nmY, nmZ);
-    }
-
-    @Override
-    public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
-    {
-        if (entity.isSneaking())
-            return;
-
-        // rebound entity.
-        boolean isSpeed = (world.getBlockMetadata(x, y, z) & 8) == 8;
-        ForgeDirection dir = ForgeDirection.getOrientation(world.getBlockMetadata(x, y, z) & 7);
-
-        double nmX = entity.motionX;
-        double nmY = entity.motionY;
-        double nmZ = entity.motionZ;
-
-        if (isSpeed)
-        {
-            if (dir.offsetX == 0)
-            {
-                nmX = 2 * entity.motionX;
-
-                if (nmX > MAX_SPEED)
-                    nmX = MAX_SPEED;
-                else if (nmX < -MAX_SPEED)
-                    nmX = -MAX_SPEED;
-            }
-
-            if (dir.offsetY == 0)
-            {
-                nmY = 2 * entity.motionY;
-
-                if (nmY > MAX_SPEED)
-                    nmY = MAX_SPEED;
-                else if (nmY < -MAX_SPEED)
-                    nmY = -MAX_SPEED;
-            }
-
-            if (dir.offsetZ == 0)
-            {
-                nmZ = 2 * entity.motionZ;
-
-                if (nmZ > MAX_SPEED)
-                    nmZ = MAX_SPEED;
-                else if (nmZ < -MAX_SPEED)
-                    nmZ = -MAX_SPEED;
-            }
-        }
-        else
-        {
-            if (dir.offsetX != 0)
-            {
-                nmX = -2 * entity.motionX;
-
-                if (nmX > MAX_SPEED)
-                    nmX = MAX_SPEED;
-                else if (nmX < -MAX_SPEED)
-                    nmX = -MAX_SPEED;
-            }
-
-            if (dir.offsetY != 0)
-            {
-                nmY = -2 * entity.motionY;
-
-                if (nmY > MAX_SPEED)
-                    nmY = MAX_SPEED;
-                else if (nmY < -MAX_SPEED)
-                    nmY = -MAX_SPEED;
-            }
-
-            if (dir.offsetZ != 0)
-            {
-                nmZ = -2 * entity.motionZ;
-
-                if (nmZ > MAX_SPEED)
-                    nmZ = MAX_SPEED;
-                else if (nmZ < -MAX_SPEED)
-                    nmZ = -MAX_SPEED;
-            }
-        }
-
-        entity.setVelocity(nmX, nmY, nmZ);
+        return metadata & 8;
     }
 
     @Override
@@ -316,6 +156,46 @@ public class BlockBooster extends BlockDreamBase
     }
 
     @Override
+    public void onEntityWalking(World world, int x, int y, int z, Entity entity)
+    {
+        if (entity.isSneaking())
+            return;
+
+        // rebound entity.
+        boolean isSpeed = (world.getBlockMetadata(x, y, z) & 8) == 8;
+        ForgeDirection dir = ForgeDirection.getOrientation(world.getBlockMetadata(x, y, z) & 7).getOpposite();
+
+        if (isSpeed)
+        {
+            applySpeed(dir, entity);
+        }
+        else
+        {
+            applyBounce(dir, entity);
+        }
+    }
+
+    @Override
+    public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
+    {
+        if (entity.isSneaking())
+            return;
+
+        // rebound entity.
+        boolean isSpeed = (world.getBlockMetadata(x, y, z) & 8) == 8;
+        ForgeDirection dir = ForgeDirection.getOrientation(world.getBlockMetadata(x, y, z) & 7).getOpposite();
+
+        if (isSpeed)
+        {
+            applySpeed(dir, entity);
+        }
+        else
+        {
+            applyBounce(dir, entity);
+        }
+    }
+
+    @Override
     public void onFallenUpon(World world, int x, int y, int z, Entity entity, float fallDistance)
     {
         super.onFallenUpon(world, x, y, z, entity, fallDistance);
@@ -325,51 +205,89 @@ public class BlockBooster extends BlockDreamBase
 
         // rebound entity.
         boolean isSpeed = (world.getBlockMetadata(x, y, z) & 8) == 8;
-        ForgeDirection dir = ForgeDirection.getOrientation(world.getBlockMetadata(x, y, z) & 7);
+        ForgeDirection dir = ForgeDirection.getOrientation(world.getBlockMetadata(x, y, z) & 7).getOpposite();
 
+        if (isSpeed)
+        {
+            applySpeed(dir, entity);
+        }
+        else
+        {
+            applyBounce(dir, entity);
+        }
+    }
+
+    private void applyBounce(ForgeDirection dir, Entity entity)
+    {
         double nmX = entity.motionX;
         double nmY = entity.motionY;
         double nmZ = entity.motionZ;
 
-        if (!isSpeed)
+        if (dir.offsetX != 0)
         {
-            if (dir.offsetX != 0)
-            {
-                nmX = -2 * entity.motionX;
+            nmX = BOUNCE_MULT * Math.copySign(entity.motionX, dir.offsetX);
 
-                if (nmX > MAX_SPEED)
-                    nmX = MAX_SPEED;
-                else if (nmX < -MAX_SPEED)
-                    nmX = -MAX_SPEED;
-            }
-
-            if (dir.offsetY != 0)
-            {
-                nmY = -2 * entity.motionY;
-
-                if (nmY > MAX_SPEED)
-                    nmY = MAX_SPEED;
-                else if (nmY < -MAX_SPEED)
-                    nmY = -MAX_SPEED;
-            }
-
-            if (dir.offsetZ != 0)
-            {
-                nmZ = -2 * entity.motionZ;
-
-                if (nmZ > MAX_SPEED)
-                    nmZ = MAX_SPEED;
-                else if (nmZ < -MAX_SPEED)
-                    nmZ = -MAX_SPEED;
-            }
+            if (nmX == 0)
+                nmX = BOUNCE_MULT * dir.offsetX;
         }
 
+        if (dir.offsetY != 0)
+        {
+            nmY = BOUNCE_MULT * Math.copySign(entity.motionY, dir.offsetY);
+
+            if (nmY == 0)
+                nmY = BOUNCE_MULT * dir.offsetY;
+        }
+
+        if (dir.offsetZ != 0)
+        {
+            nmZ = BOUNCE_MULT * Math.copySign(entity.motionZ, dir.offsetZ);
+
+            if (nmZ == 0)
+                nmZ = BOUNCE_MULT * dir.offsetZ;
+        }
+
+        nmX = clamp(nmX, MAX_SPEED);
+        nmY = clamp(nmY, MAX_SPEED);
+        nmZ = clamp(nmZ, MAX_SPEED);
         entity.setVelocity(nmX, nmY, nmZ);
     }
 
-    @Override
-    public int damageDropped(int metadata)
+    private void applySpeed(ForgeDirection dir, Entity entity)
     {
-        return metadata & 8;
+        double nmX = entity.motionX;
+        double nmY = entity.motionY;
+        double nmZ = entity.motionZ;
+
+        if (dir.offsetX == 0)
+        {
+            nmX = SPEED_MULT * entity.motionX;
+        }
+
+        if (dir.offsetY == 0)
+        {
+            nmY = SPEED_MULT * entity.motionY;
+        }
+
+        if (dir.offsetZ == 0)
+        {
+            nmZ = SPEED_MULT * entity.motionZ;
+
+        }
+
+        nmX = clamp(nmX, MAX_SPEED);
+        nmY = clamp(nmY, MAX_SPEED);
+        nmZ = clamp(nmZ, MAX_SPEED);
+        entity.setVelocity(nmX, nmY, nmZ);
+    }
+
+    private double clamp(double input, double maxAbsolute)
+    {
+        if (input > maxAbsolute)
+            input = maxAbsolute;
+        else if (input < -maxAbsolute)
+            input = -maxAbsolute;
+
+        return input;
     }
 }
