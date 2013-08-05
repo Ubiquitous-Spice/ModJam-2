@@ -1,14 +1,30 @@
 #blocks
-tile.dreamdimension:dreamDirt.name=DreamDimensionDirt
+tile.dreamdimension:dreamDirt.name=Dream Dirt
 tile.dreamdimension:dreamBouncer.name=Flubber
 tile.dreamdimension:dreamBouncer.dreamName=Unicorn Snot
 tile.dreamdimension:dreamSpeeder.name=Speed Goo
 tile.dreamdimension:dreamSpeeder.dreamName=Slip And Slide
-tile.dreamdimension:dreamLeaves.name=DreamLeaves
-tile.dreamdimension:dreamLog.name=DreamLog
+tile.dreamdimension:dreamDirt.dreamName=Awesome Purple Stuff
+tile.dreamdimension:dreamDiamond.dreamName=GIMME
+tile.dreamdimension:dreamDiamond.name=Dream Diamond
+tile.dreamdimension:dreamLog.dreamName=Bloody Knuckles
+tile.dreamdimension:dreamLog.name=Dream Log
+tile.dreamdimension:dreamLeaves.dreamName=Giver of Pears
+tile.dreamdimension:dreamLeaves.name=Dream Leaves
+tile.dreamdimension:dreamFleece.dreamName=That is one big block
+tile.dreamdimension:dreamFleece.name=Dream Fleece
+tile.dreamdimension:dreamPlanks.dreamName=qwerty
+tile.dreamdimension:dreamPlanks.name=Dream Wood Planks
+tile.dreamdimension:dreamSapling.dreamName=Bringer of the Apocolypse
+tile.dreamdimension:dreamSapling.name=Dream Tree Sapling
+tile.dreamdimension:portalBlock.name=Cheaty Portal
 
 #items
 
 #entities
-entity.dreamdimension.LargeSheep.name=King Lambchop
-entity.dreamdimension.ConfusedVillager.name=Confused Villager
+entity.LargeSheep.name=King Lambchop
+entity.ConfusedVillager.name=Confused Villager
+entity.Unicorn.name=Unicorn
+
+#misc
+itemGroup.DreamStuff=The Dream Dimension

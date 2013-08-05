@@ -10,7 +10,6 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlockWithMetadata;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.Configuration;
@@ -37,9 +36,17 @@ import com.github.ubiquitousspice.dreamdimension.handlers.DreamManager;
 import com.github.ubiquitousspice.dreamdimension.handlers.KickHandler;
 import com.github.ubiquitousspice.dreamdimension.handlers.MilkHandler;
 import com.github.ubiquitousspice.dreamdimension.handlers.PlayerTracker;
+import com.github.ubiquitousspice.dreamdimension.item.ItemBlockBooster;
 import com.github.ubiquitousspice.dreamdimension.item.ItemDreamAxe;
 import com.github.ubiquitousspice.dreamdimension.item.ItemDreamBase;
+import com.github.ubiquitousspice.dreamdimension.item.ItemDreamDiamond;
+import com.github.ubiquitousspice.dreamdimension.item.ItemDreamDirt;
+import com.github.ubiquitousspice.dreamdimension.item.ItemDreamFleece;
+import com.github.ubiquitousspice.dreamdimension.item.ItemDreamLeaves;
+import com.github.ubiquitousspice.dreamdimension.item.ItemDreamLog;
 import com.github.ubiquitousspice.dreamdimension.item.ItemDreamPick;
+import com.github.ubiquitousspice.dreamdimension.item.ItemDreamPlanks;
+import com.github.ubiquitousspice.dreamdimension.item.ItemDreamSapling;
 import com.github.ubiquitousspice.dreamdimension.item.ItemDreamSpade;
 import com.github.ubiquitousspice.dreamdimension.item.ItemDreamSword;
 import com.github.ubiquitousspice.dreamdimension.item.ItemFleeceArmor;
@@ -253,15 +260,15 @@ public class DreamDimension
         fDiamondPickaxe = new ItemDreamPick(idFDiamondPickaxe, mat, "Fake Diamond Pickaxe", "Pickaxe Made of DIAMONDZ!!!").setUnlocalizedName(MODID + ".fDiamondPickaxe").func_111206_d("diamond_pickaxe").setCreativeTab(tabDream);
 
         // registrations
-        GameRegistry.registerBlock(dreamDirt, "dreamDirt");
-        GameRegistry.registerBlock(boosterBlock, ItemBlockWithMetadata.class, "dreamBooster");
+        GameRegistry.registerBlock(dreamDirt, ItemDreamDirt.class, "dreamDirt");
+        GameRegistry.registerBlock(boosterBlock, ItemBlockBooster.class, "dreamBooster");
         GameRegistry.registerBlock(portalBlock, "portalBlock");
-        GameRegistry.registerBlock(dreamLog, "dreamWood");
-        GameRegistry.registerBlock(dreamLeaf, "dreamLeaves");
-        GameRegistry.registerBlock(dreamFleece, "dreamFleece");
-        GameRegistry.registerBlock(dreamDiamond, "dreamDiamond");
-        GameRegistry.registerBlock(dreamPlanks, "dreamPlanks");
-        GameRegistry.registerBlock(dreamSapling, "dreamSapling");
+        GameRegistry.registerBlock(dreamLog, ItemDreamLog.class, "dreamWood");
+        GameRegistry.registerBlock(dreamLeaf, ItemDreamLeaves.class, "dreamLeaves");
+        GameRegistry.registerBlock(dreamFleece, ItemDreamFleece.class, "dreamFleece");
+        GameRegistry.registerBlock(dreamDiamond, ItemDreamDiamond.class, "dreamDiamond");
+        GameRegistry.registerBlock(dreamPlanks, ItemDreamPlanks.class, "dreamPlanks");
+        GameRegistry.registerBlock(dreamSapling, ItemDreamSapling.class, "dreamSapling");
 
         // dimension stuff
         dreamy = new BiomeGenDream(25).setDisableRain();
