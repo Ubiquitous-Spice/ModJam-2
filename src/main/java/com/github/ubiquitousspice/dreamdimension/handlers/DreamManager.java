@@ -27,6 +27,10 @@ public class DreamManager implements ITickHandler
         // do stuff here.
         EntityPlayerMP player = (EntityPlayerMP) tickData[0];
 
+        // nothign not ina  dream.
+        if (player.worldObj.provider.dimensionId != DreamDimension.dimensionID)
+            return;
+
         DreamerData data = dreamers.get(player.username);
 
         // null check.
@@ -37,9 +41,10 @@ public class DreamManager implements ITickHandler
 
         if (data.getTimeLeft() == 600)
         {
-            // why?
             player.addPotionEffect(new PotionEffect(Potion.confusion.id, 600, 0));
         }
+
+        player.getFoodStats().setFoodLevel(20);
 
         if (!data.decrementTime())
         {
