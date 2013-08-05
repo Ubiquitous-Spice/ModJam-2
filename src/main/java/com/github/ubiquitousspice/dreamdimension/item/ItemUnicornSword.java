@@ -10,6 +10,7 @@ import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.EnumHelper;
 
 import com.github.ubiquitousspice.dreamdimension.DreamDimension;
@@ -22,23 +23,21 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemUnicornSword extends ItemSword
 {
 
-    public static EnumToolMaterial unicorn  = EnumHelper.addToolMaterial("UNICORN", 1, 131, 6.0F, 1.0F, 22);
+    public static EnumToolMaterial unicorn = EnumHelper.addToolMaterial("UNICORN", 1, 131, 6.0F, 1.0F, 22);
     public static EnumToolMaterial unicorn2 = EnumHelper.addToolMaterial("UNICORN2", 1, 1561, 6.0F, 2.0F, 100);
 
-    private String                 normalName;
-    private String                 dreamName;
+    private String name;
 
-    protected boolean              inDreamWorld;
+    protected boolean inDreamWorld;
 
-    Random                         rand     = new Random();
+    Random rand = new Random();
 
-    private int                    level;
+    private int level;
 
-    public ItemUnicornSword(int par1, String a, String b, int level)
+    public ItemUnicornSword(int par1, String a, int level)
     {
         super(par1, level == 0 ? unicorn : unicorn2);
-        normalName = a;
-        dreamName = b;
+        name = a;
         this.level = level;
 
     }
@@ -47,7 +46,10 @@ public class ItemUnicornSword extends ItemSword
     public String getItemDisplayName(ItemStack stack)
     {
         inDreamWorld = Minecraft.getMinecraft().thePlayer.worldObj.provider instanceof WorldProviderMod;
-        return inDreamWorld ? dreamName : normalName;
+        String end = inDreamWorld ? "dreamName" : "name";
+
+        // speeder.
+        return StatCollector.translateToLocal("tile." + DreamDimension.MODID + ":" + name + "." + end);
     }
 
     @Override
