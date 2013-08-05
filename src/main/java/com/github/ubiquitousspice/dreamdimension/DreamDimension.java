@@ -21,7 +21,6 @@ import com.github.ubiquitousspice.dreamdimension.client.CreativeTabDream;
 import com.github.ubiquitousspice.dreamdimension.dimension.WorldProviderMod;
 import com.github.ubiquitousspice.dreamdimension.dimension.world.BiomeGenDream;
 import com.github.ubiquitousspice.dreamdimension.entities.EntityConfusedVillager;
-import com.github.ubiquitousspice.dreamdimension.entities.EntityGiantItem;
 import com.github.ubiquitousspice.dreamdimension.entities.EntityLargeSheep;
 import com.github.ubiquitousspice.dreamdimension.entities.EntityUnicorn;
 import com.github.ubiquitousspice.dreamdimension.sleephandle.BedHandler;
@@ -143,9 +142,6 @@ public class DreamDimension
             idDreamBooster = config.getTerrainBlock(Configuration.CATEGORY_BLOCK, "DreamLauncher", genId++, "Base dirt for Dream Dimension").getInt();
             idDreamLog = config.getTerrainBlock(Configuration.CATEGORY_BLOCK, "DreamLog", genId++, "Logs for dream trees").getInt();
             idDreamLeaf = config.getTerrainBlock(Configuration.CATEGORY_BLOCK, "DreamLeaf", genId++, "leaves for dream trees").getInt();
-
-            // config blockIDs
-            int baseId = 300;
             idPortalBlock = config.getBlock(Configuration.CATEGORY_BLOCK, "PortalBlock", baseId++).getInt();
             idGiantWool = config.getBlock(Configuration.CATEGORY_BLOCK, "GiantWool", baseId++).getInt();
             idDreamFleece = config.getBlock(Configuration.CATEGORY_BLOCK, "DreamFleece", baseId++).getInt();
@@ -227,7 +223,6 @@ public class DreamDimension
 
         // entity spawning
         registerEntity(EntityUnicorn.class, "Unicorn", 0xff86d3, dreamPurple);
-        registerEntity(EntityGiantItem.class, "GiantItem");
 
         // entity spawning
         EntityRegistry.addSpawn(EntityLargeSheep.class, 1, 1, 1, EnumCreatureType.creature, dreamy);

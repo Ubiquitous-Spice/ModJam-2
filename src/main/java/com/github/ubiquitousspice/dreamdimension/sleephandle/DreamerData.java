@@ -1,14 +1,14 @@
 package com.github.ubiquitousspice.dreamdimension.sleephandle;
 
 import com.github.ubiquitousspice.dreamdimension.Util;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+//import lombok.Data;
+//import lombok.RequiredArgsConstructor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
-@Data
+//@Data
 public class DreamerData
 {
     private long timeLeft = Long.MAX_VALUE; // seconds
@@ -98,5 +98,48 @@ public class DreamerData
         data.oldInv = inv;
 
         return data;
+    }
+
+    
+    // Hardcoded methods, not project lombok
+    // Sorry Abrar, technology doesn't like me =P
+    public void setTimeLeft(long time)
+    {
+        this.timeLeft = time;
+    }
+
+    public InventoryPlayer getOldInv()
+    {
+        return this.oldInv;
+    }
+
+    public float getHealth()
+    {
+        return this.health;
+    }
+
+    public int getHunger()
+    {
+        return this.hunger;
+    }
+
+    public int getBedDim()
+    {
+        return this.bedDim;
+    }
+
+    public double getBedX()
+    {
+        return this.bedX;
+    }
+    
+    public double getBedY()
+    {
+        return this.bedY;
+    }
+    
+    public double getBedZ()
+    {
+        return this.bedZ;
     }
 }
