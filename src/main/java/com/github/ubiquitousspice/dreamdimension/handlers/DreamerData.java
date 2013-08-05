@@ -1,10 +1,9 @@
-package com.github.ubiquitousspice.dreamdimension.sleephandle;
+package com.github.ubiquitousspice.dreamdimension.handlers;
 
 import com.github.ubiquitousspice.dreamdimension.Util;
 //import lombok.Data;
 //import lombok.RequiredArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.nbt.NBTTagCompound;

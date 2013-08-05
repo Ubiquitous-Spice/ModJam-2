@@ -1,50 +1,14 @@
 package com.github.ubiquitousspice.dreamdimension;
 
 import com.github.ubiquitousspice.dreamdimension.blocks.*;
-
-import java.util.logging.Logger;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityEggInfo;
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.item.EnumToolMaterial;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlockWithMetadata;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.DimensionManager;
-import net.minecraftforge.common.EnumHelper;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.oredict.OreDictionary;
-
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockBooster;
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockCheatyPortal;
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamBase;
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamFleece;
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamLeaf;
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamLog;
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamOre;
-import com.github.ubiquitousspice.dreamdimension.blocks.BlockDreamSapling;
 import com.github.ubiquitousspice.dreamdimension.client.CreativeTabDream;
 import com.github.ubiquitousspice.dreamdimension.dimension.WorldProviderMod;
 import com.github.ubiquitousspice.dreamdimension.dimension.world.BiomeGenDream;
 import com.github.ubiquitousspice.dreamdimension.entities.EntityConfusedVillager;
 import com.github.ubiquitousspice.dreamdimension.entities.EntityLargeSheep;
 import com.github.ubiquitousspice.dreamdimension.entities.EntityUnicorn;
-import com.github.ubiquitousspice.dreamdimension.item.ItemDreamBase;
-import com.github.ubiquitousspice.dreamdimension.item.ItemDreamSword;
-import com.github.ubiquitousspice.dreamdimension.item.ItemFleeceArmor;
-import com.github.ubiquitousspice.dreamdimension.item.ItemPear;
-import com.github.ubiquitousspice.dreamdimension.item.ItemUnicornSword;
-import com.github.ubiquitousspice.dreamdimension.sleephandle.BedHandler;
-import com.github.ubiquitousspice.dreamdimension.sleephandle.DreamManager;
-import com.github.ubiquitousspice.dreamdimension.sleephandle.KickHandler;
-import com.github.ubiquitousspice.dreamdimension.sleephandle.PlayerTracker;
-
+import com.github.ubiquitousspice.dreamdimension.handlers.*;
+import com.github.ubiquitousspice.dreamdimension.item.*;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
@@ -221,13 +185,16 @@ public class DreamDimension
         PlayerTracker tracker = new PlayerTracker();
         DreamManager manager = new DreamManager();
         KickHandler kickHandler = new KickHandler();
+        MilkHandler milkHandler = new MilkHandler();
 
         // register them
         TickRegistry.registerTickHandler(bedHandler, Side.SERVER);
         TickRegistry.registerTickHandler(manager, Side.SERVER);
+        TickRegistry.registerTickHandler(milkHandler, Side.SERVER);
         GameRegistry.registerPlayerTracker(tracker);
         MinecraftForge.EVENT_BUS.register(bedHandler);
         MinecraftForge.EVENT_BUS.register(kickHandler);
+        MinecraftForge.EVENT_BUS.register(milkHandler);
 
         // creative tab
         tabDream = new CreativeTabDream();
