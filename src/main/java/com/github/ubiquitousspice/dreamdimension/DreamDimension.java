@@ -114,6 +114,7 @@ public class DreamDimension
     private int                    idFDiamondAxe;
     private int                    idFDiamondPickaxe;
     private int                    idDreamCatcher;
+    private int                    idDreamFleeceSmall;
 
     // items
     public static Item             fleeceHelmet;
@@ -142,6 +143,7 @@ public class DreamDimension
     public static Block            dreamPlanks;
     public static Block            dreamSapling;
     public static Block            dreamDiamond;
+    public static Block            dreamFleeceSmall;
     
     public static EnumToolMaterial mat = EnumToolMaterial.STONE;
 
@@ -189,6 +191,7 @@ public class DreamDimension
             idDreamSapling = config.getBlock(Configuration.CATEGORY_BLOCK, "DreamSapling", baseId++).getInt();
             idDreamPlanks = config.getBlock(Configuration.CATEGORY_BLOCK, "DreamPlanks", baseId++).getInt();
             idDreamFleece = config.getBlock(Configuration.CATEGORY_BLOCK, "DreamFleece", baseId++).getInt();
+            idDreamFleeceSmall = config.getBlock(Configuration.CATEGORY_BLOCK, "DreamFleeceSmall", baseId++).getInt();
 
             // config dimension
             dimensionID = config.get(Configuration.CATEGORY_GENERAL, "Dream Dimension Idea", 2).getInt();
@@ -232,6 +235,7 @@ public class DreamDimension
         boosterBlock = new BlockBooster(idDreamBooster).setCreativeTab(tabDream);
         portalBlock = new BlockCheatyPortal(idPortalBlock).setUnlocalizedName(MODID + ":portalBlock").setCreativeTab(tabDream).func_111022_d("portal");
         dreamFleece = new BlockDreamFleece(idDreamFleece).setUnlocalizedName(MODID + ".dreamFleeceLarge").setCreativeTab(tabDream);
+        dreamFleeceSmall = new BlockDreamBase(idDreamFleeceSmall, Material.cloth).setUnlocalizedName(MODID + ".dreamFleeceSmall").func_111022_d(MODID + ":dreamFleece").setCreativeTab(tabDream);
         dreamLog = new BlockDreamLog(idDreamLog).setUnlocalizedName(MODID + ":dreamWood").setCreativeTab(tabDream);
         dreamLeaf = new BlockDreamLeaf(idDreamLeaf).setUnlocalizedName(MODID + ":dreamLeaves").func_111022_d(MODID + ":dreamLeaves").setCreativeTab(tabDream);
         dreamPlanks = new BlockDreamBase(idDreamPlanks, Material.wood).setUnlocalizedName(MODID + ".dreamPlanks").func_111022_d(MODID + ":dreamPlanks").setCreativeTab(tabDream);

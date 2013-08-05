@@ -45,7 +45,7 @@ public class BlockDreamFleece extends Block
                 {
                     // change blockID... or if they are broken, give something else back.
                     //world.setBlock(x, y, z, blockID);
-                    world.setBlock(centerX + x + testX, centerY + y + testY, centerZ + z + testZ, Block.cloth.blockID);
+                    world.setBlock(centerX + x + testX, centerY + y + testY, centerZ + z + testZ, DreamDimension.dreamFleeceSmall.blockID);
                 }
             }
         }
